@@ -17,8 +17,6 @@ package pl.org.epf.client.local.maps;
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.ESTABLISHMENT;
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.GEOCODE;
 
-import javax.inject.Singleton;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.GWT;

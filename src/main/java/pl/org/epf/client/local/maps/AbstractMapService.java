@@ -14,7 +14,6 @@
 
 package pl.org.epf.client.local.maps;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.base.LatLng;
@@ -23,8 +22,6 @@ import com.google.gwt.maps.client.events.click.ClickMapHandler;
 import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.overlays.MarkerImage;
 import com.google.gwt.maps.client.overlays.MarkerOptions;
-
-import pl.org.epf.client.local.model.TristarObject;
 
 abstract class AbstractMapService implements MapService {
 
