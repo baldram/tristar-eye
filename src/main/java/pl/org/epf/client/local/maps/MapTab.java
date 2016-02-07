@@ -28,17 +28,17 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 
 public class MapTab extends HTMLPanel {
-    private final static String MAPS_CONTAINER  = "maps-container";
+    private final static String MAPS_CONTAINER = "maps-container";
     private static final String MAP_PLACEHOLDER = "<div id=\"" + MAPS_CONTAINER + "\"></div>";
     private static final String MAX_SIZE = "100%";
     private static final boolean SENSOR = true;
-    
+
     @Inject
     private MapService mapService;
-    
+
     @Inject
     private StreetCamerasMock streetCamerasMock;
-    
+
     private TextBox searchBox;
 
     public MapTab() {
@@ -80,7 +80,7 @@ public class MapTab extends HTMLPanel {
     }
 
     private ArrayList<LoadApi.LoadLibrary> getLoadLibraries() {
-		ArrayList<LoadApi.LoadLibrary> loadLibraries = new ArrayList<>();
+        ArrayList<LoadApi.LoadLibrary> loadLibraries = new ArrayList<>();
         loadLibraries.add(LoadApi.LoadLibrary.ADSENSE);
         loadLibraries.add(LoadApi.LoadLibrary.DRAWING);
         loadLibraries.add(LoadApi.LoadLibrary.GEOMETRY);
@@ -88,10 +88,10 @@ public class MapTab extends HTMLPanel {
         loadLibraries.add(LoadApi.LoadLibrary.PLACES);
         loadLibraries.add(LoadApi.LoadLibrary.WEATHER);
         loadLibraries.add(LoadApi.LoadLibrary.VISUALIZATION);
-		return loadLibraries;
-	}
+        return loadLibraries;
+    }
 
-	public void setSearchBox(TextBox searchBox) {
-		this.searchBox = searchBox;		
-	}
+    public void setSearchBox(TextBox searchBox) {
+        this.searchBox = searchBox;
+    }
 }

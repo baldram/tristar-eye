@@ -15,7 +15,7 @@ src/main/gwt-unitCache/
 
 #IDEA related
 /.idea/*
-tristar-mobile-eye.iml
+tristar-eye.iml
 
 #Eclipse related
 .project

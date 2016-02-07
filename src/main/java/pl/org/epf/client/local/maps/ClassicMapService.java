@@ -46,22 +46,22 @@ import pl.org.epf.client.local.model.TristarObject;
 
 public class ClassicMapService extends AbstractMapService {
 
-	private static final double INITIAL_LONGITUDE = 18.605209;
-	private static final double INITIAL_LATTITUDE = 54.383967;
+    private static final double INITIAL_LONGITUDE = 18.605209;
+    private static final double INITIAL_LATTITUDE = 54.383967;
     private static final int ZOOM = 14;
 
     public void initializeMap() {
-    	super.initializeMap();
+        super.initializeMap();
         initializeTrafficLayer(getMapWidget());
     }
-   
+
     @Override
     MapOptions getMapOptions() {
-    	MapOptions opts = MapOptions.newInstance();
-    	opts.setZoom(ZOOM);
-    	opts.setMapTypeId(MapTypeId.ROADMAP);
-    	// ops.setCenter() can't be used here when service is injected since LatLng.newInstance() starts using "maps" component before it's initialized by AjaxLoader.loadApi()
-    	return opts;
+        MapOptions opts = MapOptions.newInstance();
+        opts.setZoom(ZOOM);
+        opts.setMapTypeId(MapTypeId.ROADMAP);
+        // ops.setCenter() can't be used here when service is injected since LatLng.newInstance() starts using "maps" component before it's initialized by AjaxLoader.loadApi()
+        return opts;
     }
 
     private TrafficLayer initializeTrafficLayer(MapWidget assignedMapWidget) {
@@ -69,25 +69,25 @@ public class ClassicMapService extends AbstractMapService {
         trafficLayer.setMap(assignedMapWidget);
         return trafficLayer;
     }
-	
+
     public void setCurrentLocationIfSupported() {
         Geolocation.getIfSupported().getCurrentPosition(
-            new Callback<Position, PositionError>() {
+                new Callback<Position, PositionError>() {
 
-                @Override
-                public void onSuccess(Position result) {
-                    Position.Coordinates coordinates = result.getCoordinates();
-                    LatLng center = LatLng.newInstance(coordinates.getLatitude(), coordinates.getLongitude());
-                    getMapWidget().setCenter(center);
-                }
+                    @Override
+                    public void onSuccess(Position result) {
+                        Position.Coordinates coordinates = result.getCoordinates();
+                        LatLng center = LatLng.newInstance(coordinates.getLatitude(), coordinates.getLongitude());
+                        getMapWidget().setCenter(center);
+                    }
 
-                @Override
-                public void onFailure(PositionError reason) {
-                    Window.alert("Your browser or device does not support location!");
-                }
-            });
+                    @Override
+                    public void onFailure(PositionError reason) {
+                        Window.alert("Your browser or device does not support location!");
+                    }
+                });
     }
-    
+
     public void bindTextBoxWithAutoComplete(TextBox searchBox) {
         final Autocomplete autoComplete = createAutoCompleteWithChangeListener(searchBox);
 
@@ -99,9 +99,9 @@ public class ClassicMapService extends AbstractMapService {
         });
     }
 
-	private Autocomplete createAutoCompleteWithChangeListener(TextBox searchBox) {
-		Element element = searchBox.getElement();
-		final Autocomplete autoComplete = Autocomplete.newInstance(element, getAutoCompleteOptions());
+    private Autocomplete createAutoCompleteWithChangeListener(TextBox searchBox) {
+        Element element = searchBox.getElement();
+        final Autocomplete autoComplete = Autocomplete.newInstance(element, getAutoCompleteOptions());
 
         autoComplete.addPlaceChangeHandler(new PlaceChangeMapHandler() {
             public void onEvent(PlaceChangeMapEvent event) {
@@ -117,15 +117,15 @@ public class ClassicMapService extends AbstractMapService {
                 GWT.log("place changed center=" + center);
             }
         });
-		return autoComplete;
-	}
+        return autoComplete;
+    }
 
-	private AutocompleteOptions getAutoCompleteOptions() {
-		AutocompleteOptions options = AutocompleteOptions.newInstance();
+    private AutocompleteOptions getAutoCompleteOptions() {
+        AutocompleteOptions options = AutocompleteOptions.newInstance();
         options.setTypes(ESTABLISHMENT, GEOCODE);
         options.setBounds(getMapWidget().getBounds());
-		return options;
-	}
+        return options;
+    }
 
     @Override
     public void addMarkers(ImmutableMap<Integer, TristarObject> cameras) {
@@ -133,14 +133,14 @@ public class ClassicMapService extends AbstractMapService {
             createMarker(camera.getId(), LatLng.newInstance(camera.getLatitude(), camera.getLongitude()), ICON_FILE_CAMERA);
         }
     }
-    
-	@Override
-	public double getInitialLatitude() {
-		return INITIAL_LATTITUDE;
-	}
 
-	@Override
-	public double getInitialLongitude() {
-		return INITIAL_LONGITUDE;
-	}
+    @Override
+    public double getInitialLatitude() {
+        return INITIAL_LATTITUDE;
+    }
+
+    @Override
+    public double getInitialLongitude() {
+        return INITIAL_LONGITUDE;
+    }
 }
