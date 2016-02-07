@@ -1,28 +1,28 @@
-*.class
-
 # Package Files #
 *.jar
-*.war
 
-# gwt caches and compiled units #
-war/gwt_bree/
-gwt-unitCache/
+#Errai related
+.forge_settings
+.errai
 
-# boilerplate generated classes #
-.apt_generated/
-
-# more caches and things from deploy #
-war/WEB-INF/deploy/
-war/WEB-INF/classes/
-
-#compilation logs
+#GWT related
+src/main/webapp/pl.org.epf.TristarEye/
+src/main/webapp/WEB-INF/deploy/
+src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/classes/
+src/main/gwt-unitCache/
 .gwt/
 
-#caching for already compiled files
-gwt-unitCache/
+#IDEA related
+/.idea/*
+tristar-mobile-eye.iml
 
-#gwt junit compilation files
-www-test/
+#Eclipse related
+.project
+*.launch
+.settings/
+.classpath
 
-#old GWT (1.5) created this dir
-.gwt-tmp/
+#other
+target/
+#src/main/webapp/bower_components

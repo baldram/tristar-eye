@@ -1,0 +1,19 @@
+{
+  "name": "tristar-eye",
+  "description": "These WEB dependencies are required to compile and run the application.",
+  "//": [
+    "Please resolve these dependencies using Bower (http://bower.io/) as below:",
+    "$ bower install",
+    "TODO: to consider webcomponentsjs 0.6.3 in case of issues",
+    "TODO: migrate to Polymer 1.x"],
+  "version": "1.0.0-SNAPSHOT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.5.6",
+    "core-elements": "Polymer/core-elements#0.5.6",
+    "paper-elements": "Polymer/paper-elements#~0.5.6",
+    "webcomponentsjs": "Polymer/webcomponentsjs#0.7.20"
+  },
+  "resolutions": {
+    "webcomponentsjs": "0.7.20"
+  }
+}
