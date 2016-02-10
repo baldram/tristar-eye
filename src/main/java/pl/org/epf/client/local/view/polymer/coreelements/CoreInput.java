@@ -1,4 +1,4 @@
-package pl.org.epf.client.local.polymer.coreelements;
+package pl.org.epf.client.local.view.polymer.coreelements;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;

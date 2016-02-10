@@ -1,6 +1,6 @@
-package pl.org.epf.client.local.polymer.widget;
+package pl.org.epf.client.local.view.polymer.widget;
 
-import pl.org.epf.client.local.polymer.paperelements.PaperInputElement;
+import pl.org.epf.client.local.view.polymer.paperelements.PaperInputElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.TextBoxBase;

@@ -1,4 +1,4 @@
-package pl.org.epf.client.local.polymer.coreelements;
+package pl.org.epf.client.local.view.polymer.coreelements;
 
 import java.util.ArrayList;
 import java.util.Collection;

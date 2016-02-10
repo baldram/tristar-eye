@@ -1,4 +1,4 @@
-package pl.org.epf.client.local.polymer.coreelements;
+package pl.org.epf.client.local.view.polymer.paperelements;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.TagName;

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package pl.org.epf.client.local;
+package pl.org.epf.client.local.view.widgets;
 
 import com.google.gwt.user.client.ui.TextBox;
 import org.jboss.errai.ui.shared.api.annotations.DataField;

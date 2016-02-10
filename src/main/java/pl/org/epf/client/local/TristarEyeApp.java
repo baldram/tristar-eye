@@ -20,7 +20,8 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 
 import com.google.gwt.user.client.ui.Composite;
 
-import pl.org.epf.client.local.maps.MapTab;
+import pl.org.epf.client.local.view.MapTabView;
+import pl.org.epf.client.local.view.widgets.Navigation;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -35,7 +36,7 @@ public class TristarEyeApp extends Composite {
 
     @Inject
     @DataField
-    private MapTab mapPanel;
+    private MapTabView mapPanel;
 
     @PostConstruct
     public void init() {
