@@ -12,7 +12,7 @@
  * the License.
  */
 
-package pl.org.epf.client.local.maps;
+package pl.org.epf.client.local.services.maps;
 
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.ESTABLISHMENT;
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.GEOCODE;

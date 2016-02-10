@@ -12,7 +12,7 @@
  * the License.
  */
 
-package pl.org.epf.client.local.maps;
+package pl.org.epf.client.local.services.maps;
 
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;

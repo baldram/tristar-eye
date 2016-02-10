@@ -21,9 +21,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.datamock.StreetCamerasMock;
-import pl.org.epf.client.local.maps.MapService;
+import pl.org.epf.client.local.services.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
 
 import javax.annotation.PostConstruct;

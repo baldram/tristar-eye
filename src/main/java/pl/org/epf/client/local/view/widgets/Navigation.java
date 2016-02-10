@@ -25,7 +25,7 @@ public class Navigation extends Composite {
 
     @Inject
     @DataField
-    TextBox searchBox;
+    private TextBox searchBox;
 
     public TextBox getSearchBox() {
 		return searchBox;

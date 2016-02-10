@@ -12,11 +12,11 @@
  * the License.
  */
 
-package pl.org.epf.client.local.user;
+package pl.org.epf.client.local.services.user;
 
-import pl.org.epf.client.local.maps.ClassicMapService;
-import pl.org.epf.client.local.maps.MapService;
-import pl.org.epf.client.local.maps.TricitySchemaService;
+import pl.org.epf.client.local.services.maps.ClassicMapService;
+import pl.org.epf.client.local.services.maps.MapService;
+import pl.org.epf.client.local.services.maps.TricitySchemaService;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
