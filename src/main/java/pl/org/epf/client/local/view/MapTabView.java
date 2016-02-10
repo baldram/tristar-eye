@@ -12,26 +12,30 @@
  * the License.
  */
 
-package pl.org.epf.client.local.maps;
+package pl.org.epf.client.local.view;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.datamock.StreetCamerasMock;
+import pl.org.epf.client.local.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
-public class MapTab extends HTMLPanel {
+public class MapTabView extends Composite {
     private final static String MAPS_CONTAINER = "maps-container";
     private static final String MAP_PLACEHOLDER = "<div id=\"" + MAPS_CONTAINER + "\"></div>";
     private static final String MAX_SIZE = "100%";
     private static final boolean SENSOR = true;
+    private final HTMLPanel mapPanel;
 
     @Inject
     private MapService mapService;
@@ -41,10 +45,11 @@ public class MapTab extends HTMLPanel {
 
     private TextBox searchBox;
 
-    public MapTab() {
-        super(MAP_PLACEHOLDER);
-        this.setWidth(MAX_SIZE);
-        this.setHeight(MAX_SIZE);
+    public MapTabView() {
+        mapPanel = new HTMLPanel(MAP_PLACEHOLDER);
+        initWidget(mapPanel);
+        mapPanel.setWidth(MAX_SIZE);
+        mapPanel.setHeight(MAX_SIZE);
     }
 
     @PostConstruct
@@ -68,7 +73,7 @@ public class MapTab extends HTMLPanel {
     }
 
     private void bindMapWithView() {
-        this.add(mapService.getMapWidget(), MAPS_CONTAINER);
+        mapPanel.add(mapService.getMapWidget(), MAPS_CONTAINER);
 
         // TODO: to provide searchBox using IOC
         mapService.bindTextBoxWithAutoComplete(searchBox);
