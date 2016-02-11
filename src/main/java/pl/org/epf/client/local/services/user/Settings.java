@@ -25,7 +25,7 @@ import javax.inject.Singleton;
 public class Settings {
 
     @Produces
-    private MapService getMapService() {
+    public MapService getMapService() {
         // TODO: to use settings stored by user here
         return (true) ? new ClassicMapService() : new TricitySchemaService();
     }
