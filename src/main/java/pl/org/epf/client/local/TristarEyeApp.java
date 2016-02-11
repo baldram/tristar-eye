@@ -14,6 +14,7 @@
 
 package pl.org.epf.client.local;
 
+import org.jboss.errai.ui.shared.ServerTemplateProvider;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -27,7 +28,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @EntryPoint
-@Templated("#root")
+@Templated(value="index.html#root", provider=ServerTemplateProvider.class)
 public class TristarEyeApp extends Composite {
 
     @Inject
@@ -35,8 +36,8 @@ public class TristarEyeApp extends Composite {
     private Navigation tristarNavigation;
 
     @Inject
-    @DataField
-    private MapTabView mapPanel;
+    @DataField(value = "content")
+    private MapTabView mapPanel; // tab opened as default
 
     @PostConstruct
     public void init() {
