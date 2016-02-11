@@ -10,12 +10,12 @@ body {
 
 /**/
 
-div.app-header {
+.app-header {
     height: 48px;
     margin: 0;
 }
 
-div.app-title {
+.app-title {
     font-weight: 400;
 }
 #selectionBar {

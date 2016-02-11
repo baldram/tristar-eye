@@ -22,7 +22,7 @@ import pl.org.epf.client.local.model.TristarObject;
 public class TricitySchemaService extends AbstractMapService {
 
     @Override
-    MapOptions getMapOptions() {
+    protected MapOptions getMapOptions() {
         return null;
     }
 
