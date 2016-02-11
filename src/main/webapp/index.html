@@ -34,7 +34,45 @@
 <script type="text/javascript" src="pl.org.epf.TristarEye/pl.org.epf.TristarEye.nocache.js"></script>
 </head>
 <body>
-  <div id="rootPanel"></div>
+  <div id="rootPanel">
+
+    <div data-field="root">
+
+      <core-scaffold id="core_scaffold">
+
+        <div id="tristarNavigation"></div>
+
+        <div id="div" class="app-header" tool="" flex="">
+          <div flex="">
+            <div center="" horizontal="" layout="">
+              <div class="app-title" flex="" two="">Tristar Eye</div>
+              <div flex="" three="">
+                <paper-tabs class="bottom fit" selected="0" role="tablist" horizontal="" center="" layout="">
+                  <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">
+                    <paper-icon-button icon="question-answer" title="mapa"></paper-icon-button>
+                  </paper-tab>
+                  <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">
+                    <paper-icon-button icon="favorite" title="ulubione"></paper-icon-button>
+                  </paper-tab>
+                  <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="core-selected" active="">
+                    <paper-icon-button icon="list" title="ulubione"></paper-icon-button>
+                  </paper-tab>
+                </paper-tabs>
+              </div>
+              <div><core-icon-button id="morebutton" icon="more-vert"></core-icon-button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content" class="content">
+          <!--div id="mapPanel"></div -->
+        </div>
+
+      </core-scaffold>
+
+    </div>
+
+  </div>
   <iframe src="javascript:''" id="__gwt_historyFrame" style="width: 0; height: 0; border: 0"></iframe>
 </body>
 </html>
