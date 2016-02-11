@@ -30,10 +30,11 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 
 public class MapTabView extends Composite {
-    private final static String MAPS_CONTAINER = "maps-container";
+    private static final String MAPS_CONTAINER = "maps-container";
     private static final String MAP_PLACEHOLDER = "<div id=\"" + MAPS_CONTAINER + "\"></div>";
     private static final String MAX_SIZE = "100%";
     private static final boolean SENSOR = true;
+
     private final HTMLPanel mapPanel;
 
     @Inject
