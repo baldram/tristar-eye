@@ -18,12 +18,12 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import pl.org.epf.client.local.datamock.StreetCamerasMock;
 import pl.org.epf.client.local.services.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.local.view.widgets.SimpleDivPanel;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -31,11 +31,10 @@ import java.util.ArrayList;
 
 public class MapTabView extends Composite {
     private static final String MAPS_CONTAINER = "maps-container";
-    private static final String MAP_PLACEHOLDER = "<div id=\"" + MAPS_CONTAINER + "\"></div>";
     private static final String MAX_SIZE = "100%";
     private static final boolean SENSOR = true;
 
-    private final HTMLPanel mapPanel;
+    private final SimpleDivPanel content;
 
     @Inject
     private MapService mapService;
@@ -46,10 +45,10 @@ public class MapTabView extends Composite {
     private TextBox searchBox;
 
     public MapTabView() {
-        mapPanel = new HTMLPanel(MAP_PLACEHOLDER);
-        initWidget(mapPanel);
-        mapPanel.setWidth(MAX_SIZE);
-        mapPanel.setHeight(MAX_SIZE);
+        content = new SimpleDivPanel(MAPS_CONTAINER);
+        initWidget(content);
+        content.setWidth(MAX_SIZE);
+        content.setHeight(MAX_SIZE);
     }
 
     @PostConstruct
@@ -73,7 +72,7 @@ public class MapTabView extends Composite {
     }
 
     private void bindMapWithView() {
-        mapPanel.add(mapService.getMapWidget(), MAPS_CONTAINER);
+        content.add(mapService.getMapWidget(), MAPS_CONTAINER);
 
         // TODO: to provide searchBox using IOC
         mapService.bindTextBoxWithAutoComplete(searchBox);
