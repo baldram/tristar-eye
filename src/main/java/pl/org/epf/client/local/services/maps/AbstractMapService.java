@@ -45,7 +45,7 @@ abstract class AbstractMapService implements MapService {
 		return mapWidget;
 	}
     
-    Marker createMarker(final Integer id, LatLng location, String iconFile) {
+    protected Marker createMarker(final Integer id, LatLng location, String iconFile) {
         MarkerOptions options = MarkerOptions.newInstance();
         options.setPosition(location);
         MarkerImage markerImage = MarkerImage.newInstance("images/" + iconFile);

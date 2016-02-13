@@ -12,22 +12,17 @@
  * the License.
  */
 
-package pl.org.epf.client.local.services.user;
+package pl.org.epf.client.local.view;
 
-import pl.org.epf.client.local.services.maps.ClassicMapService;
-import pl.org.epf.client.local.services.maps.MapService;
-import pl.org.epf.client.local.services.maps.TricitySchemaService;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import org.apache.commons.lang3.StringUtils;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
-@Singleton
-public class Settings {
+@ApplicationScoped
+public class ContentContainer extends HTMLPanel {
 
-    @Produces
-    public MapService getMapService() {
-        // TODO: to use settings stored by user here
-        return (true) ? new ClassicMapService() : new TricitySchemaService();
+    public ContentContainer() {
+        super(StringUtils.EMPTY);
     }
-
 }
