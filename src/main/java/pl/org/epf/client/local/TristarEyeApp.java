@@ -15,37 +15,87 @@
 package pl.org.epf.client.local;
 
 import static pl.org.epf.client.local.TristarEyeApp.TEMPLATE_ROOT;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.ui.Panel;
+import org.jboss.errai.ioc.client.container.IOCBeanDef;
+import org.jboss.errai.ioc.client.container.SyncBeanManager;
 import org.jboss.errai.ui.shared.ServerTemplateProvider;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 
 import com.google.gwt.user.client.ui.Composite;
 
+import pl.org.epf.client.local.view.ContentContainer;
 import pl.org.epf.client.local.view.MapTabView;
+import pl.org.epf.client.local.view.polymer.widget.PaperIconButtonWidget;
 import pl.org.epf.client.local.view.widgets.Navigation;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @EntryPoint
-@Templated(value=TEMPLATE_ROOT, provider=ServerTemplateProvider.class)
+@Templated(value = TEMPLATE_ROOT, provider = ServerTemplateProvider.class)
 public class TristarEyeApp extends Composite {
 
     public static final String TEMPLATE_ROOT = "index.html#root";
 
-    public static final String CONTENT_CONTAINER = "content";
+    @Inject
+    @DataField
+    private PaperIconButtonWidget settingsButton;
+
+    @Inject
+    @DataField
+    private PaperIconButtonWidget mapButton;
 
     @Inject
     @DataField
     private Navigation tristarNavigation;
 
     @Inject
-    @DataField(value = CONTENT_CONTAINER)
-    private MapTabView mapPanel; // tab opened as default
+    @DataField
+    private ContentContainer content;
+
+    @Inject
+    private SyncBeanManager manager;
+
+    private MapTabView mapView;
 
     @PostConstruct
     public void init() {
-    	mapPanel.setSearchBox(tristarNavigation.getSearchBox());
+        mapView = getView(MapTabView.class);
+        addView(content, mapView);
+        mapView.setSearchBox(tristarNavigation.getSearchBox());
+    }
+
+    private <T extends Composite> T getView(Class<T> type) {
+        T view = null;
+        IOCBeanDef<T> bean = manager.lookupBean(type);
+        if (bean != null) {
+            view = bean.getInstance();
+        }
+        return view;
+    }
+
+    private void addView(Panel container, Composite view) {
+        container.clear();
+        container.add(view);
+    }
+
+    @EventHandler("settingsButton")
+    public void doSomething(ClickEvent e) {
+        removeView(content, mapView);
+    }
+
+    private void removeView(Panel container, Composite viewToRemove) {
+        viewToRemove.removeFromParent();
+        container.clear();
+    }
+
+    @EventHandler("mapButton")
+    public void doSomething2(ClickEvent e) {
+        addView(content, mapView);
     }
 }
