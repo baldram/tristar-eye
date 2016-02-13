@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import pl.org.epf.client.local.datamock.StreetCamerasMock;
@@ -26,9 +27,11 @@ import pl.org.epf.client.local.model.TristarObject;
 import pl.org.epf.client.local.view.widgets.SimpleDivPanel;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
+@ApplicationScoped
 public class MapTabView extends Composite {
     private static final String MAPS_CONTAINER = "maps-container";
     private static final String MAX_SIZE = "100%";
@@ -97,5 +100,9 @@ public class MapTabView extends Composite {
 
     public void setSearchBox(TextBox searchBox) {
         this.searchBox = searchBox;
+    }
+
+    public HTMLPanel getMainPanel() {
+        return content;
     }
 }
