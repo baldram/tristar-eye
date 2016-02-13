@@ -54,7 +54,7 @@ public class ClassicMapService extends AbstractMapService {
     }
 
     @Override
-    MapOptions getMapOptions() {
+    protected MapOptions getMapOptions() {
         MapOptions opts = MapOptions.newInstance();
         opts.setZoom(ZOOM);
         opts.setMapTypeId(MapTypeId.ROADMAP);
