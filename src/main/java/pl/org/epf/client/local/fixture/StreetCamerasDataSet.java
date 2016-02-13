@@ -1,4 +1,4 @@
-package pl.org.epf.client.local.datamock;
+package pl.org.epf.client.local.fixture;
 
 import com.google.common.collect.ImmutableMap;
 import pl.org.epf.client.local.model.TristarObject;
@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * TODO: to replace with data from the API when ready
  */
-public class StreetCamerasMock {
+public class StreetCamerasDataSet {
 
     private ImmutableMap<Integer, TristarObject> cameras;
 
-    public StreetCamerasMock () {
+    public StreetCamerasDataSet() {
         mockData();
     }
 

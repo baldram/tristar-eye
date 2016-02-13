@@ -12,19 +12,24 @@
  * the License.
  */
 
-package pl.org.epf.client.local.view.widgets;
+package pl.org.epf.client.local.event;
 
-import com.google.gwt.user.client.ui.HTMLPanel;
+import org.jboss.errai.bus.client.api.Local;
+import org.jboss.errai.common.client.api.annotations.Portable;
 
-/**
- * Simple DIV panel. Because of some issues with FlowPanel, SimplePanel, etc.
- * this poor solution has been implemented and works very well.
- */
-public class SimpleDivPanel extends HTMLPanel {
-    private static final String PLACEHOLDER = "<div id=\"%s\"></div>";
+@Portable @Local
+public class PageChange {
 
-    public SimpleDivPanel(String elementId) {
-        super(PLACEHOLDER.replace("%s", elementId));
-        this.getElement().setId(elementId);
+    private String pageName;
+
+    public PageChange() {
+    }
+
+    public PageChange(String page) {
+        this.pageName = page;
+    }
+
+    public String getPageName() {
+        return pageName;
     }
 }
