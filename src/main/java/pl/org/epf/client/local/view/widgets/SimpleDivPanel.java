@@ -12,22 +12,19 @@
  * the License.
  */
 
-package pl.org.epf.client.local.services.user;
+package pl.org.epf.client.local.view.widgets;
 
-import pl.org.epf.client.local.services.maps.ClassicMapService;
-import pl.org.epf.client.local.services.maps.MapService;
-import pl.org.epf.client.local.services.maps.TricitySchemaService;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+/**
+ * Simple DIV panel. Because of some issues with FlowPanel, SimplePanel, etc.
+ * this poor solution has been implemented and works very well.
+ */
+public class SimpleDivPanel extends HTMLPanel {
+    private static final String PLACEHOLDER = "<div id=\"%s\"></div>";
 
-@Singleton
-public class Settings {
-
-    @Produces
-    public MapService getMapService() {
-        // TODO: to use settings stored by user here
-        return (true) ? new ClassicMapService() : new TricitySchemaService();
+    public SimpleDivPanel(String elementId) {
+        super(PLACEHOLDER.replace("%s", elementId));
+        this.getElement().setId(elementId);
     }
-
 }
