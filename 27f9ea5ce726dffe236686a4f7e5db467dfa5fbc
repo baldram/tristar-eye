@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_1452e33a",
+        "filename": "src/main/java/pl/org/epf/client/local/services/maps/TricitySchemaService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1007420
+      },
+      "writtenOn": "2016-02-14T00:21:01Z",
+      "side": 1,
+      "message": "You may consider to move path, file name separator \"-\" and extension to constans.",
+      "revId": "27f9ea5ce726dffe236686a4f7e5db467dfa5fbc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
