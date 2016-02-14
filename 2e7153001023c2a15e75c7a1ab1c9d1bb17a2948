@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_5933b3aa",
+        "filename": "src/main/java/pl/org/epf/client/local/services/maps/TricitySchemaService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1007420
+      },
+      "writtenOn": "2016-02-14T22:28:41Z",
+      "side": 1,
+      "message": "Didn\u0027t you have any issues with LatLng.newInstance() when used here? When this class is injected, Google Maps API starts using \"maps\" component before it\u0027s initialized by AjaxLoader.loadApi(). I had some problems. Please use getInitialLatitude() and getInitialLongitude() which will be called after the map is initialized. Please see MapTabViewModel.initializeMapAndSetCenter() how it is called.",
+      "revId": "2e7153001023c2a15e75c7a1ab1c9d1bb17a2948",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_9929ab39",
+        "filename": "src/main/java/pl/org/epf/client/local/services/maps/TricitySchemaService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1007420
+      },
+      "writtenOn": "2016-02-14T22:28:41Z",
+      "side": 1,
+      "message": "Do we replace here \"/\" with \"/\"? ;)",
+      "revId": "2e7153001023c2a15e75c7a1ab1c9d1bb17a2948",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
