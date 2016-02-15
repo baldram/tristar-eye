@@ -14,20 +14,9 @@
 
 package pl.org.epf.client.local.services.user;
 
-import pl.org.epf.client.local.services.maps.ClassicMapService;
-import pl.org.epf.client.local.services.maps.MapService;
-import pl.org.epf.client.local.services.maps.TricitySchemaService;
-
-import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
 @Singleton
 public class Settings {
-
-    @Produces
-    public MapService getMapService() {
-        // TODO: to use settings stored by user here
-        return (true) ? new ClassicMapService() : new TricitySchemaService();
-    }
-
+    // to handle user settings here
 }

@@ -14,10 +14,8 @@
 
 package pl.org.epf.client.local.view.widgets;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Composite;
-import org.jboss.errai.ui.nav.client.local.Navigation;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
@@ -52,11 +50,13 @@ public class TopNavigationPanel extends Composite {
         // TODO: set current tab based on Navigation when page opened with anchor
     }
 
+    @SuppressWarnings("unused")
     @EventHandler(FavouritesViewModel.PAGE_NAME + BUTTON_SUFFIX)
     private void switchToFavourites(ClickEvent e) {
         pageChangeEvent.fire(new PageChange(FavouritesViewModel.PAGE_NAME));
     }
 
+    @SuppressWarnings("unused")
     @EventHandler(MapTabViewModel.PAGE_NAME + BUTTON_SUFFIX)
     private void switchToMap(ClickEvent e) {
         pageChangeEvent.fire(new PageChange(MapTabViewModel.PAGE_NAME));

@@ -14,26 +14,9 @@
 
 package pl.org.epf.client.local.event;
 
-
 import org.jboss.errai.bus.client.api.Local;
 import org.jboss.errai.common.client.api.annotations.Portable;
 
 @Portable @Local
 public class MapViewTypeChange {
-
-    /**
-     * Flag informs whether to show classic map or city schema
-     */
-    private boolean classicMap = true;
-
-    public MapViewTypeChange() {
-    }
-
-    public MapViewTypeChange(boolean classicMap) {
-        this.classicMap = classicMap;
-    }
-
-    public boolean isClassicMap() {
-        return classicMap;
-    }
 }

@@ -14,10 +14,16 @@
 
 package pl.org.epf.client.local.view.widgets;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.TextBox;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import com.google.gwt.user.client.ui.Composite;
+import pl.org.epf.client.local.event.MapViewTypeChange;
+import pl.org.epf.client.local.view.polymer.widget.PaperToggleButtonWidget;
+
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 @Templated("#sidebar")
@@ -27,8 +33,21 @@ public class Sidebar extends Composite {
     @DataField
     private TextBox searchBox;
 
+    @Inject
+    private Event<MapViewTypeChange> mapTypeChangeEvent;
+
+    @Inject
+    @DataField
+    private PaperToggleButtonWidget mapTypeToggle;
+
     public TextBox getSearchBox() {
 		return searchBox;
 	}
+
+    @SuppressWarnings("unused")
+    @EventHandler("mapTypeToggle")
+    private void onMapTypeChangeClicked(ClickEvent e) {
+        mapTypeChangeEvent.fire(new MapViewTypeChange());
+    }
 
 }
