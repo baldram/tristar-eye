@@ -12,23 +12,28 @@
  * the License.
  */
 
-package pl.org.epf.client.local.view.widgets;
+package pl.org.epf.client.local.event;
 
-import com.google.gwt.user.client.ui.TextBox;
-import org.jboss.errai.ui.shared.api.annotations.DataField;
-import org.jboss.errai.ui.shared.api.annotations.Templated;
-import com.google.gwt.user.client.ui.Composite;
-import javax.inject.Inject;
 
-@Templated("#tristarNavigation")
-public class Navigation extends Composite {
+import org.jboss.errai.bus.client.api.Local;
+import org.jboss.errai.common.client.api.annotations.Portable;
 
-    @Inject
-    @DataField
-    private TextBox searchBox;
+@Portable @Local
+public class MapViewTypeChange {
 
-    public TextBox getSearchBox() {
-		return searchBox;
-	}
+    /**
+     * Flag informs whether to show classic map or city schema
+     */
+    private boolean classicMap = true;
 
+    public MapViewTypeChange() {
+    }
+
+    public MapViewTypeChange(boolean classicMap) {
+        this.classicMap = classicMap;
+    }
+
+    public boolean isClassicMap() {
+        return classicMap;
+    }
 }
