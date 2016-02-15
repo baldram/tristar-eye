@@ -14,15 +14,16 @@
 
 package pl.org.epf.client.local.view;
 
-import com.google.gwt.user.client.ui.HTMLPanel;
-import org.apache.commons.lang3.StringUtils;
+import com.google.gwt.user.client.ui.Composite;
+import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 
-import javax.enterprise.context.ApplicationScoped;
+import static pl.org.epf.client.local.view.FavouritesViewModel.PAGE_NAME;
 
-@ApplicationScoped
-public class ContentContainer extends HTMLPanel {
+@Page(path = PAGE_NAME)
+@Templated("Favourites.html#favouritesRoot")
+public class FavouritesViewModel extends Composite {
 
-    public ContentContainer() {
-        super(StringUtils.EMPTY);
-    }
+    public static final String PAGE_NAME = "favourites";
+
 }
