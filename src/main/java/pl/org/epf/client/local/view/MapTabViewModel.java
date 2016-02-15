@@ -18,43 +18,55 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import pl.org.epf.client.local.datamock.StreetCamerasMock;
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.errai.ui.nav.client.local.DefaultPage;
+import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.nav.client.local.PageShown;
+import pl.org.epf.client.local.fixture.StreetCamerasDataSet;
 import pl.org.epf.client.local.services.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
-import pl.org.epf.client.local.view.widgets.SimpleDivPanel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
+import static pl.org.epf.client.local.view.MapTabViewModel.PAGE_NAME;
+
 @ApplicationScoped
-public class MapTabView extends Composite {
-    private static final String MAPS_CONTAINER = "maps-container";
-    private static final String MAX_SIZE = "100%";
+@Page(role = DefaultPage.class, path = PAGE_NAME)
+public class MapTabViewModel extends Composite {
+    public static final String PAGE_NAME = "map";
+
+    private static final String MAP_CONTAINER_ID = "mapContainer";
     private static final boolean SENSOR = true;
 
-    private final SimpleDivPanel content;
+    private final HTMLPanel mapContainer;
 
     @Inject
     private MapService mapService;
 
     @Inject
-    private StreetCamerasMock streetCamerasMock;
+    private StreetCamerasDataSet streetCamerasMock;
 
     private TextBox searchBox;
 
-    public MapTabView() {
-        content = new SimpleDivPanel(MAPS_CONTAINER);
-        initWidget(content);
-        content.setWidth(MAX_SIZE);
-        content.setHeight(MAX_SIZE);
+    public MapTabViewModel() {
+        mapContainer = createContentPanel();
+    }
+
+    private HTMLPanel createContentPanel() {
+        HTMLPanel content = new HTMLPanel(StringUtils.EMPTY);
+        content.getElement().setId(MAP_CONTAINER_ID);
+        return content;
     }
 
     @PostConstruct
     private void loadMapApi() {
+        initWidget(mapContainer);
         Runnable onLoad = new Runnable() {
             @Override
             public void run() {
@@ -67,6 +79,13 @@ public class MapTabView extends Composite {
         LoadApi.go(onLoad, getLoadLibraries(), SENSOR);
     }
 
+    @PageShown
+    private void refreshView() {
+        // Due to refresh issues according to the MapAPI here is some workaround.
+        // http://stackoverflow.com/questions/5454535/fire-resizeevent-in-gwt-google-web-toolkit
+        mapService.getMapWidget().triggerResize();
+    }
+
     private void initializeMapAndSetCenter() {
         mapService.initializeMap();
         LatLng initialLocation = LatLng.newInstance(mapService.getInitialLatitude(), mapService.getInitialLongitude());
@@ -74,10 +93,11 @@ public class MapTabView extends Composite {
     }
 
     private void bindMapWithView() {
-        content.add(mapService.getMapWidget(), MAPS_CONTAINER);
+        mapContainer.clear();
+        mapContainer.add(mapService.getMapWidget());
 
-        // TODO: to provide searchBox using IOC
-        mapService.bindTextBoxWithAutoComplete(searchBox);
+        // TODO: to provide searchBox using IOC or bind using events
+        //mapService.bindTextBoxWithAutoComplete(searchBox);
     }
 
     private void addMarkers() {
@@ -102,6 +122,6 @@ public class MapTabView extends Composite {
     }
 
     public HTMLPanel getMainPanel() {
-        return content;
+        return mapContainer;
     }
 }

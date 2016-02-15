@@ -12,23 +12,18 @@
  * the License.
  */
 
-package pl.org.epf.client.local.view.widgets;
+package pl.org.epf.client.local.view;
 
-import com.google.gwt.user.client.ui.TextBox;
-import org.jboss.errai.ui.shared.api.annotations.DataField;
-import org.jboss.errai.ui.shared.api.annotations.Templated;
 import com.google.gwt.user.client.ui.Composite;
-import javax.inject.Inject;
+import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 
-@Templated("#tristarNavigation")
-public class Navigation extends Composite {
+import static pl.org.epf.client.local.view.FavouritesViewModel.PAGE_NAME;
 
-    @Inject
-    @DataField
-    private TextBox searchBox;
+@Page(path = PAGE_NAME)
+@Templated("Favourites.html#favouritesRoot")
+public class FavouritesViewModel extends Composite {
 
-    public TextBox getSearchBox() {
-		return searchBox;
-	}
+    public static final String PAGE_NAME = "favourites";
 
 }
