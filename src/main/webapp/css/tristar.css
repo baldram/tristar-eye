@@ -33,11 +33,15 @@ body {
     height: 64px;
 }
 
-#maps-container {
+#mapContainer {
     width: 100%;
     height: 100%;
     display: block;
     left: 0;
     top: 0;
     position: absolute;
+}
+
+#mapTypeToggle {
+    padding: 15px;
 }
