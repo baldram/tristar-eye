@@ -28,6 +28,7 @@ import org.jboss.errai.ui.nav.client.local.PageShown;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.fixture.StreetCamerasDataSet;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
+import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
 import pl.org.epf.client.local.services.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
 import pl.org.epf.client.local.services.maps.TricitySchemaService;
@@ -61,7 +62,8 @@ public class MapTabViewModel extends Composite {
     @Inject
     private StreetCamerasDataSet streetCamerasMock;
 
-    private TextBox searchBox;
+    @Inject
+    private MapSearchInputProvider<TextBox> searchInputProvider;
 
     public MapTabViewModel() {
         mapContainer = createContentPanel();
@@ -106,8 +108,7 @@ public class MapTabViewModel extends Composite {
         mapContainer.clear();
         mapContainer.add(getMapService().getMapWidget());
 
-        // TODO: to provide searchBox using IOC or bind using events
-        //mapService.bindTextBoxWithAutoComplete(searchBox);
+        getMapService().bindTextBoxWithAutoComplete(searchInputProvider.get());
     }
 
     private void addMarkers() {
@@ -127,10 +128,6 @@ public class MapTabViewModel extends Composite {
         return loadLibraries;
     }
 
-    public void setSearchBox(TextBox searchBox) {
-        this.searchBox = searchBox;
-    }
-
     @SuppressWarnings("unused")
     private void onMapTypeChange(@Observes MapViewTypeChange event) {
         classicMapType = !classicMapType;
@@ -141,8 +138,5 @@ public class MapTabViewModel extends Composite {
     public MapService getMapService() {
         return classicMapType ? classicMapService : citySchemaService;
     }
-
-    public HTMLPanel getMainPanel() {
-        return mapContainer;
-    }
+    
 }
