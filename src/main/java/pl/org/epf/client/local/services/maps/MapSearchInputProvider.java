@@ -12,11 +12,8 @@
  * the License.
  */
 
-package pl.org.epf.client.local.event;
+package pl.org.epf.client.local.services.maps;
 
-import org.jboss.errai.bus.client.api.Local;
-import org.jboss.errai.common.client.api.annotations.Portable;
-
-@Portable @Local
-public class MapViewTypeChange {
+public interface MapSearchInputProvider<T> {
+    T get();
 }

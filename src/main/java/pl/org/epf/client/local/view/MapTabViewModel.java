@@ -25,12 +25,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
+import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.fixture.StreetCamerasDataSet;
+import pl.org.epf.client.local.services.maps.ClassicMapService;
+import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
 import pl.org.epf.client.local.services.maps.MapService;
 import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.local.services.maps.TricitySchemaService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
@@ -46,16 +51,23 @@ public class MapTabViewModel extends Composite {
 
     private final HTMLPanel mapContainer;
 
+    private boolean classicMapType = true;
+
     @Inject
-    private MapService mapService;
+    private ClassicMapService classicMapService;
+
+    @Inject
+    private TricitySchemaService citySchemaService;
 
     @Inject
     private StreetCamerasDataSet streetCamerasMock;
 
-    private TextBox searchBox;
+    @Inject
+    private MapSearchInputProvider<TextBox> searchInputProvider;
 
     public MapTabViewModel() {
         mapContainer = createContentPanel();
+        initWidget(mapContainer);
     }
 
     private HTMLPanel createContentPanel() {
@@ -66,13 +78,13 @@ public class MapTabViewModel extends Composite {
 
     @PostConstruct
     private void loadMapApi() {
-        initWidget(mapContainer);
         Runnable onLoad = new Runnable() {
             @Override
             public void run() {
                 initializeMapAndSetCenter();
                 bindMapWithView();
                 addMarkers();
+                refreshView();
             }
         };
 
@@ -83,26 +95,25 @@ public class MapTabViewModel extends Composite {
     private void refreshView() {
         // Due to refresh issues according to the MapAPI here is some workaround.
         // http://stackoverflow.com/questions/5454535/fire-resizeevent-in-gwt-google-web-toolkit
-        mapService.getMapWidget().triggerResize();
+        getMapService().getMapWidget().triggerResize();
     }
 
     private void initializeMapAndSetCenter() {
-        mapService.initializeMap();
-        LatLng initialLocation = LatLng.newInstance(mapService.getInitialLatitude(), mapService.getInitialLongitude());
-        mapService.getMapWidget().setCenter(initialLocation);
+        getMapService().initializeMap();
+        LatLng initialLocation = LatLng.newInstance(getMapService().getInitialLatitude(), getMapService().getInitialLongitude());
+        getMapService().getMapWidget().setCenter(initialLocation);
     }
 
     private void bindMapWithView() {
         mapContainer.clear();
-        mapContainer.add(mapService.getMapWidget());
+        mapContainer.add(getMapService().getMapWidget());
 
-        // TODO: to provide searchBox using IOC or bind using events
-        //mapService.bindTextBoxWithAutoComplete(searchBox);
+        getMapService().bindTextBoxWithAutoComplete(searchInputProvider.get());
     }
 
     private void addMarkers() {
         ImmutableMap<Integer, TristarObject> cameras = streetCamerasMock.getCameras();
-        mapService.addMarkers(cameras);
+        getMapService().addMarkers(cameras);
     }
 
     private ArrayList<LoadApi.LoadLibrary> getLoadLibraries() {
@@ -117,11 +128,15 @@ public class MapTabViewModel extends Composite {
         return loadLibraries;
     }
 
-    public void setSearchBox(TextBox searchBox) {
-        this.searchBox = searchBox;
+    @SuppressWarnings("unused")
+    private void onMapTypeChange(@Observes MapViewTypeChange event) {
+        classicMapType = !classicMapType;
+        // TODO: to optimize and avoid loading whole the API each time
+        loadMapApi();
     }
 
-    public HTMLPanel getMainPanel() {
-        return mapContainer;
+    public MapService getMapService() {
+        return classicMapType ? classicMapService : citySchemaService;
     }
+    
 }

@@ -14,21 +14,51 @@
 
 package pl.org.epf.client.local.view.widgets;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.TextBox;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import com.google.gwt.user.client.ui.Composite;
+import pl.org.epf.client.local.event.MapViewTypeChange;
+import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
+import pl.org.epf.client.local.view.polymer.widget.PaperToggleButtonWidget;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Templated("#sidebar")
+@Singleton
 public class Sidebar extends Composite {
 
     @Inject
     @DataField
     private TextBox searchBox;
 
-    public TextBox getSearchBox() {
-		return searchBox;
-	}
+    @Inject
+    private Event<MapViewTypeChange> mapTypeChangeEvent;
+
+    @Inject
+    @DataField
+    private PaperToggleButtonWidget mapTypeToggle;
+
+    @Produces
+    @SuppressWarnings("unused")
+    public MapSearchInputProvider<TextBox> getMapSearch() {
+        return new MapSearchInputProvider<TextBox>() {
+            @Override
+            public TextBox get() {
+                return searchBox;
+            }
+        };
+    }
+
+    @EventHandler("mapTypeToggle")
+    @SuppressWarnings("unused")
+    private void onMapTypeChangeClicked(ClickEvent e) {
+        mapTypeChangeEvent.fire(new MapViewTypeChange());
+    }
 
 }

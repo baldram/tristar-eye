@@ -50,9 +50,6 @@ public class TristarEyeApp extends Composite {
     @PostConstruct
     public void init() {
         content.add(navigation.getContentPanel());
-
-        // TODO: to bind sidebar with mapView using events
-        //mapView.setSearchBox(sidebar.getSearchBox());
     }
 
 }
