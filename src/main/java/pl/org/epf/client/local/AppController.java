@@ -27,12 +27,12 @@ import pl.org.epf.client.local.view.MapTabViewModel;
 public class AppController {
 
     @Inject
-    private TransitionTo<MapTabViewModel> toMap;
+    protected TransitionTo<MapTabViewModel> toMap;
 
     @Inject
-    private TransitionTo<FavouritesViewModel> toFavourites;
+    protected TransitionTo<FavouritesViewModel> toFavourites;
 
-    private void onPageChange(@Observes PageChange event) {
+    protected void onPageChange(@Observes PageChange event) {
         switch (event.getPageName()) {
             case FavouritesViewModel.PAGE_NAME:
                 toFavourites.go();
