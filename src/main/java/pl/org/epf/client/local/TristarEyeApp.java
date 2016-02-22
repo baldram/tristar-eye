@@ -29,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @EntryPoint
+@SuppressWarnings("unused")
 @Templated(value = "index.html#root", provider = ServerTemplateProvider.class)
 public class TristarEyeApp extends Composite {
 

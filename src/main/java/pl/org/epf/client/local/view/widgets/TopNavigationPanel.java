@@ -52,13 +52,13 @@ public class TopNavigationPanel extends Composite {
 
     @SuppressWarnings("unused")
     @EventHandler(FavouritesViewModel.PAGE_NAME + BUTTON_SUFFIX)
-    private void switchToFavourites(ClickEvent e) {
+    protected void switchToFavourites(ClickEvent e) {
         pageChangeEvent.fire(new PageChange(FavouritesViewModel.PAGE_NAME));
     }
 
     @SuppressWarnings("unused")
     @EventHandler(MapTabViewModel.PAGE_NAME + BUTTON_SUFFIX)
-    private void switchToMap(ClickEvent e) {
+    protected void switchToMap(ClickEvent e) {
         pageChangeEvent.fire(new PageChange(MapTabViewModel.PAGE_NAME));
     }
 }
