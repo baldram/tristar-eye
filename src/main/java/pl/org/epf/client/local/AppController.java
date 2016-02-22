@@ -24,6 +24,7 @@ import pl.org.epf.client.local.view.FavouritesViewModel;
 import pl.org.epf.client.local.view.MapTabViewModel;
 
 @ApplicationScoped
+@SuppressWarnings("unused")
 public class AppController {
 
     @Inject
@@ -32,7 +33,7 @@ public class AppController {
     @Inject
     private TransitionTo<FavouritesViewModel> toFavourites;
 
-    private void onPageChange(@Observes PageChange event) {
+    protected void onPageChange(@Observes PageChange event) {
         switch (event.getPageName()) {
             case FavouritesViewModel.PAGE_NAME:
                 toFavourites.go();
@@ -40,6 +41,8 @@ public class AppController {
             case MapTabViewModel.PAGE_NAME:
                 toMap.go();
                 break;
+            default:
+                toMap.go();
         }
 
     }
