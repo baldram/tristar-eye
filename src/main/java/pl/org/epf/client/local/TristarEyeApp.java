@@ -17,13 +17,11 @@ package pl.org.epf.client.local;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 
 import com.google.gwt.user.client.ui.Composite;
-import org.jboss.errai.ui.nav.client.local.Navigation;
 import org.jboss.errai.ui.shared.ServerTemplateProvider;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import pl.org.epf.client.local.view.widgets.ContentContainer;
-import pl.org.epf.client.local.view.widgets.Sidebar;
-import pl.org.epf.client.local.view.widgets.TopNavigationPanel;
+import pl.org.epf.client.local.view.widgets.DrawerMain;
+import pl.org.epf.client.local.view.widgets.DrawerSidebar;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -34,23 +32,11 @@ import javax.inject.Inject;
 public class TristarEyeApp extends Composite {
 
     @Inject
-    private Navigation navigation;
+    @DataField
+    private DrawerSidebar drawer;
 
     @Inject
     @DataField
-    private Sidebar sidebar;
-
-    @Inject
-    @DataField
-    private TopNavigationPanel topNavigationPanel;
-
-    @Inject
-    @DataField
-    private ContentContainer content;
-
-    @PostConstruct
-    public void init() {
-        content.add(navigation.getContentPanel());
-    }
+    private DrawerMain main;
 
 }

@@ -1,3 +1,17 @@
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-gjslint');
@@ -102,31 +116,31 @@ module.exports = function(grunt) {
     WEB_ANIMATIONS_TESTING: false
   };
 
-  function buildMinifill(target) {
+  function buildWebAnimations1(target) {
     var config = targetConfig[target];
     return genTarget(target).concat([
-      concat(config.scopeSrc.concat(config.sharedSrc).concat(config.minifillSrc), 'inter-raw-' + target + '.js', concatDefines),
+      concat(config.scopeSrc.concat(config.sharedSrc).concat(config.webAnimations1Src), 'inter-raw-' + target + '.js', concatDefines),
       guard('inter-raw-' + target + '.js', 'inter-' + target + '.js'),
       compress('inter-' + target + '.js', target + '.min.js', concatDefines)
     ]);
   }
 
-  function buildMaxifill(target) {
+  function buildWebAnimationsNext(target) {
     var config = targetConfig[target];
     return genTarget(target).concat([
       concat(config.scopeSrc.concat(config.sharedSrc), 'inter-' + target + '-preamble.js', concatDefines),
-      concat(config.minifillSrc, 'inter-component-' + target + 'minifill.js', concatDefines),
-      guard('inter-component-' + target + 'minifill.js', 'inter-guarded-' + target + '-minifill.js'),
-      concat(config.maxifillSrc, 'inter-component-' + target + '.js', concatDefines),
-      concatWithMaps(['inter-' + target + '-preamble.js', 'inter-guarded-' + target + '-minifill.js', 'inter-component-' + target + '.js'],
+      concat(config.webAnimations1Src, 'inter-component-' + target + 'web-animations-1.js', concatDefines),
+      guard('inter-component-' + target + 'web-animations-1.js', 'inter-guarded-' + target + '-web-animations-1.js'),
+      concat(config.webAnimationsNextSrc, 'inter-component-' + target + '.js', concatDefines),
+      concatWithMaps(['inter-' + target + '-preamble.js', 'inter-guarded-' + target + '-web-animations-1.js', 'inter-component-' + target + '.js'],
           'inter-' + target + '.js'),
       compress('inter-' + target + '.js', target + '.min.js', concatDefines)
     ]);
   }
 
-  grunt.registerTask('web-animations', buildMinifill('web-animations'));
-  grunt.registerTask('web-animations-next', buildMaxifill('web-animations-next'));
-  grunt.registerTask('web-animations-next-lite', buildMaxifill('web-animations-next-lite'));
+  grunt.registerTask('web-animations', buildWebAnimations1('web-animations'));
+  grunt.registerTask('web-animations-next', buildWebAnimationsNext('web-animations-next'));
+  grunt.registerTask('web-animations-next-lite', buildWebAnimationsNext('web-animations-next-lite'));
 
   var testTargets = {'web-animations': {}, 'web-animations-next': {}};
 
@@ -174,7 +188,7 @@ module.exports = function(grunt) {
     var done = this.async();
     var karmaConfig = require('karma/lib/config').parseConfig(require('path').resolve('test/karma-config.js'), {});
     var config = targetConfig[this.target];
-    karmaConfig.files = ['test/runner.js'].concat(config.src, config.test);
+    karmaConfig.files = ['test/karma-setup.js'].concat(config.src, config.test);
     var karmaServer = require('karma').server;
     karmaServer.start(karmaConfig, function(exitCode) {
       done(exitCode === 0);
@@ -185,7 +199,7 @@ module.exports = function(grunt) {
     var done = this.async();
     var karmaConfig = require('karma/lib/config').parseConfig(require('path').resolve('test/karma-config-ci.js'), {});
     var config = targetConfig[this.target];
-    karmaConfig.files = ['test/runner.js'].concat(config.src, config.test);
+    karmaConfig.files = ['test/karma-setup.js'].concat(config.src, config.test);
     karmaConfig.sauceLabs.testName = 'web-animation-next ' + this.target + ' Unit tests';
     var karmaServer = require('karma').server;
     karmaServer.start(karmaConfig, function(exitCode) {

@@ -1,18 +1,31 @@
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 (function() {
 
   var scopeSrc = [
       'src/scope.js'];
 
-  var minifillSrc = [
-      'src/animation-node.js',
-      'src/effect.js',
+  var webAnimations1Src = [
+      'src/keyframe-interpolations.js',
       'src/property-interpolation.js',
-      'src/animation.js',
+      'src/keyframe-effect.js',
       'src/apply-preserving-inline-style.js',
       'src/element-animatable.js',
       'src/interpolation.js',
       'src/matrix-interpolation.js',
-      'src/player.js',
+      'src/animation.js',
       'src/tick.js',
       'src/matrix-decomposition.js',
       'src/handler-utils.js',
@@ -29,15 +42,14 @@
       'src/property-names.js',
   ];
 
-  var liteMinifillSrc = [
-      'src/animation-node.js',
-      'src/effect.js',
+  var liteWebAnimations1Src = [
+      'src/keyframe-interpolations.js',
       'src/property-interpolation.js',
-      'src/animation.js',
+      'src/keyframe-effect.js',
       'src/apply.js',
       'src/element-animatable.js',
       'src/interpolation.js',
-      'src/player.js',
+      'src/animation.js',
       'src/tick.js',
       'src/handler-utils.js',
       'src/shadow-handler.js',
@@ -53,64 +65,67 @@
 
   var sharedSrc = [
       'src/timing-utilities.js',
-      'src/normalize-keyframes.js'];
+      'src/normalize-keyframes.js',
+      'src/deprecation.js',
+  ];
 
-  var maxifillSrc = [
+  var webAnimationsNextSrc = [
       'src/timeline.js',
-      'src/maxifill-player.js',
-      'src/animation-constructor.js',
+      'src/web-animations-next-animation.js',
+      'src/keyframe-effect-constructor.js',
       'src/effect-callback.js',
       'src/group-constructors.js'];
 
-  var minifillTest = [
-      'test/js/animation-node.js',
+  var webAnimations1Test = [
+      'test/js/animation-finish-event.js',
+      'test/js/animation.js',
       'test/js/apply-preserving-inline-style.js',
       'test/js/box-handler.js',
       'test/js/color-handler.js',
       'test/js/dimension-handler.js',
-      'test/js/effect.js',
       'test/js/interpolation.js',
+      'test/js/keyframes.js',
       'test/js/matrix-interpolation.js',
       'test/js/number-handler.js',
-      'test/js/player.js',
-      'test/js/player-finish-event.js',
       'test/js/property-interpolation.js',
       'test/js/tick.js',
+      'test/js/timing-utilities.js',
       'test/js/timing.js',
       'test/js/transform-handler.js'];
 
-  var maxifillTest = minifillTest.concat(
-      'test/js/animation-constructor.js',
+  var webAnimationsNextTest = webAnimations1Test.concat(
       'test/js/effect-callback.js',
+      'test/js/group-animation-finish-event.js',
+      'test/js/group-animation.js',
       'test/js/group-constructors.js',
-      'test/js/group-player.js',
-      'test/js/group-player-finish-event.js',
-      'test/js/timeline.js');
+      'test/js/keyframe-effect-constructor.js',
+      'test/js/timeline.js',
+      'test/js/web-animations-next-animation.js');
 
   // This object specifies the source and test files for different Web Animation build targets.
   var targetConfig = {
     'web-animations': {
       scopeSrc: scopeSrc,
       sharedSrc: sharedSrc,
-      minifillSrc: minifillSrc,
-      maxifillSrc: [],
-      src: scopeSrc.concat(sharedSrc).concat(minifillSrc),
-      test: minifillTest,
+      webAnimations1Src: webAnimations1Src,
+      webAnimationsNextSrc: [],
+      src: scopeSrc.concat(sharedSrc).concat(webAnimations1Src),
+      test: webAnimations1Test,
     },
     'web-animations-next': {
       scopeSrc: scopeSrc,
       sharedSrc: sharedSrc,
-      minifillSrc: minifillSrc,
-      maxifillSrc: maxifillSrc,
-      src: scopeSrc.concat(sharedSrc).concat(minifillSrc).concat(maxifillSrc),
-      test: maxifillTest,
+      webAnimations1Src: webAnimations1Src,
+      webAnimationsNextSrc: webAnimationsNextSrc,
+      src: scopeSrc.concat(sharedSrc).concat(webAnimations1Src).concat(webAnimationsNextSrc),
+      test: webAnimationsNextTest,
     },
     'web-animations-next-lite': {
       scopeSrc: scopeSrc,
       sharedSrc: sharedSrc,
-      minifillSrc: liteMinifillSrc,
-      maxifillSrc: maxifillSrc,
-      src: scopeSrc.concat(sharedSrc).concat(liteMinifillSrc).concat(maxifillSrc),
+      webAnimations1Src: liteWebAnimations1Src,
+      webAnimationsNextSrc: webAnimationsNextSrc,
+      src: scopeSrc.concat(sharedSrc).concat(liteWebAnimations1Src).concat(webAnimationsNextSrc),
       test: [],
     },
   };

@@ -14,21 +14,103 @@
 
 (function(shared, testing) {
 
-  var fills = 'backwards|forwards|both'.split('|');
+  var fills = 'backwards|forwards|both|none'.split('|');
   var directions = 'reverse|alternate|alternate-reverse'.split('|');
 
-  function makeTiming(timingInput, forGroup) {
-    var timing = {
-      delay: 0,
-      endDelay: 0,
-      fill: forGroup ? 'both' : 'none',
-      iterationStart: 0,
-      iterations: 1,
-      duration: forGroup ? 'auto' : 0,
-      playbackRate: 1,
-      direction: 'normal',
-      easing: 'linear',
-    };
+  function cloneTimingInput(timingInput) {
+    if (typeof timingInput == 'number') {
+      return timingInput;
+    }
+    var clone = {};
+    for (var m in timingInput) {
+      clone[m] = timingInput[m];
+    }
+    return clone;
+  }
+
+  function AnimationEffectTiming() {
+    this._delay = 0;
+    this._endDelay = 0;
+    this._fill = 'none';
+    this._iterationStart = 0;
+    this._iterations = 1;
+    this._duration = 0;
+    this._playbackRate = 1;
+    this._direction = 'normal';
+    this._easing = 'linear';
+  }
+
+  AnimationEffectTiming.prototype = {
+    _setMember: function(member, value) {
+      this['_' + member] = value;
+      if (this._effect) {
+        this._effect._timingInput[member] = value;
+        this._effect._timing = shared.normalizeTimingInput(shared.normalizeTimingInput(this._effect._timingInput));
+        this._effect.activeDuration = shared.calculateActiveDuration(this._effect._timing);
+        if (this._effect._animation) {
+          this._effect._animation._rebuildUnderlyingAnimation();
+        }
+      }
+    },
+    get playbackRate() {
+      return this._playbackRate;
+    },
+    set delay(value) {
+      this._setMember('delay', value);
+    },
+    get delay() {
+      return this._delay;
+    },
+    set endDelay(value) {
+      this._setMember('endDelay', value);
+    },
+    get endDelay() {
+      return this._endDelay;
+    },
+    set fill(value) {
+      this._setMember('fill', value);
+    },
+    get fill() {
+      return this._fill;
+    },
+    set iterationStart(value) {
+      this._setMember('iterationStart', value);
+    },
+    get iterationStart() {
+      return this._iterationStart;
+    },
+    set duration(value) {
+      this._setMember('duration', value);
+    },
+    get duration() {
+      return this._duration;
+    },
+    set direction(value) {
+      this._setMember('direction', value);
+    },
+    get direction() {
+      return this._direction;
+    },
+    set easing(value) {
+      this._setMember('easing', value);
+    },
+    get easing() {
+      return this._easing;
+    },
+    set iterations(value) {
+      this._setMember('iterations', value);
+    },
+    get iterations() {
+      return this._iterations;
+    }
+  };
+
+  function makeTiming(timingInput, forGroup, effect) {
+    var timing = new AnimationEffectTiming();
+    if (forGroup) {
+      timing.fill = 'both';
+      timing.duration = 'auto';
+    }
     if (typeof timingInput == 'number' && !isNaN(timingInput)) {
       timing.duration = timingInput;
     } else if (timingInput !== undefined) {
@@ -45,6 +127,9 @@
           if ((property == 'direction') && (directions.indexOf(timingInput[property]) == -1)) {
             return;
           }
+          if (property == 'playbackRate' && timingInput[property] !== 1 && shared.isDeprecated('AnimationEffectTiming.playbackRate', '2014-11-28', 'Use Animation.playbackRate instead.')) {
+            return;
+          }
           timing[property] = timingInput[property];
         }
       });
@@ -52,9 +137,21 @@
     return timing;
   }
 
+  function numericTimingToObject(timingInput) {
+    if (typeof timingInput == 'number') {
+      if (isNaN(timingInput)) {
+        timingInput = { duration: 0 };
+      } else {
+        timingInput = { duration: timingInput };
+      }
+    }
+    return timingInput;
+  }
+
   function normalizeTimingInput(timingInput, forGroup) {
+    timingInput = shared.numericTimingToObject(timingInput);
     var timing = makeTiming(timingInput, forGroup);
-    timing.easing = toTimingFunction(timing.easing);
+    timing._easing = toTimingFunction(timing.easing);
     return timing;
   }
 
@@ -63,6 +160,9 @@
       return linear;
     }
     return function(x) {
+      if (x == 0 || x == 1) {
+        return x;
+      }
       var start = 0, end = 1;
       while (1) {
         var mid = (start + end) / 2;
@@ -213,7 +313,9 @@
     return calculateTransformedTime(currentIteration, timing.duration, iterationTime, timing) / timing.duration;
   }
 
+  shared.cloneTimingInput = cloneTimingInput;
   shared.makeTiming = makeTiming;
+  shared.numericTimingToObject = numericTimingToObject;
   shared.normalizeTimingInput = normalizeTimingInput;
   shared.calculateActiveDuration = calculateActiveDuration;
   shared.calculateTimeFraction = calculateTimeFraction;

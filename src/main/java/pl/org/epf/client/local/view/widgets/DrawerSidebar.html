@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<div data-field="drawerSidebar" drawer>
+
+    <paper-toolbar class="sidebarToolbar">
+        <span class="flex">Szukaj</span>
+    </paper-toolbar>
+
+    <paper-menu class="sidebarMenu">
+
+        <section>
+            <paper-item>
+                <paper-input-container id="searchLocation">
+                    <label>Określ lokalizację</label>
+                    <input type="text" class="gwt-TextBox" id="searchBox" is="iron-input" required="" placeholder="Podaj lokalizację" autocomplete="off">
+                </paper-input-container>
+            </paper-item>
+        </section>
+
+        <section>
+            <paper-item>
+                <paper-toggle-button id="mapTypeToggle">Mapa / Schemat</paper-toggle-button>
+            </paper-item>
+        </section>
+
+    </paper-menu>
+
+</div>
