@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<div id="topNavigationPanel" class="app-header" tool="" flex="">
-    <div flex="">
-        <div center="" horizontal="" layout="">
-            <div class="app-title" flex="" two="">Tristar Eye</div>
-            <div flex="" three="">
-                <paper-tabs class="bottom fit" selected="0" role="tablist" horizontal="" center="" layout="">
-                    <paper-tab id="mapTab" role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">
-                        <paper-icon-button id="mapButton" icon="question-answer" title="mapa"></paper-icon-button>
-                    </paper-tab>
-                    <paper-tab id="favouritesTab" role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">
-                        <paper-icon-button id="favouritesButton" icon="favorite" title="ulubione"></paper-icon-button>
-                    </paper-tab>
-                    <paper-tab id="mapList" role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="core-selected" active="">
-                        <paper-icon-button id="listButton" icon="list" title="lista"></paper-icon-button>
-                    </paper-tab>
-                </paper-tabs>
-            </div>
-            <div><paper-icon-button id="settingsButton" icon="more-vert"></paper-icon-button></div>
-        </div>
-    </div>
+<div id="topNavigationPanel">
+    <paper-tabs selected="0">
+        <paper-tab id="mapTab">
+            <paper-icon-button id="mapButton" icon="question-answer" title="mapa"></paper-icon-button>
+        </paper-tab>
+        <paper-tab id="favouritesTab">
+            <paper-icon-button id="favouritesButton" icon="favorite" title="ulubione"></paper-icon-button>
+        </paper-tab>
+        <paper-tab id="mapList">
+            <paper-icon-button id="listButton" icon="list" title="lista"></paper-icon-button>
+        </paper-tab>
+    </paper-tabs>
 </div>

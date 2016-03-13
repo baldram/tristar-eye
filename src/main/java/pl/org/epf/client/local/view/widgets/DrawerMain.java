@@ -12,31 +12,35 @@
  * the License.
  */
 
-package pl.org.epf.client.local;
-
-import org.jboss.errai.ioc.client.api.EntryPoint;
+package pl.org.epf.client.local.view.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
-import org.jboss.errai.ui.shared.ServerTemplateProvider;
+import org.jboss.errai.ui.nav.client.local.Navigation;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import pl.org.epf.client.local.view.widgets.DrawerMain;
-import pl.org.epf.client.local.view.widgets.DrawerSidebar;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-@EntryPoint
-@SuppressWarnings("unused")
-@Templated(value = "index.html#root", provider = ServerTemplateProvider.class)
-public class TristarEyeApp extends Composite {
+@Templated("#drawerMain")
+@Singleton
+public class DrawerMain extends Composite {
+
+    @Inject
+    private Navigation navigation;
 
     @Inject
     @DataField
-    private DrawerSidebar drawer;
+    private TopNavigationPanel topNavigationPanel;
 
     @Inject
     @DataField
-    private DrawerMain main;
+    private ContentContainer content;
+
+    @PostConstruct
+    public void init() {
+        content.add(navigation.getContentPanel());
+    }
 
 }
