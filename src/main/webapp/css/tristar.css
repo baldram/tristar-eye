@@ -1,36 +1,51 @@
 body {
-    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
     font-size: 1.0em;
     font-weight: 300;
+    color: #333;
+    padding: 0em;
     margin: 0;
-    padding: 1.6em;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-touch-callout: none;
+    background-image: linear-gradient(to right top, transparent 33%, black 33%, black 66%, transparent 66%);
+    background-size: 3px 3px;
+    background-color: #666;
 }
-
-/**/
-
-.app-header {
-    height: 48px;
-    margin: 0;
+section {
+    margin: 10px;
 }
-
-.app-title {
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+    padding-right: 0;
+}
+.mdl-layout__tab {
     font-weight: 400;
 }
-#selectionBar {
-    background-color: red;
+.mdl-layout__header, .mdl-layout__tab-bar, .mdl-switch.is-checked .mdl-switch__thumb {
+    background-color: #526e9c;
 }
-
-/**/
-
-#core_header_panel {
-    background-color: rgb(255, 255, 255);
-}
-#core_toolbar {
-    color: rgb(255, 255, 255);
+.tristar-drawer-header {
     background-color: rgb(79, 125, 201);
-    height: 64px;
+    color: #fff;
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+}
+.tristar-drawer-header .mdl-layout-title {
+    font-weight: 300;
+}
+.mdl-layout__drawer {
+    border-right: none;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+.mdl-layout__content {
+    background-color: #fff;
+}
+
+.mdl-layout.is-upgraded .mdl-layout__tab.is-active::after {
+    background: yellow;
 }
 
 #mapContainer {
@@ -40,8 +55,4 @@ body {
     left: 0;
     top: 0;
     position: absolute;
-}
-
-#mapTypeToggle {
-    padding: 15px;
 }

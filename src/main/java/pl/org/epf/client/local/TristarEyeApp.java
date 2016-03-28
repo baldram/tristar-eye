@@ -14,6 +14,7 @@
 
 package pl.org.epf.client.local;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -22,6 +23,7 @@ import org.jboss.errai.ui.shared.ServerTemplateProvider;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.view.widgets.ContentContainer;
+import pl.org.epf.client.local.view.widgets.HeaderPanel;
 import pl.org.epf.client.local.view.widgets.Sidebar;
 import pl.org.epf.client.local.view.widgets.TopNavigationPanel;
 
@@ -30,7 +32,7 @@ import javax.inject.Inject;
 
 @EntryPoint
 @SuppressWarnings("unused")
-@Templated(value = "index.html#root", provider = ServerTemplateProvider.class)
+@Templated("#root")
 public class TristarEyeApp extends Composite {
 
     @Inject
@@ -39,6 +41,10 @@ public class TristarEyeApp extends Composite {
     @Inject
     @DataField
     private Sidebar sidebar;
+
+    @Inject
+    @DataField
+    private HeaderPanel headerPanel;
 
     @Inject
     @DataField
@@ -51,6 +57,17 @@ public class TristarEyeApp extends Composite {
     @PostConstruct
     public void init() {
         content.add(navigation.getContentPanel());
+        RootPanel.get().add(this);
     }
 
+    @Override
+    protected void onLoad() {
+        initMaterialDesignLite();
+        super.onLoad();
+    }
+
+    public final native void initMaterialDesignLite() /*-{
+        // Needs to be called to finish MDL initialization
+        $wnd.componentHandler.upgradeDom();
+    }-*/;
 }
