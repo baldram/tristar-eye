@@ -25,4 +25,4 @@ src/main/gwt-unitCache/
 
 #other
 target/
-#src/main/webapp/bower_components
+src/main/webapp/bower_components
