@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <!-- Simple header with fixed tabs. -->
+    <div data-field="root" class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs mdl-layout--fixed-drawer">
+        <header class="mdl-layout__header">
+            <div data-field="headerPanel"></div>
+            <!-- Tabs -->
+            <div data-field="topNavigationPanel"></div>
+        </header>
+        <div data-field="sidebar"></div>
+
+        <main class="mdl-layout__content">
+            <!-- fake content panels for MDL because it changes content on tab click automatically -->
+            <span id="map"></span><span id="favourites"></span><span id="list"></span>
+            <!-- -->
+            <div data-field="content"></div>
+        </main>
+    </div>
+</body>
+</html>

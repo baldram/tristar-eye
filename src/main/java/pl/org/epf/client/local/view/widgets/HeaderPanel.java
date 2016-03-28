@@ -15,27 +15,32 @@
 package pl.org.epf.client.local.view.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
-import org.jboss.errai.ui.shared.api.annotations.EventHandler;
-import org.jboss.errai.ui.shared.api.annotations.SinkNative;
+import com.google.gwt.user.client.ui.TextBox;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import pl.org.epf.client.local.event.MapViewTypeChange;
+import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
 
-import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Templated("#sidebar")
+@Templated("#headerPanel")
 @Singleton
-public class Sidebar extends Composite {
+public class HeaderPanel extends Composite {
 
     @Inject
-    private Event<MapViewTypeChange> mapTypeChangeEvent;
+    @DataField
+    private TextBox searchBox;
 
+    @Produces
     @SuppressWarnings("unused")
-    @EventHandler("mapTypeToggle")
-    @SinkNative(com.google.gwt.user.client.Event.ONCLICK)
-    private void onMapTypeChangeClicked(com.google.gwt.user.client.Event e) {
-        mapTypeChangeEvent.fire(new MapViewTypeChange());
+    public MapSearchInputProvider<TextBox> getMapSearch() {
+        return new MapSearchInputProvider<TextBox>() {
+            @Override
+            public TextBox get() {
+                return searchBox;
+            }
+        };
     }
 
 }
