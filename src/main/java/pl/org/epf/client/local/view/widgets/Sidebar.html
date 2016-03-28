@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<div>
-    <core-header-panel id="sidebar" navigation="" flex="" mode="waterfall-tall">
-
-        <core-toolbar id="core_toolbar" class="app-toolbar medium tall animate">
-            <div>Szukaj</div>
-        </core-toolbar>
-
-        <core-menu valueattr="label" id="core_menu" theme="core-light-theme">
-            <section class="bottom fit search">
-                <paper-input-decorator id="searchLocation" label="Określ lokalizację" floatinglabel="" error="" autovalidate="" layout="" vertical="">
-                    <input type="text" class="gwt-TextBox" id="searchBox" is="core-input" required="" placeholder="Podaj lokalizację" aria-label="Podaj lokalizację" autocomplete="off">
-                </paper-input-decorator>
-            </section>
-        </core-menu>
-
-        <div center horizontal layout>
-            <div flex>Mapa / Schemat</div>
-            <paper-toggle-button id="mapTypeToggle" class="mapType"></paper-toggle-button>
+<html>
+<body>
+    <div data-field="sidebar" class="mdl-layout__drawer">
+        <div class="tristar-drawer-header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Opcje</span>
+            </div>
+            <div class="mdl-layout__tab-bar-container"></div>
         </div>
-    </core-header-panel>
-
-</div>
+        <section>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="mapTypeToggle">
+                <input type="checkbox" id="mapTypeToggle" class="mdl-switch__input" />
+                <span class="mdl-switch__label">Mapa / Schemat</span>
+            </label>
+        </section>
+    </div>
+</body>
+</html>
