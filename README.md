@@ -12,4 +12,4 @@ The native application for Android and iOS built using RoboVM.
 (To be implemented soon).
 
 ### tristar-eye-assets
-The shared content shared between projects like images, etc.
+The content shared between projects like images, etc.
