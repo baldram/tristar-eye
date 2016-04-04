@@ -56,3 +56,9 @@ section {
     top: 0;
     position: absolute;
 }
+
+#refreshButton {
+    position: fixed;
+    right: 2em;
+    bottom: 2em;
+}
