@@ -44,7 +44,7 @@ public class TricitySchemaService extends AbstractMapService {
 
     private final static String PATH_SEPARATOR = "/";
     private final static String FILE_EXTENSION_SEPARATOR = ".";
-    private final static String TILE_IMAGES_PATH = "images/cityschema";
+    private final static String TILE_IMAGES_PATH = "bower_components/tristar-eye-assets/images/cityschema";
     private final static String TILE_IMAGES_FILE_NAME_SEPARATOR = "-";
     private final static String TILE_IMAGES_FILE_EXTENSION = "png";
 
