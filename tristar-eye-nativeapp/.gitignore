@@ -1,9 +1,0 @@
-#IDEA related
-/.idea/*
-*.iml
-
-#Eclipse related
-.project
-*.launch
-.settings/
-.classpath
