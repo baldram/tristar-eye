@@ -12,8 +12,17 @@
  * the License.
  */
 
-package pl.org.epf.client.local.model;
+package pl.org.epf.client.local.view.widgets;
 
-public enum TristarObjectType {
-    CAMERA, INFO_BOARD
+import com.google.gwt.user.client.ui.HTMLPanel;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.enterprise.context.Dependent;
+
+@Dependent
+public class DivContainer extends HTMLPanel {
+
+    public DivContainer() {
+        super(StringUtils.EMPTY);
+    }
 }

@@ -17,7 +17,6 @@ package pl.org.epf.client.local.services.maps;
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.ESTABLISHMENT;
 import static com.google.gwt.maps.client.placeslib.AutocompleteType.GEOCODE;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -40,7 +39,9 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
-import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.shared.model.TristarObject;
+
+import java.util.List;
 
 public class ClassicMapService extends AbstractMapService {
 
@@ -126,8 +127,8 @@ public class ClassicMapService extends AbstractMapService {
     }
 
     @Override
-    public void addMarkers(ImmutableMap<Integer, TristarObject> cameras) {
-        for (TristarObject camera : cameras.values()) {
+    public void addMarkers(List<TristarObject> cameras) {
+        for (TristarObject camera : cameras) {
             createMarker(camera.getId(), LatLng.newInstance(camera.getLatitude(), camera.getLongitude()), ICON_FILE_CAMERA);
         }
     }

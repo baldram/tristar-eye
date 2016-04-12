@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
@@ -28,7 +27,7 @@ public class TopNavigationPanelUnitTest {
   @Captor
   private ArgumentCaptor<PageChange> pageChangeCaptor;
 
-  private ClickEvent clickEvent = null;
+  private com.google.gwt.user.client.Event clickEvent = null;
 
   @Test
   public void requestSwitchToFavourites() throws Exception {
