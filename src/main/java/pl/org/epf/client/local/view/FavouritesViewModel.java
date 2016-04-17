@@ -17,11 +17,11 @@ package pl.org.epf.client.local.view;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.*;
 import org.jboss.errai.ui.nav.client.local.Page;
-import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.PageChange;
+import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.view.helpers.DomObjectHelper;
 import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.shared.model.TristarObjectType;
@@ -34,13 +34,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static pl.org.epf.client.local.view.FavouritesViewModel.PAGE_NAME;
 
 @Page(path = PAGE_NAME)
 @Templated("Favourites.html#favouritesRoot")
-public class FavouritesViewModel extends Composite {
+public class FavouritesViewModel extends BasePage {
 
     public static final String PAGE_NAME = "favourites";
 
@@ -67,13 +68,16 @@ public class FavouritesViewModel extends Composite {
     @Inject
     private TristarDataService dataService;
 
+    @Inject
+    private Settings userSettings;
+
     @PostConstruct
     public void init() {
         loadFavourites();
     }
 
-    @PageShown
-    public void postInit() {
+    @Override
+    protected void onPageShown() {
         initGallery();
     }
 
@@ -90,7 +94,9 @@ public class FavouritesViewModel extends Composite {
 
     private void loadFavourites() {
         favouritesPlaceholder.clear();
-        List<TristarObject> cameraImages = dataService.getAllCameras();
+        Integer[] favouritesCameraIds = userSettings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
+
+        List<TristarObject> cameraImages = dataService.getCameras(Arrays.asList(favouritesCameraIds));
         for (TristarObject image : cameraImages) {
             createAndAddImage(favouritesPlaceholder, image.getId(), image.getName());
         }

@@ -16,14 +16,12 @@ package pl.org.epf.client.local.view;
 
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
-import org.jboss.errai.ui.nav.client.local.PageShown;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
 import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
@@ -43,7 +41,7 @@ import static pl.org.epf.client.local.view.MapTabViewModel.PAGE_NAME;
 
 @ApplicationScoped
 @Page(role = DefaultPage.class, path = PAGE_NAME)
-public class MapTabViewModel extends Composite {
+public class MapTabViewModel extends BasePage {
     public static final String PAGE_NAME = "map";
 
     private static final String MAP_CONTAINER_ID = "mapContainer";
@@ -92,7 +90,11 @@ public class MapTabViewModel extends Composite {
         LoadApi.go(onLoad, getLoadLibraries(), SENSOR);
     }
 
-    @PageShown
+    @Override
+    protected void onPageShown() {
+        refreshView();
+    }
+
     private void refreshView() {
         // Due to refresh issues according to the MapAPI here is some workaround.
         // http://stackoverflow.com/questions/5454535/fire-resizeevent-in-gwt-google-web-toolkit
