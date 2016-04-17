@@ -9,7 +9,7 @@
   <properties>
     <errai.dev.context>${project.artifactId}</errai.dev.context>
     <errai.jboss.home>${project.build.directory}/wildfly-8.1.0.Final</errai.jboss.home>
-    <errai.version>3.2.2.Final</errai.version>
+    <errai.version>3.2.3.Final</errai.version>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <gwtmockito.version>1.1.6</gwtmockito.version>
@@ -70,6 +70,12 @@
       <version>${powermock.version}</version>
       <scope>test</scope>
     </dependency>
+    <!--dependency>
+      <groupId>com.vaadin.polymer</groupId>
+      <artifactId>vaadin-gwt-polymer-elements</artifactId>
+      <version>1.2.3.0</version>
+    </dependency-->
+
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-jboss-as-support</artifactId>

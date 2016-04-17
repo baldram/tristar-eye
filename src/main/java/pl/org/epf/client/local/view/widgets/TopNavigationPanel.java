@@ -20,10 +20,11 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.SinkNative;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.PageChange;
+import pl.org.epf.client.local.event.PageLoaded;
 import pl.org.epf.client.local.view.FavouritesViewModel;
 import pl.org.epf.client.local.view.MapTabViewModel;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 @Templated("#topNavigationPanel")
@@ -31,12 +32,15 @@ public class TopNavigationPanel extends Composite {
 
     public static final String BUTTON_SUFFIX = "Button";
 
+    //    @Inject
+    //    @DataField
+    //    private Anchor mapButton;
+
     @Inject
     private javax.enterprise.event.Event<PageChange> pageChangeEvent;
 
-    @PostConstruct
-    private void setCurrentState() {
-        // TODO: set current tab based on Navigation when page opened with anchor
+    private void onPageLoaded(@Observes PageLoaded event) {
+        // TODO: update current tab selection
     }
 
     @SuppressWarnings("unused")
