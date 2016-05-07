@@ -14,12 +14,12 @@
 
 package pl.org.epf.client.local.view.widgets;
 
-import com.google.gwt.user.client.Event;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import org.jboss.errai.ui.shared.api.annotations.EventHandler;
-import org.jboss.errai.ui.shared.api.annotations.SinkNative;
+import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import pl.org.epf.client.local.event.PageChange;
 import pl.org.epf.client.local.event.PageLoaded;
 import pl.org.epf.client.local.view.FavouritesViewModel;
 import pl.org.epf.client.local.view.MapTabViewModel;
@@ -30,30 +30,19 @@ import javax.inject.Inject;
 @Templated("#topNavigationPanel")
 public class TopNavigationPanel extends Composite {
 
-    public static final String BUTTON_SUFFIX = "Button";
-
-    //    @Inject
-    //    @DataField
-    //    private Anchor mapButton;
+    public static final String CLASS_TAB_ACTIVE = "is-active";
 
     @Inject
-    private javax.enterprise.event.Event<PageChange> pageChangeEvent;
+    @DataField
+    private TransitionAnchor<FavouritesViewModel> favouritesButton;
 
-    private void onPageLoaded(@Observes PageLoaded event) {
-        // TODO: update current tab selection
+    @Inject
+    @DataField
+    private TransitionAnchor<MapTabViewModel> mapButton;
+
+    private void selectBookmarkedTab(@Observes PageLoaded event) {
+        Anchor currentTab = event.getPageName().equals(MapTabViewModel.PAGE_NAME) ? mapButton : favouritesButton;
+        currentTab.getElement().addClassName(CLASS_TAB_ACTIVE);
     }
 
-    @SuppressWarnings("unused")
-    @EventHandler(FavouritesViewModel.PAGE_NAME + BUTTON_SUFFIX)
-    @SinkNative(Event.ONCLICK)
-    protected void switchToFavourites(Event e) {
-        pageChangeEvent.fire(new PageChange(FavouritesViewModel.PAGE_NAME));
-    }
-
-    @SuppressWarnings("unused")
-    @EventHandler(MapTabViewModel.PAGE_NAME + BUTTON_SUFFIX)
-    @SinkNative(Event.ONCLICK)
-    protected void switchToMap(Event e) {
-        pageChangeEvent.fire(new PageChange(MapTabViewModel.PAGE_NAME));
-    }
 }

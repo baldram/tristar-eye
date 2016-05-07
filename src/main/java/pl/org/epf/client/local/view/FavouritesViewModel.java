@@ -17,10 +17,10 @@ package pl.org.epf.client.local.view;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.*;
 import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import pl.org.epf.client.local.event.PageChange;
 import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.view.helpers.DomObjectHelper;
 import pl.org.epf.client.shared.model.TristarObject;
@@ -31,7 +31,6 @@ import pl.org.epf.client.local.view.widgets.DivContainer;
 import pl.org.epf.client.shared.services.TristarDataService;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import java.util.Arrays;
@@ -60,7 +59,7 @@ public class FavouritesViewModel extends BasePage {
     private ResourcesRetriever retriever;
 
     @Inject
-    private Event<PageChange> pageChangeEvent;
+    private TransitionTo<FavouritesViewModel> toFavourites;
 
     @Inject
     private DomObjectHelper domObjectHelper;
@@ -111,7 +110,7 @@ public class FavouritesViewModel extends BasePage {
 
     @EventHandler("refreshButton")
     public void refreshFavourites(ClickEvent e) {
-        pageChangeEvent.fire(new PageChange(FavouritesViewModel.PAGE_NAME));
+        toFavourites.go();
     }
 
 }
