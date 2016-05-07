@@ -12,24 +12,17 @@
  * the License.
  */
 
-package pl.org.epf.client.local.event;
+package pl.org.epf.client.local.view.widgets;
 
-import org.jboss.errai.bus.client.api.Local;
-import org.jboss.errai.common.client.api.annotations.Portable;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import org.apache.commons.lang3.StringUtils;
 
-@Portable @Local
-public class PageChange {
+import javax.enterprise.context.Dependent;
 
-    private String pageName;
+@Dependent
+public class DivContainer extends HTMLPanel {
 
-    public PageChange() {
-    }
-
-    public PageChange(String page) {
-        this.pageName = page;
-    }
-
-    public String getPageName() {
-        return pageName;
+    public DivContainer() {
+        super(StringUtils.EMPTY);
     }
 }

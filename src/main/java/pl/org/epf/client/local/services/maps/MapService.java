@@ -14,10 +14,11 @@
 
 package pl.org.epf.client.local.services.maps;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.user.client.ui.TextBox;
-import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.shared.model.TristarObject;
+
+import java.util.List;
 
 public interface MapService {
 
@@ -31,5 +32,5 @@ public interface MapService {
 
     MapWidget getMapWidget();
 
-    void addMarkers(ImmutableMap<Integer, TristarObject> cameras);
+    void addMarkers(List<TristarObject> cameras);
 }

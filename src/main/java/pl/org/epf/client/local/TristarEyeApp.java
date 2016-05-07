@@ -19,7 +19,6 @@ import org.jboss.errai.ioc.client.api.EntryPoint;
 
 import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.nav.client.local.Navigation;
-import org.jboss.errai.ui.shared.ServerTemplateProvider;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.view.widgets.ContentContainer;

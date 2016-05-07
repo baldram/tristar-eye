@@ -4,7 +4,7 @@ body {
     font-size: 1.0em;
     font-weight: 300;
     color: #333;
-    padding: 0em;
+    padding: 0;
     margin: 0;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -31,7 +31,7 @@ section {
 .tristar-drawer-header {
     background-color: rgb(79, 125, 201);
     color: #fff;
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
 }
 .tristar-drawer-header .mdl-layout-title {
     font-weight: 300;
@@ -59,6 +59,13 @@ section {
 
 #refreshButton {
     position: fixed;
-    right: 2em;
-    bottom: 2em;
+    right: 0;
+    bottom: 0;
+    margin-right: 0.8em;
+    margin-bottom: 0.8em;
 }
+
+/* @media screen and (max-width: 320px) { */
+/*.ug-textpanel-title.ug-trans-enabled {}*/
+/*.ug-tile .ug-textpanel-title { TODO: set media responsive font-size and line-height here }*/
+/* } */

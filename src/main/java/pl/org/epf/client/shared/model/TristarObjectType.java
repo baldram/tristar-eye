@@ -12,7 +12,7 @@
  * the License.
  */
 
-package pl.org.epf.client.local.model;
+package pl.org.epf.client.shared.model;
 
 public enum TristarObjectType {
     CAMERA, INFO_BOARD

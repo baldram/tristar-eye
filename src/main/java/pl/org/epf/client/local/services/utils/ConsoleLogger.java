@@ -12,22 +12,12 @@
  * the License.
  */
 
-package pl.org.epf.client.local.services.user;
+package pl.org.epf.client.local.services.utils;
 
-import pl.org.epf.client.shared.model.TristarObjectType;
+public class ConsoleLogger {
 
-import javax.inject.Singleton;
-
-@Singleton
-public class Settings {
-    // to handle user settings here
-
-    // TODO: to deal with real data stored in user session
-    public Integer[] getUserFavaouriteObjects(TristarObjectType type) {
-        if (TristarObjectType.CAMERA == type) {
-            return new Integer[]{172,174,175,207,287,291,210,204,209,176,177,178,205,206,208,162,165,169,170,171,183,184,195,196};
-        }
-        return new Integer[]{};
-    }
-
+    public static native void print(String text)
+    /*-{
+        console.log(text);
+    }-*/;
 }

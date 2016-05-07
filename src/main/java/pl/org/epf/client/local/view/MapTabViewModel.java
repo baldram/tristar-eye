@@ -14,23 +14,20 @@
 
 package pl.org.epf.client.local.view;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
-import org.jboss.errai.ui.nav.client.local.PageShown;
 import pl.org.epf.client.local.event.MapViewTypeChange;
-import pl.org.epf.client.local.fixture.StreetCamerasDataSet;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
 import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
 import pl.org.epf.client.local.services.maps.MapService;
-import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.shared.services.TristarDataService;
+import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.local.services.maps.TricitySchemaService;
 
 import javax.annotation.PostConstruct;
@@ -38,12 +35,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.List;
 
 import static pl.org.epf.client.local.view.MapTabViewModel.PAGE_NAME;
 
 @ApplicationScoped
 @Page(role = DefaultPage.class, path = PAGE_NAME)
-public class MapTabViewModel extends Composite {
+public class MapTabViewModel extends BasePage {
     public static final String PAGE_NAME = "map";
 
     private static final String MAP_CONTAINER_ID = "mapContainer";
@@ -60,7 +58,7 @@ public class MapTabViewModel extends Composite {
     private TricitySchemaService citySchemaService;
 
     @Inject
-    private StreetCamerasDataSet streetCamerasMock;
+    private TristarDataService dataService;
 
     @Inject
     private MapSearchInputProvider<TextBox> searchInputProvider;
@@ -73,6 +71,7 @@ public class MapTabViewModel extends Composite {
     private HTMLPanel createContentPanel() {
         HTMLPanel content = new HTMLPanel(StringUtils.EMPTY);
         content.getElement().setId(MAP_CONTAINER_ID);
+        // TODO: set width and height manually to 100% available using Window.getClientWidth();
         return content;
     }
 
@@ -91,7 +90,11 @@ public class MapTabViewModel extends Composite {
         LoadApi.go(onLoad, getLoadLibraries(), SENSOR);
     }
 
-    @PageShown
+    @Override
+    protected void onPageShown() {
+        refreshView();
+    }
+
     private void refreshView() {
         // Due to refresh issues according to the MapAPI here is some workaround.
         // http://stackoverflow.com/questions/5454535/fire-resizeevent-in-gwt-google-web-toolkit
@@ -112,8 +115,8 @@ public class MapTabViewModel extends Composite {
     }
 
     private void addMarkers() {
-        ImmutableMap<Integer, TristarObject> cameras = streetCamerasMock.getCameras();
-        getMapService().addMarkers(cameras);
+        List<TristarObject> markers = dataService.getAllCameras();
+        getMapService().addMarkers(markers);
     }
 
     private ArrayList<LoadApi.LoadLibrary> getLoadLibraries() {

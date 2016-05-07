@@ -14,11 +14,13 @@
 
 package pl.org.epf.client.local.view;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.jboss.errai.GwtMockitoRunnerExtension;
 
+@Ignore
 @RunWith(GwtMockitoRunnerExtension.class)
 public class MapTabViewModelUnitTest {
 

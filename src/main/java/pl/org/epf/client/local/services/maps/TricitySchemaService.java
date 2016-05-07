@@ -14,7 +14,6 @@
 
 package pl.org.epf.client.local.services.maps;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.base.LatLng;
@@ -25,7 +24,9 @@ import com.google.gwt.maps.client.maptypes.ImageMapType;
 import com.google.gwt.maps.client.maptypes.ImageMapTypeOptions;
 import com.google.gwt.maps.client.maptypes.TileUrlCallBack;
 import com.google.gwt.user.client.ui.TextBox;
-import pl.org.epf.client.local.model.TristarObject;
+import pl.org.epf.client.shared.model.TristarObject;
+
+import java.util.List;
 
 public class TricitySchemaService extends AbstractMapService {
 
@@ -128,7 +129,7 @@ public class TricitySchemaService extends AbstractMapService {
     }
 
     @Override
-    public void addMarkers(ImmutableMap<Integer, TristarObject> cameras) {
+    public void addMarkers(List<TristarObject> cameras) {
         // TODO: to add markers using proper lat&lang values for this kind of map
     }
 

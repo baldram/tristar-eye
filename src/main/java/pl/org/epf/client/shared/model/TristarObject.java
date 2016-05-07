@@ -1,4 +1,4 @@
-package pl.org.epf.client.local.model;
+package pl.org.epf.client.shared.model;
 
 public class TristarObject {
     private Integer id;
@@ -6,7 +6,6 @@ public class TristarObject {
     private double latitude;
     private double longitude;
     private String name;
-    private int resourcesCount;
 
     public TristarObject() {
     }
@@ -33,14 +32,6 @@ public class TristarObject {
         this.name = name;
     }
 
-    public int getResourcesCount() {
-        return resourcesCount;
-    }
-
-    public void setResourcesCount(int resourcesCount) {
-        this.resourcesCount = resourcesCount;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -64,4 +55,5 @@ public class TristarObject {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+
 }
