@@ -34,7 +34,7 @@ public abstract class BasePage extends Composite {
     private void setCurrentState() {
         onPageShown();
         if (navigation.getCurrentPage()!=null) {
-            String currentPage = navigation.getCurrentPage().name();
+            String currentPage = navigation.getCurrentPage().getURL();
             updateTabSelection(currentPage);
         }
     }
