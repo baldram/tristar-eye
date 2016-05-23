@@ -14,7 +14,6 @@
 
 package pl.org.epf.client.local.view.widgets;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.nav.client.local.TransitionAnchor;

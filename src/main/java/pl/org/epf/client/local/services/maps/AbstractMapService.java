@@ -22,6 +22,7 @@ import com.google.gwt.maps.client.events.click.ClickMapHandler;
 import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.overlays.MarkerImage;
 import com.google.gwt.maps.client.overlays.MarkerOptions;
+import pl.org.epf.client.shared.model.TristarObject;
 
 abstract class AbstractMapService implements MapService {
 
@@ -45,7 +46,7 @@ abstract class AbstractMapService implements MapService {
 		return mapWidget;
 	}
     
-    protected Marker createMarker(final Integer id, LatLng location, String iconFile) {
+    protected Marker createMarker(final Integer objectId, LatLng location, String iconFile) {
         MarkerOptions options = MarkerOptions.newInstance();
         options.setPosition(location);
         MarkerImage markerImage = MarkerImage.newInstance("images/" + iconFile);
@@ -56,11 +57,26 @@ abstract class AbstractMapService implements MapService {
         marker.addClickHandler(new ClickMapHandler() {
             @Override
             public void onEvent(ClickMapEvent event) {
-            	// TODO: open details dialog
+                TristarObject cameraDetails = getCameraDetails(objectId);
+                showModalDialog(cameraDetails.getName(), getImageUrl(objectId));
             }
         });
 
         return marker;
     }
-	
+
+    abstract String getImageUrl(final Integer objectId);
+
+    abstract TristarObject getCameraDetails(final Integer objectId);
+
+    public final native void showModalDialog(String objName, String imageUrl) /*-{
+        $wnd.showDialog({
+            negative: {title: 'Zamknij'},
+            positive: false,
+            cancelable: true,
+            title: objName,
+            text: '<img src="' + imageUrl + '" class="modalCamView" id="modalCamView" />'
+        });
+    }-*/;
+
 }

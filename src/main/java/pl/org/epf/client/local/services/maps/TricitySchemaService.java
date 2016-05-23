@@ -124,6 +124,16 @@ public class TricitySchemaService extends AbstractMapService {
     }
 
     @Override
+    TristarObject getCameraDetails(Integer objectId) {
+        return null; // TODO try to move this to the abstract class
+    }
+
+    @Override
+    String getImageUrl(Integer objectId) {
+        return null; // TODO try to move this to the abstract class
+    }
+
+    @Override
     public void bindTextBoxWithAutoComplete(TextBox searchBox) {
         // TODO: optional binding for future searching through the schema markers
     }
