@@ -101,11 +101,10 @@ public class FavouritesViewModel extends BasePage {
         }
     }
 
-    private void createAndAddImage(DivContainer row, int resourceId, String name) {
-        String title = resourceId + ":" + name;
+    private void createAndAddImage(DivContainer imagesContainer, int resourceId, String name) {
         String url = retriever.getImageUrl(TristarObjectType.CAMERA, resourceId, true);
-        final Image favouriteImage = domObjectHelper.createImageElement(resourceId, title, url);
-        row.add(favouriteImage);
+        final Image favouriteImage = domObjectHelper.createImageElement(resourceId, name, url);
+        imagesContainer.add(favouriteImage);
     }
 
     @EventHandler("refreshButton")

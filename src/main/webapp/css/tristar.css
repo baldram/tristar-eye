@@ -10,7 +10,7 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
     background-image: linear-gradient(to right top, transparent 33%, black 33%, black 66%, transparent 66%);
     background-size: 3px 3px;
@@ -19,7 +19,7 @@ body {
 section {
     margin: 10px;
 }
-.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
     padding-right: 0;
 }
 .mdl-layout__tab {
@@ -63,6 +63,21 @@ section {
     bottom: 0;
     margin-right: 0.8em;
     margin-bottom: 0.8em;
+}
+
+img.modalCamView {
+    max-width: 100%;
+    height: auto;
+    max-height: 288px;
+}
+
+#orrsDiag {
+    text-align: center;
+}
+
+/** gmaps **/
+.gmnoprint {
+    visibility: hidden;
 }
 
 /* @media screen and (max-width: 320px) { */

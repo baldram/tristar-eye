@@ -16,16 +16,17 @@ package pl.org.epf.client.local.view;
 
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
 import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
 import pl.org.epf.client.local.services.maps.MapService;
+import pl.org.epf.client.local.view.widgets.DivContainer;
 import pl.org.epf.client.shared.services.TristarDataService;
 import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.local.services.maps.TricitySchemaService;
@@ -41,13 +42,15 @@ import static pl.org.epf.client.local.view.MapTabViewModel.PAGE_NAME;
 
 @ApplicationScoped
 @Page(role = DefaultPage.class, path = PAGE_NAME)
+@Templated("MapView.html#mapViewRoot")
 public class MapTabViewModel extends BasePage {
     public static final String PAGE_NAME = "map";
 
-    private static final String MAP_CONTAINER_ID = "mapContainer";
     private static final boolean SENSOR = true;
 
-    private final HTMLPanel mapContainer;
+    @Inject
+    @DataField
+    private DivContainer mapContainer;
 
     private boolean classicMapType = true;
 
@@ -62,18 +65,6 @@ public class MapTabViewModel extends BasePage {
 
     @Inject
     private MapSearchInputProvider<TextBox> searchInputProvider;
-
-    public MapTabViewModel() {
-        mapContainer = createContentPanel();
-        initWidget(mapContainer);
-    }
-
-    private HTMLPanel createContentPanel() {
-        HTMLPanel content = new HTMLPanel(StringUtils.EMPTY);
-        content.getElement().setId(MAP_CONTAINER_ID);
-        // TODO: set width and height manually to 100% available using Window.getClientWidth();
-        return content;
-    }
 
     @PostConstruct
     private void loadMapApi() {
