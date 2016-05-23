@@ -39,8 +39,12 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.org.epf.client.local.services.utils.ResourcesRetriever;
 import pl.org.epf.client.shared.model.TristarObject;
+import pl.org.epf.client.shared.model.TristarObjectType;
+import pl.org.epf.client.shared.services.TristarDataService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class ClassicMapService extends AbstractMapService {
@@ -48,6 +52,12 @@ public class ClassicMapService extends AbstractMapService {
     private static final double INITIAL_LONGITUDE = 18.605209;
     private static final double INITIAL_LATTITUDE = 54.383967;
     private static final int ZOOM = 14;
+
+    @Inject
+    private TristarDataService dataService;
+
+    @Inject
+    private ResourcesRetriever retriever;
 
     public void initializeMap() {
         super.initializeMap();
@@ -131,6 +141,17 @@ public class ClassicMapService extends AbstractMapService {
         for (TristarObject camera : cameras) {
             createMarker(camera.getId(), LatLng.newInstance(camera.getLatitude(), camera.getLongitude()), ICON_FILE_CAMERA);
         }
+    }
+
+    // TODO: try to implement it in the parent abstract class and inject services there
+    @Override
+    TristarObject getCameraDetails(Integer objectId) {
+        return dataService.getCamera(objectId);
+    }
+
+    @Override
+    String getImageUrl(Integer objectId) {
+        return retriever.getImageUrl(TristarObjectType.CAMERA, objectId, true);
     }
 
     @Override
