@@ -57,7 +57,7 @@ section {
     position: absolute;
 }
 
-#refreshButton {
+.tristar-fab {
     position: fixed;
     right: 0;
     bottom: 0;
