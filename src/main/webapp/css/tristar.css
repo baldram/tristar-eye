@@ -57,12 +57,21 @@ section {
     position: absolute;
 }
 
-#refreshButton {
+.tristar-fab, .tristar-fab2 {
     position: fixed;
     right: 0;
-    bottom: 0;
     margin-right: 0.8em;
     margin-bottom: 0.8em;
+}
+.tristar-fab {
+    bottom: 0;
+}
+.tristar-fab2 {
+    bottom: 66px;
+}
+.moreButtonMenuContainer > .mdl-menu__container {
+    bottom: 140px !important;
+    right: 3em !important;
 }
 
 img.modalCamView {

@@ -14,13 +14,16 @@
 
 package pl.org.epf.client.local.view;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.maps.client.LoadApi;
 import com.google.gwt.maps.client.base.LatLng;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
 
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
@@ -51,6 +54,10 @@ public class MapTabViewModel extends BasePage {
     @Inject
     @DataField
     private DivContainer mapContainer;
+
+    @Inject
+    @DataField
+    private Button locationButton;
 
     private boolean classicMapType = true;
 
@@ -129,8 +136,13 @@ public class MapTabViewModel extends BasePage {
         loadMapApi();
     }
 
+    @EventHandler("locationButton")
+    public void setCurrentLocation(ClickEvent e) {
+        classicMapService.setCurrentLocationIfSupported();
+    }
+
     public MapService getMapService() {
         return classicMapType ? classicMapService : citySchemaService;
     }
-    
+
 }

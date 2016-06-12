@@ -77,10 +77,10 @@ public class FavouritesViewModel extends BasePage {
 
     @Override
     protected void onPageShown() {
-        initGallery();
+        initJSLibs();
     }
 
-    public static native void initGallery()
+    public static native void initJSLibs()
     /*-{
         $wnd.jQuery("#favouritesPlaceholder").unitegallery({
             theme_enable_preloader: true,
@@ -89,6 +89,7 @@ public class FavouritesViewModel extends BasePage {
             tile_textpanel_always_on:true,
             theme_appearance_order: "keep"
         });
+        $wnd.componentHandler.upgradeDom('MaterialMenu', 'mdl-menu');
     }-*/;
 
     private void loadFavourites() {

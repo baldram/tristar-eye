@@ -316,6 +316,16 @@
           <artifactId>guava-gwt</artifactId>
           <scope>provided</scope>
         </dependency>
+        <!--dependency>
+          <groupId>com.vividsolutions</groupId>
+          <artifactId>jts-gwt</artifactId>
+          <version>1.14</version>
+        </dependency-->
+        <!--dependency>
+          <groupId>de.desjardins.ol3</groupId>
+          <artifactId>gwt-ol3-client</artifactId>
+          <version>1.0.6</version>
+        </dependency-->
         <dependency>
           <groupId>org.jboss.errai</groupId>
           <artifactId>errai-navigation</artifactId>
