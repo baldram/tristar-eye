@@ -3,8 +3,7 @@ package pl.org.epf.client.shared.model;
 public class TristarObject {
     private Integer id;
     private TristarObjectType type;
-    private double latitude;
-    private double longitude;
+    private String wkt; // TODO: to use here Map<WktDataType, String> or List<Pair<WktDataType, String>>
     private String name;
 
     public TristarObject() {
@@ -40,20 +39,11 @@ public class TristarObject {
         this.id = id;
     }
 
-	public double getLatitude() {
-		return latitude;
-	}
+    public String getWkt() {
+        return wkt;
+    }
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
+    public void setWkt(String wkt) {
+        this.wkt = wkt;
+    }
 }

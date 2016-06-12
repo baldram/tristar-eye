@@ -11,6 +11,7 @@
     "roboto-fontface": "~0.4.5",
     "material-design-icons": "2.2.3",
     "tristar-eye-assets" : "https://github.com/baldram/tristar-eye-assets.git",
-    "mdl-jquery-modal-dialog" : "https://github.com/oRRs/mdl-jquery-modal-dialog.git"
+    "mdl-jquery-modal-dialog" : "https://github.com/oRRs/mdl-jquery-modal-dialog.git",
+    "openlayers": "https://github.com/openlayers/ol3/releases/download/v3.11.1/v3.11.1-dist.zip"
   }
 }

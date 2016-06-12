@@ -40,6 +40,8 @@ import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
+import pl.org.epf.client.local.services.utils.WktUtil;
+import pl.org.epf.client.shared.model.Coordinates;
 import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.shared.model.TristarObjectType;
 import pl.org.epf.client.shared.services.TristarDataService;
@@ -50,7 +52,7 @@ import java.util.List;
 public class ClassicMapService extends AbstractMapService {
 
     private static final double INITIAL_LONGITUDE = 18.605209;
-    private static final double INITIAL_LATTITUDE = 54.383967;
+    private static final double INITIAL_LATITUDE = 54.383967;
     private static final int ZOOM = 14;
 
     @Inject
@@ -58,6 +60,9 @@ public class ClassicMapService extends AbstractMapService {
 
     @Inject
     private ResourcesRetriever retriever;
+
+    @Inject
+    private WktUtil wktUtil;
 
     public void initializeMap() {
         super.initializeMap();
@@ -139,7 +144,11 @@ public class ClassicMapService extends AbstractMapService {
     @Override
     public void addMarkers(List<TristarObject> cameras) {
         for (TristarObject camera : cameras) {
-            createMarker(camera.getId(), LatLng.newInstance(camera.getLatitude(), camera.getLongitude()), ICON_FILE_CAMERA);
+            Coordinates coordinates = wktUtil.getPointAsPair(camera.getWkt());
+            if (coordinates != null) {
+                Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
+                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), ICON_FILE_CAMERA);
+            }
         }
     }
 
@@ -156,7 +165,7 @@ public class ClassicMapService extends AbstractMapService {
 
     @Override
     public double getInitialLatitude() {
-        return INITIAL_LATTITUDE;
+        return INITIAL_LATITUDE;
     }
 
     @Override
