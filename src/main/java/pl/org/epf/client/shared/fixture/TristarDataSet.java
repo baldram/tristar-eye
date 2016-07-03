@@ -6,6 +6,7 @@ import pl.org.epf.client.shared.model.TristarObjectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: to remove when external API is ready
@@ -101,7 +102,7 @@ public class TristarDataSet {
         return null;
     }
 
-    public List<TristarObject> fetch(TristarObjectType type, List<Integer> ids) {
+    public List<TristarObject> fetch(TristarObjectType type, Set<Integer> ids) {
         List<TristarObject> choosenCameras = new ArrayList<>();
         if (TristarObjectType.CAMERA == type) {
             for (Integer id : ids) {

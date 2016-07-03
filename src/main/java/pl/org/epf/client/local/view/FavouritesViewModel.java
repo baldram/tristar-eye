@@ -33,8 +33,8 @@ import pl.org.epf.client.shared.services.TristarDataService;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static pl.org.epf.client.local.view.FavouritesViewModel.PAGE_NAME;
 
@@ -94,9 +94,9 @@ public class FavouritesViewModel extends BasePage {
 
     private void loadFavourites() {
         favouritesPlaceholder.clear();
-        Integer[] favouritesCameraIds = userSettings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
+        Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
 
-        List<TristarObject> cameraImages = dataService.getCameras(Arrays.asList(favouritesCameraIds));
+        List<TristarObject> cameraImages = dataService.getCameras(favouritesCameraIds);
         for (TristarObject image : cameraImages) {
             createAndAddImage(favouritesPlaceholder, image.getId(), image.getName());
         }
