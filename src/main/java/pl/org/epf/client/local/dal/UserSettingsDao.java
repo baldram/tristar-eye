@@ -32,10 +32,10 @@ public class UserSettingsDao {
         // TODO: to handle object type
 
         // as Errai's implementation of JPA doesn't offer @ElementCollection, this manual conversion is needed
-        return parseIdsString(getFavouriteCamersIdsString());
+        return parseIdsString(getUserSelectedCameraIdsString());
     }
 
-    private String getFavouriteCamersIdsString() {
+    private String getUserSelectedCameraIdsString() {
         UserSettings settings = fetchUserSettings();
         if (settings != null) {
             return settings.getFavouriteCameraIds();
@@ -44,6 +44,7 @@ public class UserSettingsDao {
     }
 
     public UserSettings fetchUserSettings() {
+        // single record (for current local user only) is stored
         return entityManager.find(UserSettings.class, UserSettings.FIRST_ROW);
     }
 
