@@ -39,6 +39,7 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
 import pl.org.epf.client.local.services.utils.WktUtil;
 import pl.org.epf.client.shared.model.Coordinates;
@@ -48,6 +49,7 @@ import pl.org.epf.client.shared.services.TristarDataService;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 public class ClassicMapService extends AbstractMapService {
 
@@ -64,9 +66,21 @@ public class ClassicMapService extends AbstractMapService {
     @Inject
     private WktUtil wktUtil;
 
+    @Inject
+    private Settings settings;
+
+    private Set<Integer> favouriteCameras;
+
     public void initializeMap() {
         super.initializeMap();
+        favouriteCameras = settings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
         initializeTrafficLayer(getMapWidget());
+    }
+
+    private TrafficLayer initializeTrafficLayer(MapWidget assignedMapWidget) {
+        final TrafficLayer trafficLayer = TrafficLayer.newInstance();
+        trafficLayer.setMap(assignedMapWidget);
+        return trafficLayer;
     }
 
     @Override
@@ -76,12 +90,6 @@ public class ClassicMapService extends AbstractMapService {
         opts.setMapTypeId(MapTypeId.ROADMAP);
         // ops.setCenter() can't be used here when service is injected since LatLng.newInstance() starts using "maps" component before it's initialized by AjaxLoader.loadApi()
         return opts;
-    }
-
-    private TrafficLayer initializeTrafficLayer(MapWidget assignedMapWidget) {
-        final TrafficLayer trafficLayer = TrafficLayer.newInstance();
-        trafficLayer.setMap(assignedMapWidget);
-        return trafficLayer;
     }
 
     public void setCurrentLocationIfSupported() {
@@ -147,7 +155,8 @@ public class ClassicMapService extends AbstractMapService {
             Coordinates coordinates = wktUtil.getPointAsPair(camera.getWkt());
             if (coordinates != null) {
                 Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
-                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), ICON_FILE_CAMERA);
+                String cameraIconFile = (favouriteCameras.contains(camera.getId())) ? ICON_FILE_CAMERA_SELECTED : ICON_FILE_CAMERA;
+                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
             }
         }
     }

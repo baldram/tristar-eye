@@ -33,7 +33,8 @@ import pl.org.epf.client.shared.model.TristarObject;
 abstract class AbstractMapService implements MapService {
 
     protected static final String ICON_FILE_CAMERA = "camera.png";
-	private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
+    protected static final String ICON_FILE_CAMERA_SELECTED = "camera-selected.png";
+    private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
     private static final String MAX_SIZE = "100%";
     private static final int LONG_PRESS_TIME = 500;
 
