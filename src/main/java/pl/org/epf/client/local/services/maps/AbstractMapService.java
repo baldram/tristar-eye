@@ -27,20 +27,21 @@ import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.overlays.MarkerImage;
 import com.google.gwt.maps.client.overlays.MarkerOptions;
 import com.google.gwt.user.client.Timer;
-import pl.org.epf.client.local.services.utils.ConsoleLogger;
 import pl.org.epf.client.shared.model.TristarObject;
 
 abstract class AbstractMapService implements MapService {
 
     protected static final String ICON_FILE_CAMERA = "camera.png";
     protected static final String ICON_FILE_CAMERA_SELECTED = "camera-selected.png";
+    protected static final String IMAGES_PATH = "images/";
     private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
     private static final String MAX_SIZE = "100%";
     private static final int LONG_PRESS_TIME = 500;
 
     private MapWidget mapWidget;
 
-    private Integer currentlyPressedMarker;
+    private Integer clickedMarkerRelatedObjectId;
+    private Marker clickedMarker;
     private boolean isMarkerLongPressed = false;
 
     abstract MapOptions getMapOptions();
@@ -57,27 +58,29 @@ abstract class AbstractMapService implements MapService {
 		return mapWidget;
 	}
 
-    final Timer longPressTimer = new Timer(){
+    final Timer longPressTimer = new Timer() {
         @Override
         public void run() {
-            ConsoleLogger.print("Long pressed " + currentlyPressedMarker + "!!!");
             isMarkerLongPressed = true;
+            updateFavourites(clickedMarker, clickedMarkerRelatedObjectId);
         }
     };
+
+    protected abstract void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker);
 
     protected Marker createMarker(final Integer objectId, LatLng location, String iconFile) {
         MarkerOptions options = MarkerOptions.newInstance();
         options.setPosition(location);
-        MarkerImage markerImage = MarkerImage.newInstance("images/" + iconFile);
+        final MarkerImage markerImage = MarkerImage.newInstance(iconFile);
         options.setIcon(markerImage);
-        Marker marker = Marker.newInstance(options);
+        final Marker marker = Marker.newInstance(options);
         marker.setMap(getMapWidget());
 
         marker.addClickHandler(new ClickMapHandler() {
             @Override
             public void onEvent(ClickMapEvent event) {
                 if (!isMarkerLongPressed) {
-                    TristarObject cameraDetails = getCameraDetails(objectId);
+                    final TristarObject cameraDetails = getCameraDetails(objectId);
                     showModalDialog(cameraDetails.getName(), getImageUrl(objectId));
                 }
             }
@@ -87,7 +90,8 @@ abstract class AbstractMapService implements MapService {
             @Override
             public void onEvent(MouseDownMapEvent event) {
                 isMarkerLongPressed = false;
-                currentlyPressedMarker = objectId;
+                clickedMarkerRelatedObjectId = objectId;
+                clickedMarker = marker;
                 longPressTimer.schedule(LONG_PRESS_TIME);
             }
         });
