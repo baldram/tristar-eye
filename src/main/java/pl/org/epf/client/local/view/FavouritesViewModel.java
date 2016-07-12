@@ -94,7 +94,7 @@ public class FavouritesViewModel extends BasePage {
 
     private void loadFavourites() {
         favouritesPlaceholder.clear();
-        Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
+        Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteCameras();
 
         List<TristarObject> cameraImages = dataService.getCameras(favouritesCameraIds);
         for (TristarObject image : cameraImages) {

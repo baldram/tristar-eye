@@ -33,6 +33,7 @@ import com.google.gwt.maps.client.events.bounds.BoundsChangeMapHandler;
 import com.google.gwt.maps.client.events.place.PlaceChangeMapEvent;
 import com.google.gwt.maps.client.events.place.PlaceChangeMapHandler;
 import com.google.gwt.maps.client.layers.TrafficLayer;
+import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.placeslib.Autocomplete;
 import com.google.gwt.maps.client.placeslib.AutocompleteOptions;
 import com.google.gwt.maps.client.placeslib.PlaceGeometry;
@@ -73,7 +74,7 @@ public class ClassicMapService extends AbstractMapService {
 
     public void initializeMap() {
         super.initializeMap();
-        favouriteCameras = settings.getUserFavaouriteObjects(TristarObjectType.CAMERA);
+        favouriteCameras = settings.getUserFavaouriteCameras();
         initializeTrafficLayer(getMapWidget());
     }
 
@@ -155,10 +156,14 @@ public class ClassicMapService extends AbstractMapService {
             Coordinates coordinates = wktUtil.getPointAsPair(camera.getWkt());
             if (coordinates != null) {
                 Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
-                String cameraIconFile = (favouriteCameras.contains(camera.getId())) ? ICON_FILE_CAMERA_SELECTED : ICON_FILE_CAMERA;
+                String cameraIconFile = getCameraIcon(camera.getId());
                 createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
             }
         }
+    }
+
+    private String getCameraIcon(Integer cameraId) {
+        return IMAGES_PATH + ((favouriteCameras.contains(cameraId)) ? ICON_FILE_CAMERA_SELECTED : ICON_FILE_CAMERA);
     }
 
     // TODO: try to implement it in the parent abstract class and inject services there
@@ -180,5 +185,11 @@ public class ClassicMapService extends AbstractMapService {
     @Override
     public double getInitialLongitude() {
         return INITIAL_LONGITUDE;
+    }
+
+    @Override
+    protected void updateFavourites(Marker clickedMarker, Integer objectId) {
+        favouriteCameras = settings.addOrRemoveFavouriteCamera(objectId);
+        clickedMarker.setIcon(getCameraIcon(objectId));
     }
 }

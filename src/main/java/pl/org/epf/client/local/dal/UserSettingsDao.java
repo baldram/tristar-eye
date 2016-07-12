@@ -25,6 +25,10 @@ import java.util.Set;
 
 public class UserSettingsDao {
 
+    private static final String DATA_STRING_START_REGEXP = "\\[";
+    private static final String DATA_STRING_END = "]";
+    private static final String DATA_STRING_SEPARATOR = ", ";
+
     @Inject
     private EntityManager entityManager;
 
@@ -32,7 +36,7 @@ public class UserSettingsDao {
         // TODO: to handle object type
 
         // as Errai's implementation of JPA doesn't offer @ElementCollection, this manual conversion is needed
-        return parseIdsString(getUserSelectedCameraIdsString());
+        return getParsedIdSet(getUserSelectedCameraIdsString());
     }
 
     private String getUserSelectedCameraIdsString() {
@@ -43,33 +47,45 @@ public class UserSettingsDao {
         return StringUtils.EMPTY;
     }
 
-    public UserSettings fetchUserSettings() {
+    private UserSettings fetchUserSettings() {
         // single record (for current local user only) is stored
         return entityManager.find(UserSettings.class, UserSettings.FIRST_ROW);
     }
 
-    private Set<Integer> parseIdsString(String commaSeparatedIdsString) {
+    private Set<Integer> getParsedIdSet(String commaSeparatedIdsString) {
         Set<Integer> cameraIds = new HashSet<>();
         if (!commaSeparatedIdsString.isEmpty()) {
-            String[] cameraIdsArray = commaSeparatedIdsString.split(",");
-            for (String cameraStringId : cameraIdsArray) {
+            for (String cameraStringId : parseDigits(commaSeparatedIdsString)) {
                 cameraIds.add(new Integer(cameraStringId));
             }
         }
         return cameraIds;
     }
 
-    public void storeFavouriteCameras(Set<Long> cameraIds) {
-        String readyToStoreString = cameraIds.toString();
+    private String[] parseDigits(String commaSeparatedIdsString) {
+        String cleanedUpInput = commaSeparatedIdsString.replaceFirst(DATA_STRING_START_REGEXP, "");
+        if (cleanedUpInput.endsWith(DATA_STRING_END)) {
+            cleanedUpInput = cleanedUpInput.substring(0, cleanedUpInput.length() - 1);
+        }
+        return cleanedUpInput.split(DATA_STRING_SEPARATOR);
+    }
 
+    public void storeFavouriteCameras(Set<Integer> cameraIds) {
+        String cameraIdsString = cameraIds.toString();
+        UserSettings settings = createOrUpdateSettingsObject(cameraIdsString);
+        entityManager.persist(settings);
+        entityManager.flush(); // TODO: could be flushed once in different place on page transition or leaving...
+    }
+
+    private UserSettings createOrUpdateSettingsObject(String cameraIdsString) {
         UserSettings settings = fetchUserSettings();
         if (settings == null) {
             settings = new UserSettings();
             settings.setId(UserSettings.FIRST_ROW);
         }
-        settings.setFavouriteCameraIds(readyToStoreString);
+        settings.setFavouriteCameraIds(cameraIdsString);
         settings.setLastUpdated(new Date(System.currentTimeMillis()));
-        entityManager.persist(settings);
+        return settings;
     }
 
 }

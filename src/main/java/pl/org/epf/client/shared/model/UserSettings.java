@@ -21,10 +21,16 @@ import java.util.Date;
 @Entity
 public class UserSettings {
 
-    public static Long FIRST_ROW = 1L;
+    /**
+     * Default row for user settings. In the futer it opens possibility
+     * to define user profiles so that for instance user would be able
+     * to have different favourites set (let' say: "weekend profile" and
+     * "working day profile")
+     */
+    public static int FIRST_ROW = 1;
 
     @Id
-    private Long id;
+    private int id;
 
     private Date lastUpdated;
 
@@ -51,11 +57,11 @@ public class UserSettings {
         this.favouriteCameraIds = favouriteCameraIds;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

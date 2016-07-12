@@ -29,19 +29,29 @@ public class Settings {
     @Inject
     private UserSettingsDao userSettings;
 
-    public Set<Integer> getUserFavaouriteObjects(TristarObjectType type) {
-        Set<Integer> userObjects = userSettings.getAllUserObjectIds(type);
+    public Set<Integer> getUserFavaouriteCameras() {
+        Set<Integer> userObjects = userSettings.getAllUserObjectIds(TristarObjectType.CAMERA);
+
         if (userObjects.size() > 0) {
             return userObjects;
         }
-        // TODO: to use default values based on the type
-        // TODO: empty list here; default list would be a copy of default data copied to the user settings
-        return new HashSet<>(Arrays.asList(getDefaultUserFavaouriteObjects(type)));
+        return new HashSet<>(Arrays.asList(getDefaultUserFavaouriteObjects(TristarObjectType.CAMERA)));
+    }
+
+    public Set<Integer> addOrRemoveFavouriteCamera(Integer id) {
+        Set<Integer> selectedCameras = getUserFavaouriteCameras();
+        if (selectedCameras.contains(id)) {
+            selectedCameras.remove(id);
+        } else {
+            selectedCameras.add(id);
+        }
+        userSettings.storeFavouriteCameras(selectedCameras);
+        return selectedCameras;
     }
 
     public Integer[] getDefaultUserFavaouriteObjects(TristarObjectType type) {
         if (TristarObjectType.CAMERA == type) {
-            return new Integer[]{172,174,175,207,287,291,210,204,209,176,177,178,205,206,208,162,165,169,170,171,183,184,195,196};
+            return new Integer[] { 165, 168, 170, 172, 173, 174, 175, 176, 177, 204, 205, 206, 207, 208, 209, 210, 287, 291 };
         }
         return new Integer[]{};
     }
