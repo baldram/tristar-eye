@@ -47,8 +47,8 @@ public class TopNavigationPanel extends Composite {
     private void selectBookmarkedTab(@Observes PageLoaded event) {
         Anchor currentTab = mapButton; // default
 
-        if (event.getPageName().equals(MapTabViewModel.PAGE_NAME)) {
-            currentTab = mapButton;
+        if (event.getPageName().equals(FavouritesViewModel.PAGE_NAME)) {
+            currentTab = favouritesButton;
         } else if (event.getPageName().equals(ListViewModel.PAGE_NAME)) {
             currentTab = listButton;
         }
