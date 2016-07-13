@@ -21,6 +21,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.PageLoaded;
 import pl.org.epf.client.local.view.FavouritesViewModel;
+import pl.org.epf.client.local.view.ListViewModel;
 import pl.org.epf.client.local.view.MapTabViewModel;
 
 import javax.enterprise.event.Observes;
@@ -39,8 +40,19 @@ public class TopNavigationPanel extends Composite {
     @DataField
     private TransitionAnchor<MapTabViewModel> mapButton;
 
+    @Inject
+    @DataField
+    private TransitionAnchor<ListViewModel> listButton;
+
     private void selectBookmarkedTab(@Observes PageLoaded event) {
-        Anchor currentTab = event.getPageName().equals(MapTabViewModel.PAGE_NAME) ? mapButton : favouritesButton;
+        Anchor currentTab = mapButton; // default
+
+        if (event.getPageName().equals(MapTabViewModel.PAGE_NAME)) {
+            currentTab = mapButton;
+        } else if (event.getPageName().equals(ListViewModel.PAGE_NAME)) {
+            currentTab = listButton;
+        }
+
         currentTab.getElement().addClassName(CLASS_TAB_ACTIVE);
     }
 

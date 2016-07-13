@@ -39,7 +39,7 @@ import java.util.Set;
 import static pl.org.epf.client.local.view.FavouritesViewModel.PAGE_NAME;
 
 @Page(path = PAGE_NAME)
-@Templated("Favourites.html#favouritesRoot")
+@Templated("FavouritesView.html#favouritesRoot")
 public class FavouritesViewModel extends BasePage {
 
     public static final String PAGE_NAME = "favourites";
