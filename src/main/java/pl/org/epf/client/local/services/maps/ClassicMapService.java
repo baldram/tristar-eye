@@ -137,6 +137,7 @@ public class ClassicMapService extends AbstractMapService {
                 getMapWidget().panTo(center);
                 getMapWidget().setZoom(ZOOM);
 
+                // TODO: switch page to map automatically
                 GWT.log("place changed center=" + center);
             }
         });

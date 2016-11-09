@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.SinkNative;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import pl.org.epf.client.local.event.FavouritesModify;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 
 import javax.inject.Inject;
@@ -31,11 +32,28 @@ public class Sidebar extends Composite {
     @Inject
     private javax.enterprise.event.Event<MapViewTypeChange> mapTypeChangeEvent;
 
+    @Inject
+    private javax.enterprise.event.Event<FavouritesModify> favouritesModifyEvent;
+
     @SuppressWarnings("unused")
     @EventHandler("mapTypeToggle")
     @SinkNative(Event.ONCLICK)
     private void onMapTypeChangeClicked(Event e) {
         mapTypeChangeEvent.fire(new MapViewTypeChange());
+    }
+
+    @SuppressWarnings("unused")
+    @EventHandler("removeAllFavouritesToggle")
+    @SinkNative(Event.ONCLICK)
+    private void onRemoveAllFavouritesClicked(Event e) {
+        favouritesModifyEvent.fire(new FavouritesModify(FavouritesModify.ModificationType.REMOVE_ALL));
+    }
+
+    @SuppressWarnings("unused")
+    @EventHandler("restoreDefaultFavouritesToggle")
+    @SinkNative(Event.ONCLICK)
+    private void onRestoreDefaultFavouritesClicked(Event e) {
+        favouritesModifyEvent.fire(new FavouritesModify(FavouritesModify.ModificationType.RESTORE_DEFAULT));
     }
 
 }

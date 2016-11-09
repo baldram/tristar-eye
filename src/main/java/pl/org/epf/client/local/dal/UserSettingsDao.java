@@ -54,12 +54,17 @@ public class UserSettingsDao {
 
     private Set<Integer> getParsedIdSet(String commaSeparatedIdsString) {
         Set<Integer> cameraIds = new HashSet<>();
-        if (!commaSeparatedIdsString.isEmpty()) {
+
+        if (!isEmptyCamerasList(commaSeparatedIdsString)) {
             for (String cameraStringId : parseDigits(commaSeparatedIdsString)) {
                 cameraIds.add(new Integer(cameraStringId));
             }
         }
         return cameraIds;
+    }
+
+    private boolean isEmptyCamerasList(String commaSeparatedIdsString) {
+        return commaSeparatedIdsString.isEmpty() || commaSeparatedIdsString.equals("[]");
     }
 
     private String[] parseDigits(String commaSeparatedIdsString) {

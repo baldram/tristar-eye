@@ -97,6 +97,10 @@ public class FavouritesViewModel extends BasePage {
         Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteCameras();
 
         List<TristarObject> cameraImages = dataService.getCameras(favouritesCameraIds);
+        if (cameraImages.size() == 0) {
+            // TODO: to show message: "please add cameras"
+            return;
+        }
         for (TristarObject image : cameraImages) {
             createAndAddImage(favouritesPlaceholder, image.getId(), image.getName());
         }

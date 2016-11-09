@@ -70,7 +70,7 @@ section {
 .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-icon {
     margin-right: 12px;
 }
-.tristar-context-options > li {
+.tristar-context-options-disabled {
     color: lightgray;
 }
 img.modalCamView {
