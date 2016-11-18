@@ -21,6 +21,7 @@ import pl.org.epf.client.shared.model.TristarObjectType;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 // TODO: create REST client when API ready
 // @Patch("/objects")
@@ -44,7 +45,7 @@ public class TristarDataService {
 
     // @GET @Path("/cameras/{ids}")
     // @Produces("application/json")
-    public List<TristarObject> getCameras(/*@PathParam("ids")*/ List<Integer> ids) {
+    public List<TristarObject> getCameras(/*@PathParam("ids")*/ Set<Integer> ids) {
         return camerasDataSet.fetch(TristarObjectType.CAMERA, ids);
     }
 }

@@ -6,6 +6,7 @@ import pl.org.epf.client.shared.model.TristarObjectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: to remove when external API is ready
@@ -73,8 +74,34 @@ public class TristarDataSet {
                 put(212, createCameraObject(212, "[POINT (2074384.83229911 7240777.53039013)]", "Jana z Kolna")).
                 put(213, createCameraObject(213, "[POINT (2074309.24636486 7242300.71465318)]", "Marynarki Polskiej-Reja")).
                 put(214, createCameraObject(214, "[POINT (2076114.06926909 7243973.69133006)]", "Marynarki Polskiej-Uczniowska")).
-                put(287, createCameraObject(287, "[POINT (2069313.11629857 7242340.66160707)]", "Żołnierzy Wyklętych-Chrzanowskiego")).
+                put(215, createCameraObject(215, "[POINT (2076754.8242581 7235892.91298561)]", "Podwale Przedmiejskie - Chmielna")).
+                put(216, createCameraObject(216, "[POINT (2078958.50489784 7236594.02184581)]", "Elbląska - Głęboka")).
+                put(217, createCameraObject(217, "[POINT (2082012.22116928 7236941.63921768)]", "Elbląska - Miałki Szlak")).
+                put(218, createCameraObject(218, "[POINT (2082722.21688156 7237073.24124015)]", "Elbląska - Sztutowska")).
+                put(219, createCameraObject(219, "[POINT (2075237.98487655 7236369.41573128)]", "3 maja - Armii Krajowej")).
+                put(220, createCameraObject(220, "[POINT (2072442.86378222 7235537.13039892)]", "Armii Krajowej - Sikorskiego")).
+                put(221, createCameraObject(221, "[POINT (2072442.86378222 7235537.13039892)]", "Armii Krajowej - Sikorskiego 2")). // ta sama pozycja - jak punkt sie wyswietla?
+                put(222, createCameraObject(222, "[POINT (2070582.49245208 7234477.32614731)]", "Armii Krajowej - Łostowicka - Warszawska")).
+                put(273, createCameraObject(273, "[POINT (2063495.6710292 7267280.86499017)]", "Władysława IV - Piłsudskiego")).
+                put(274, createCameraObject(274, "[POINT (2063475.52220137 7266655.61522735)]", "Al. Zwycięstwa - Nowa Kopernika")).
+                put(275, createCameraObject(275, "[POINT (2063655.303179 7264885.20776424)]", "Al. Zwycięstwa - Redłowska")).
+                put(276, createCameraObject(276, "[POINT (2063919.79828912 7263976.86701918)]", "Al. Zwycięstwa - Stryjska")).
+                put(277, createCameraObject(277, "[POINT (2064483.63150999 7262605.25931133)]", "Al. Zwycięstwa - Wielkopolska")).
+                put(278, createCameraObject(278, "[POINT (2065248.9530092 7261460.9353883)]", "Al. Zwycięstwa - Orłowska")).
+                put(279, createCameraObject(279, "[POINT (2064027.11027825 7262418.42341175)]", "Wielkopolska - Lotników - Inżynierska - Kościelna")).
+                put(280, createCameraObject(280, "[POINT (2062950.4281633 7261884.38474386)]", "Wielkopolska - Łowicka - Kowieńska")).
+                put(281, createCameraObject(281, "[POINT (2060965.37900347 7260225.20723275)]", "Wielkopolska - Racławicka")).
+                put(282, createCameraObject(282, "[POINT (2060421.36065196 7259509.14883125)]", "Wielkopolska - Sopocka - Nowodworcowa")).
+                put(283, createCameraObject(283, "[POINT (2058259.31350178 7259889.19950413)]", "Chwaszczyńska - Brzechwy - Gryfa Pomorskiego")).
+                put(284, createCameraObject(284, "[POINT (2057312.20727411 7260124.63328337)]", "Chwaszczyńska - Nowowiczlińska")).
+                put(286, createCameraObject(286, "[POINT (209280.642691354 319620.626729217)]", "Nowa testowa po zmianie")). // WTF????
+                put(287, createCameraObject(287, "[POINT (2069313.11629857 7242340.66160707)]", "Żołnierzy Wykletych - Chrzanowskiego")).
+                put(288, createCameraObject(288, "[POINT (2065392.7777913 7248221.00717615)]", "Spacerowa - Opacka")).
+                put(289, createCameraObject(289, "[POINT (2075214.05118603 7237081.45450193)]", "3 Maja - Hucisko - Nowe Ogrody")).
+                put(290, createCameraObject(290, "[POINT (2073922.52245384 7240303.81729576)]", "Zwycięstwa - Trauguta")).
                 put(291, createCameraObject(291, "[POINT (2068528.09124949 7245055.04613159)]", "Grunwaldzka-Abrahama")).
+                put(292, createCameraObject(292, "[POINT (2060618.39615067 7236732.30295635)]", "Kartuska - Kalinowa")).
+
                 build();
     }
 
@@ -101,7 +128,7 @@ public class TristarDataSet {
         return null;
     }
 
-    public List<TristarObject> fetch(TristarObjectType type, List<Integer> ids) {
+    public List<TristarObject> fetch(TristarObjectType type, Set<Integer> ids) {
         List<TristarObject> choosenCameras = new ArrayList<>();
         if (TristarObjectType.CAMERA == type) {
             for (Integer id : ids) {

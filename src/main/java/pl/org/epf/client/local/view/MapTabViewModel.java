@@ -25,6 +25,7 @@ import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import pl.org.epf.client.local.event.FavouritesModify;
 import pl.org.epf.client.local.event.MapViewTypeChange;
 import pl.org.epf.client.local.services.maps.ClassicMapService;
 import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
@@ -133,6 +134,11 @@ public class MapTabViewModel extends BasePage {
     private void onMapTypeChange(@Observes MapViewTypeChange event) {
         classicMapType = !classicMapType;
         // TODO: to optimize and avoid loading whole the API each time
+        loadMapApi();
+    }
+
+    @SuppressWarnings("unused")
+    private void onFavouritesModified(@Observes FavouritesModify event) {
         loadMapApi();
     }
 

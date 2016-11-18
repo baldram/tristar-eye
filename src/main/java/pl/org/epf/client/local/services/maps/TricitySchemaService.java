@@ -23,6 +23,7 @@ import com.google.gwt.maps.client.controls.MapTypeControlOptions;
 import com.google.gwt.maps.client.maptypes.ImageMapType;
 import com.google.gwt.maps.client.maptypes.ImageMapTypeOptions;
 import com.google.gwt.maps.client.maptypes.TileUrlCallBack;
+import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.user.client.ui.TextBox;
 import pl.org.epf.client.shared.model.TristarObject;
 
@@ -151,5 +152,10 @@ public class TricitySchemaService extends AbstractMapService {
     @Override
     public double getInitialLongitude() {
         return 0;
+    }
+
+    @Override
+    protected void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker) {
+        //TODO: to consider moving implementation to parent for all derived classes
     }
 }

@@ -57,7 +57,7 @@ section {
     position: absolute;
 }
 
-.tristar-fab, .tristar-fab2 {
+.tristar-fab {
     position: fixed;
     right: 0;
     margin-right: 0.8em;
@@ -66,14 +66,13 @@ section {
 .tristar-fab {
     bottom: 0;
 }
-.tristar-fab2 {
-    bottom: 66px;
-}
-.moreButtonMenuContainer > .mdl-menu__container {
-    bottom: 140px !important;
-    right: 3em !important;
-}
 
+.mdl-list__item .mdl-list__item-primary-content .mdl-list__item-icon {
+    margin-right: 12px;
+}
+.tristar-context-options-disabled {
+    color: lightgray;
+}
 img.modalCamView {
     max-width: 100%;
     height: auto;

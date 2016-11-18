@@ -33,12 +33,14 @@ import com.google.gwt.maps.client.events.bounds.BoundsChangeMapHandler;
 import com.google.gwt.maps.client.events.place.PlaceChangeMapEvent;
 import com.google.gwt.maps.client.events.place.PlaceChangeMapHandler;
 import com.google.gwt.maps.client.layers.TrafficLayer;
+import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.placeslib.Autocomplete;
 import com.google.gwt.maps.client.placeslib.AutocompleteOptions;
 import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
 import pl.org.epf.client.local.services.utils.WktUtil;
 import pl.org.epf.client.shared.model.Coordinates;
@@ -48,6 +50,7 @@ import pl.org.epf.client.shared.services.TristarDataService;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 public class ClassicMapService extends AbstractMapService {
 
@@ -64,9 +67,21 @@ public class ClassicMapService extends AbstractMapService {
     @Inject
     private WktUtil wktUtil;
 
+    @Inject
+    private Settings settings;
+
+    private Set<Integer> favouriteCameras;
+
     public void initializeMap() {
         super.initializeMap();
+        favouriteCameras = settings.getUserFavaouriteCameras();
         initializeTrafficLayer(getMapWidget());
+    }
+
+    private TrafficLayer initializeTrafficLayer(MapWidget assignedMapWidget) {
+        final TrafficLayer trafficLayer = TrafficLayer.newInstance();
+        trafficLayer.setMap(assignedMapWidget);
+        return trafficLayer;
     }
 
     @Override
@@ -76,12 +91,6 @@ public class ClassicMapService extends AbstractMapService {
         opts.setMapTypeId(MapTypeId.ROADMAP);
         // ops.setCenter() can't be used here when service is injected since LatLng.newInstance() starts using "maps" component before it's initialized by AjaxLoader.loadApi()
         return opts;
-    }
-
-    private TrafficLayer initializeTrafficLayer(MapWidget assignedMapWidget) {
-        final TrafficLayer trafficLayer = TrafficLayer.newInstance();
-        trafficLayer.setMap(assignedMapWidget);
-        return trafficLayer;
     }
 
     public void setCurrentLocationIfSupported() {
@@ -128,6 +137,7 @@ public class ClassicMapService extends AbstractMapService {
                 getMapWidget().panTo(center);
                 getMapWidget().setZoom(ZOOM);
 
+                // TODO: switch page to map automatically
                 GWT.log("place changed center=" + center);
             }
         });
@@ -147,9 +157,14 @@ public class ClassicMapService extends AbstractMapService {
             Coordinates coordinates = wktUtil.getPointAsPair(camera.getWkt());
             if (coordinates != null) {
                 Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
-                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), ICON_FILE_CAMERA);
+                String cameraIconFile = getCameraIcon(camera.getId());
+                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
             }
         }
+    }
+
+    private String getCameraIcon(Integer cameraId) {
+        return IMAGES_PATH + ((favouriteCameras.contains(cameraId)) ? ICON_FILE_CAMERA_SELECTED : ICON_FILE_CAMERA);
     }
 
     // TODO: try to implement it in the parent abstract class and inject services there
@@ -171,5 +186,11 @@ public class ClassicMapService extends AbstractMapService {
     @Override
     public double getInitialLongitude() {
         return INITIAL_LONGITUDE;
+    }
+
+    @Override
+    protected void updateFavourites(Marker clickedMarker, Integer objectId) {
+        favouriteCameras = settings.addOrRemoveFavouriteCamera(objectId);
+        clickedMarker.setIcon(getCameraIcon(objectId));
     }
 }

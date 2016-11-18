@@ -19,18 +19,30 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.base.LatLng;
 import com.google.gwt.maps.client.events.click.ClickMapEvent;
 import com.google.gwt.maps.client.events.click.ClickMapHandler;
+import com.google.gwt.maps.client.events.mousedown.MouseDownMapEvent;
+import com.google.gwt.maps.client.events.mousedown.MouseDownMapHandler;
+import com.google.gwt.maps.client.events.mouseup.MouseUpMapEvent;
+import com.google.gwt.maps.client.events.mouseup.MouseUpMapHandler;
 import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.overlays.MarkerImage;
 import com.google.gwt.maps.client.overlays.MarkerOptions;
+import com.google.gwt.user.client.Timer;
 import pl.org.epf.client.shared.model.TristarObject;
 
 abstract class AbstractMapService implements MapService {
 
     protected static final String ICON_FILE_CAMERA = "camera.png";
-	private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
+    protected static final String ICON_FILE_CAMERA_SELECTED = "camera-selected.png";
+    protected static final String IMAGES_PATH = "images/";
+    private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
     private static final String MAX_SIZE = "100%";
-    
-	private MapWidget mapWidget;
+    private static final int LONG_PRESS_TIME = 500;
+
+    private MapWidget mapWidget;
+
+    private Integer clickedMarkerRelatedObjectId;
+    private Marker clickedMarker;
+    private boolean isMarkerLongPressed = false;
 
     abstract MapOptions getMapOptions();
 
@@ -45,20 +57,49 @@ abstract class AbstractMapService implements MapService {
 	public MapWidget getMapWidget() {
 		return mapWidget;
 	}
-    
+
+    final Timer longPressTimer = new Timer() {
+        @Override
+        public void run() {
+            isMarkerLongPressed = true;
+            updateFavourites(clickedMarker, clickedMarkerRelatedObjectId);
+        }
+    };
+
+    protected abstract void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker);
+
     protected Marker createMarker(final Integer objectId, LatLng location, String iconFile) {
         MarkerOptions options = MarkerOptions.newInstance();
         options.setPosition(location);
-        MarkerImage markerImage = MarkerImage.newInstance("images/" + iconFile);
+        final MarkerImage markerImage = MarkerImage.newInstance(iconFile);
         options.setIcon(markerImage);
-        Marker marker = Marker.newInstance(options);
+        final Marker marker = Marker.newInstance(options);
         marker.setMap(getMapWidget());
 
         marker.addClickHandler(new ClickMapHandler() {
             @Override
             public void onEvent(ClickMapEvent event) {
-                TristarObject cameraDetails = getCameraDetails(objectId);
-                showModalDialog(cameraDetails.getName(), getImageUrl(objectId));
+                if (!isMarkerLongPressed) {
+                    final TristarObject cameraDetails = getCameraDetails(objectId);
+                    showModalDialog(cameraDetails.getName(), getImageUrl(objectId));
+                }
+            }
+        });
+
+        marker.addMouseDownHandler(new MouseDownMapHandler() {
+            @Override
+            public void onEvent(MouseDownMapEvent event) {
+                isMarkerLongPressed = false;
+                clickedMarkerRelatedObjectId = objectId;
+                clickedMarker = marker;
+                longPressTimer.schedule(LONG_PRESS_TIME);
+            }
+        });
+
+        marker.addMouseUpHandler(new MouseUpMapHandler() {
+            @Override
+            public void onEvent(MouseUpMapEvent event) {
+                longPressTimer.cancel();
             }
         });
 

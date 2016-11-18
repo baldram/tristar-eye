@@ -9,10 +9,11 @@ public class TristarObject {
     public TristarObject() {
     }
 
-    public TristarObject(Integer id, String name, TristarObjectType type) {
+    public TristarObject(Integer id, String wkt, String name, TristarObjectType type) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.wkt = wkt;
     }
 
     public TristarObjectType getType() {
