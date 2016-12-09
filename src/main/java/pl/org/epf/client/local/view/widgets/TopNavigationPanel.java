@@ -14,14 +14,13 @@
 
 package pl.org.epf.client.local.view.widgets;
 
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.event.PageLoaded;
 import pl.org.epf.client.local.view.FavouritesViewModel;
-import pl.org.epf.client.local.view.ListViewModel;
+import pl.org.epf.client.local.view.HowToViewModel;
 import pl.org.epf.client.local.view.MapTabViewModel;
 
 import javax.enterprise.event.Observes;
@@ -40,20 +39,21 @@ public class TopNavigationPanel extends Composite {
     @DataField
     private TransitionAnchor<MapTabViewModel> mapButton;
 
-    @Inject
-    @DataField
-    private TransitionAnchor<ListViewModel> listButton;
+    //@Inject
+    //@DataField
+    //private TransitionAnchor<ListViewModel> listButton;
 
     private void selectBookmarkedTab(@Observes PageLoaded event) {
-        Anchor currentTab = mapButton; // default
-
-        if (event.getPageName().equals(FavouritesViewModel.PAGE_NAME)) {
-            currentTab = favouritesButton;
-        } else if (event.getPageName().equals(ListViewModel.PAGE_NAME)) {
-            currentTab = listButton;
+        if (event.getPageName().equals(FavouritesViewModel.PAGE_NAME) || event.getPageName().equals(HowToViewModel.PAGE_NAME)) {
+            switchActiveTab(favouritesButton, mapButton);
+        } else {
+            switchActiveTab(mapButton, favouritesButton);
         }
+    }
 
-        currentTab.getElement().addClassName(CLASS_TAB_ACTIVE);
+    private void switchActiveTab(TransitionAnchor<?> activeButton, TransitionAnchor<?> inactiveButon) {
+        activeButton.getElement().addClassName(CLASS_TAB_ACTIVE);
+        inactiveButon.getElement().removeClassName(CLASS_TAB_ACTIVE);
     }
 
 }

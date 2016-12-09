@@ -26,7 +26,6 @@ import pl.org.epf.client.local.view.helpers.DomObjectHelper;
 import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.shared.model.TristarObjectType;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
-import pl.org.epf.client.local.view.widgets.ContentContainer;
 import pl.org.epf.client.local.view.widgets.DivContainer;
 import pl.org.epf.client.shared.services.TristarDataService;
 
@@ -53,13 +52,13 @@ public class FavouritesViewModel extends BasePage {
     private Button refreshButton;
 
     @Inject
-    private ContentContainer contentContainer;
-
-    @Inject
     private ResourcesRetriever retriever;
 
     @Inject
     private TransitionTo<FavouritesViewModel> toFavourites;
+
+    @Inject
+    private TransitionTo<HowToViewModel> toHowTo;
 
     @Inject
     private DomObjectHelper domObjectHelper;
@@ -70,6 +69,8 @@ public class FavouritesViewModel extends BasePage {
     @Inject
     private Settings userSettings;
 
+    private Set<Integer> favouritesCameraIds;
+
     @PostConstruct
     public void init() {
         loadFavourites();
@@ -77,6 +78,9 @@ public class FavouritesViewModel extends BasePage {
 
     @Override
     protected void onPageShown() {
+        if (favouritesCameraIds.isEmpty()) {
+            toHowTo.go();
+        }
         initJSLibs();
     }
 
@@ -94,13 +98,9 @@ public class FavouritesViewModel extends BasePage {
 
     private void loadFavourites() {
         favouritesPlaceholder.clear();
-        Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteCameras();
+        favouritesCameraIds = userSettings.getUserFavaouriteCameras();
 
         List<TristarObject> cameraImages = dataService.getCameras(favouritesCameraIds);
-        if (cameraImages.size() == 0) {
-            // TODO: to show message: "please add cameras"
-            return;
-        }
         for (TristarObject image : cameraImages) {
             createAndAddImage(favouritesPlaceholder, image.getId(), image.getName());
         }
