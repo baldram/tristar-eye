@@ -92,3 +92,8 @@ img.modalCamView {
 /*.ug-textpanel-title.ug-trans-enabled {}*/
 /*.ug-tile .ug-textpanel-title { TODO: set media responsive font-size and line-height here }*/
 /* } */
+
+.text-centered { text-align: center; }
+.text-content { padding: 2em; }
+.content-icon { width: 10%; }
+.content-std-image { height: 30%; padding: 2em; }
