@@ -97,7 +97,9 @@ public class MapTabViewModel extends BasePage {
     private void refreshView() {
         // Due to refresh issues according to the MapAPI here is some workaround.
         // http://stackoverflow.com/questions/5454535/fire-resizeevent-in-gwt-google-web-toolkit
-        getMapService().getMapWidget().triggerResize();
+        if (getMapService().getMapWidget() != null) {
+            getMapService().getMapWidget().triggerResize();
+        }
     }
 
     private void initializeMapAndSetCenter() {
