@@ -43,6 +43,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
 import pl.org.epf.client.local.services.utils.WktUtil;
+import pl.org.epf.client.local.view.helpers.UiHelper;
 import pl.org.epf.client.shared.model.Coordinates;
 import pl.org.epf.client.shared.model.TristarObject;
 import pl.org.epf.client.shared.model.TristarObjectType;
@@ -69,6 +70,9 @@ public class ClassicMapService extends AbstractMapService {
 
     @Inject
     private Settings settings;
+
+    @Inject
+    private UiHelper uiHelper;
 
     private Set<Integer> favouriteCameras;
 
@@ -171,6 +175,11 @@ public class ClassicMapService extends AbstractMapService {
     @Override
     TristarObject getCameraDetails(Integer objectId) {
         return dataService.getCamera(objectId);
+    }
+
+    @Override
+    void showCameraDialog(String title, String imageUrl) {
+        uiHelper.showImageModalDialog(title, imageUrl);
     }
 
     @Override

@@ -73,7 +73,7 @@ section {
 .tristar-context-options-disabled {
     color: lightgray;
 }
-img.modalCamView {
+img.tristarModalImage {
     max-width: 100%;
     height: auto;
     max-height: 288px;
@@ -97,3 +97,4 @@ img.modalCamView {
 .text-content { padding: 2em; }
 .content-icon { width: 10%; }
 .content-std-image { height: 30%; padding: 2em; }
+.menu-option { cursor: pointer; }

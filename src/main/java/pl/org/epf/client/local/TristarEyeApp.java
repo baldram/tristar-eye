@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.nav.client.local.Navigation;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import pl.org.epf.client.local.view.helpers.UiHelper;
 import pl.org.epf.client.local.view.widgets.ContentContainer;
 import pl.org.epf.client.local.view.widgets.HeaderPanel;
 import pl.org.epf.client.local.view.widgets.Sidebar;
@@ -53,6 +54,9 @@ public class TristarEyeApp extends Composite {
     @DataField
     private ContentContainer content;
 
+    @Inject
+    private UiHelper uiHelper;
+
     @PostConstruct
     public void init() {
         content.add(navigation.getContentPanel());
@@ -61,12 +65,8 @@ public class TristarEyeApp extends Composite {
 
     @Override
     protected void onLoad() {
-        initMaterialDesignLite();
+        uiHelper.initMaterialDesignLite();
         super.onLoad();
     }
 
-    public final native void initMaterialDesignLite() /*-{
-        // Needs to be called to finish MDL initialization
-        $wnd.componentHandler.upgradeDom();
-    }-*/;
 }
