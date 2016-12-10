@@ -81,7 +81,7 @@ abstract class AbstractMapService implements MapService {
             public void onEvent(ClickMapEvent event) {
                 if (!isMarkerLongPressed) {
                     final TristarObject cameraDetails = getCameraDetails(objectId);
-                    showModalDialog(cameraDetails.getName(), getImageUrl(objectId));
+                    showCameraDialog(cameraDetails.getName(), getImageUrl(objectId));
                 }
             }
         });
@@ -110,14 +110,6 @@ abstract class AbstractMapService implements MapService {
 
     abstract TristarObject getCameraDetails(final Integer objectId);
 
-    public final native void showModalDialog(String objName, String imageUrl) /*-{
-        $wnd.showDialog({
-            negative: {title: 'Zamknij'},
-            positive: false,
-            cancelable: true,
-            title: objName,
-            text: '<img src="' + imageUrl + '" class="modalCamView" id="modalCamView" />'
-        });
-    }-*/;
+    abstract void showCameraDialog(String title, String imageUrl);
 
 }

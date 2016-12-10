@@ -56,4 +56,11 @@ public class Sidebar extends Composite {
         favouritesModifyEvent.fire(new FavouritesModify(FavouritesModify.ModificationType.RESTORE_DEFAULT));
     }
 
+    @SuppressWarnings("unused")
+    @EventHandler("helpButton")
+    @SinkNative(Event.ONCLICK)
+    private void onHelpButtonClicked(Event e) {
+        // TODO: show help popup
+    }
+
 }
