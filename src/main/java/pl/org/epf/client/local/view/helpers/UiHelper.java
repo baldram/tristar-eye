@@ -36,4 +36,9 @@ public class UiHelper {
             text: content
         });
     }-*/;
+
+    public final native void initMaterialDesignLite() /*-{
+        // Needs to be called to finish MDL initialization
+        $wnd.componentHandler.upgradeDom();
+    }-*/;
 }
