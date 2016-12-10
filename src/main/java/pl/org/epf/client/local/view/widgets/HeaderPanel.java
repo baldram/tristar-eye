@@ -14,11 +14,15 @@
 
 package pl.org.epf.client.local.view.widgets;
 
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
+import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.org.epf.client.local.services.maps.MapSearchInputProvider;
+import pl.org.epf.client.local.view.MapTabViewModel;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -32,6 +36,9 @@ public class HeaderPanel extends Composite {
     @DataField
     private TextBox searchBox;
 
+    @Inject
+    private TransitionTo<MapTabViewModel> toMap;
+
     @Produces
     @SuppressWarnings("unused")
     public MapSearchInputProvider<TextBox> getMapSearch() {
@@ -43,4 +50,8 @@ public class HeaderPanel extends Composite {
         };
     }
 
+    @EventHandler("searchBox")
+    public void setCurrentLocation(ChangeEvent e) {
+        toMap.go();
+    }
 }
