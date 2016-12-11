@@ -19,8 +19,10 @@ import com.google.gwt.user.client.ui.Composite;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.SinkNative;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import pl.org.epf.client.shared.enums.Texts;
 import pl.org.epf.client.local.event.FavouritesModify;
 import pl.org.epf.client.local.event.MapViewTypeChange;
+import pl.org.epf.client.local.view.helpers.UiHelper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,6 +36,9 @@ public class Sidebar extends Composite {
 
     @Inject
     private javax.enterprise.event.Event<FavouritesModify> favouritesModifyEvent;
+
+    @Inject
+    private UiHelper uiHelper;
 
     @SuppressWarnings("unused")
     @EventHandler("mapTypeToggle")
@@ -60,7 +65,7 @@ public class Sidebar extends Composite {
     @EventHandler("helpButton")
     @SinkNative(Event.ONCLICK)
     private void onHelpButtonClicked(Event e) {
-        // TODO: show help popup
+        uiHelper.showModalDialog(Texts.HELP_TITLE.toString(), Texts.HELP_DESCRIPTION.toString());
     }
 
 }

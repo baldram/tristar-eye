@@ -98,3 +98,4 @@ img.tristarModalImage {
 .content-icon { width: 10%; }
 .content-std-image { height: 30%; padding: 2em; }
 .menu-option { cursor: pointer; }
+.title-beta-info { font-style: italic; font-size: 0.5em}

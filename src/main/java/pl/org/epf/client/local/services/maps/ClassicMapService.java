@@ -40,6 +40,7 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.org.epf.client.shared.enums.Texts;
 import pl.org.epf.client.local.services.user.Settings;
 import pl.org.epf.client.local.services.utils.ResourcesRetriever;
 import pl.org.epf.client.local.services.utils.WktUtil;
@@ -110,7 +111,7 @@ public class ClassicMapService extends AbstractMapService {
 
                     @Override
                     public void onFailure(PositionError reason) {
-                        Window.alert("Your browser or device does not support location!");
+                        Window.alert(Texts.MSG_LOCATION_NOT_SUPPORTED.toString());
                     }
                 });
     }
@@ -141,7 +142,6 @@ public class ClassicMapService extends AbstractMapService {
                 getMapWidget().panTo(center);
                 getMapWidget().setZoom(ZOOM);
 
-                // TODO: switch page to map automatically
                 GWT.log("place changed center=" + center);
             }
         });
