@@ -28,6 +28,7 @@ public class UserSettingsDao {
     private static final String DATA_STRING_START_REGEXP = "\\[";
     private static final String DATA_STRING_END = "]";
     private static final String DATA_STRING_SEPARATOR = ", ";
+    private static final String EMPTY_JAVA_SCRIPT_LIST = "[]";
 
     @Inject
     private EntityManager entityManager;
@@ -64,7 +65,7 @@ public class UserSettingsDao {
     }
 
     private boolean isEmptyCamerasList(String commaSeparatedIdsString) {
-        return commaSeparatedIdsString.isEmpty() || commaSeparatedIdsString.equals("[]");
+        return commaSeparatedIdsString.isEmpty() || commaSeparatedIdsString.equals(EMPTY_JAVA_SCRIPT_LIST);
     }
 
     private String[] parseDigits(String commaSeparatedIdsString) {
@@ -77,19 +78,37 @@ public class UserSettingsDao {
 
     public void storeFavouriteCameras(Set<Integer> cameraIds) {
         String cameraIdsString = cameraIds.toString();
-        UserSettings settings = createOrUpdateSettingsObject(cameraIdsString);
+        UserSettings settings = createOrUpdateCamerasSettings(cameraIdsString);
         entityManager.persist(settings);
         entityManager.flush(); // TODO: could be flushed once in different place on page transition or leaving...
     }
 
-    private UserSettings createOrUpdateSettingsObject(String cameraIdsString) {
+    public boolean isWelcomeHelpShown() {
+        UserSettings settings = fetchUserSettings();
+        return settings != null && settings.isWelcomeHelpShown();
+    }
+
+    public void setWelcomeHelpShown() {
+        UserSettings settings = getOrCreateBareUserSettingsObject();
+        settings.setWelcomeHelpShown(true);
+        entityManager.persist(settings);
+        entityManager.flush();
+    }
+
+    private UserSettings getOrCreateBareUserSettingsObject() {
         UserSettings settings = fetchUserSettings();
         if (settings == null) {
             settings = new UserSettings();
             settings.setId(UserSettings.FIRST_ROW);
+            settings.setFavouriteCameraIds(EMPTY_JAVA_SCRIPT_LIST);
         }
-        settings.setFavouriteCameraIds(cameraIdsString);
         settings.setLastUpdated(new Date(System.currentTimeMillis()));
+        return settings;
+    }
+
+    private UserSettings createOrUpdateCamerasSettings(String cameraIdsString) {
+        UserSettings settings = getOrCreateBareUserSettingsObject();
+        settings.setFavouriteCameraIds(cameraIdsString);
         return settings;
     }
 

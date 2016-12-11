@@ -42,6 +42,8 @@ public class UserSettings {
 
     private String favouriteCameraIds;
 
+    private boolean welcomeHelpShown;
+
     public Date getLastUpdated() {
         return lastUpdated;
     }
@@ -64,5 +66,13 @@ public class UserSettings {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isWelcomeHelpShown() {
+        return welcomeHelpShown;
+    }
+
+    public void setWelcomeHelpShown(boolean welcomeHelpShown) {
+        this.welcomeHelpShown = welcomeHelpShown;
     }
 }

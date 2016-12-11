@@ -15,16 +15,20 @@
 package pl.org.epf.client.local.view.helpers;
 
 import org.jboss.errai.common.client.logging.util.StringFormat;
+import pl.org.epf.client.shared.enums.Texts;
 
 public class UiHelper {
 
-    private static final String CLOSE_BTN_LABEL = "Zamknij";
     private static final String IMAGE_TAG = "<img src='%s' class='%s' id='%s' />";
     private static final String IMAGE_ID = "tristarModalImage";
 
     public final void showImageModalDialog(final String title, final String imageUrl) {
         final String imageTag = StringFormat.format(IMAGE_TAG, imageUrl, IMAGE_ID, IMAGE_ID);
-        showModalDialog(title, imageTag, CLOSE_BTN_LABEL);
+        showModalDialog(title, imageTag, Texts.BTN_CLOSE_LABEL.toString());
+    }
+
+    public final void showModalDialog(final String title, final String content) {
+        showModalDialog(title, content, Texts.BTN_CLOSE_LABEL.toString());
     }
 
     public final native void showModalDialog(final String title, final String content, final String buttonLabel) /*-{
