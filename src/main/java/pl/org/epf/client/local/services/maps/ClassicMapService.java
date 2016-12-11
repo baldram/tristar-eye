@@ -80,6 +80,7 @@ public class ClassicMapService extends AbstractMapService {
     public void initializeMap() {
         super.initializeMap();
         favouriteCameras = settings.getUserFavaouriteCameras();
+        settings.displayWelcomeHelpOnce();
         initializeTrafficLayer(getMapWidget());
     }
 

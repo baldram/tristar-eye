@@ -17,12 +17,14 @@ package pl.org.epf.client.shared.enums;
 public enum Texts {
     HELP_TITLE("Jak to działa?"),
     HELP_DESCRIPTION("Celem jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji pochodzących z tristar.gdansk.pl i tristar.gdynia.pl. " +
-            "<br /><strong>Dotknij</strong> wybraną kamerę <strong>aby zobaczyć</strong> z niej obraz. <strong>Przytrzymaj</strong> palcem dłużej, <strong>aby dodać</strong> kamerę <strong>do \"ulubionych\"</strong> " +
-            "<br />(zostanie oznaczona żółtym punktem). " +
-            "<br /><img src=\"./images/select-cams.png\" class=\"content-std-image\"/>" +
-            "<br /><strong>Wybrane kamery</strong> zobaczysz w postaci widoku zbiorczego <strong>w zakładce Ulubione</strong>." +
-            "<br />Możesz też użyć opcji \"Przywróc domyślne\" aby dodać do ulubionych przykładowy zestaw kamer. " +
-            "Funkcja \"Usuń wszystkie\" pozwoli rozpocząć konfigurację od nowa."),
+            "<br /><strong>Dotknij</strong> wybraną kamerę <strong>aby zobaczyć</strong> obraz. <strong>Przytrzymaj</strong> palcem dłużej, <strong>aby dodać do \"ulubionych\"</strong> " +
+            "(zostanie oznaczona żółtym punktem). " +
+            "<br /><img src=\"./images/select-cams.png\" />" +
+            "<br /><strong>Wybrane kamery</strong> zobaczysz w <strong>zakładce Ulubione</strong>. " +
+            "Możesz też użyć opcji \"Demo kamery\" aby dodać do ulubionych przykładowy zestaw kamer. " +
+            "Funkcja \"Usuń wszystkie\" pozwoli rozpocząć konfigurację od nowa." +
+            //"<br /><br />Opcja wyszukiwania w prawym górnym rogu pozwala przejść do wybranego miejsca - wpisując np. \"Gdynia Śródmieście\" i potwierdzając wybór na liście podpowiedzi." +
+            "<br /><br />Tekst tej pomocy <strong>możesz przeczytać później</strong>, wybierając <strong>\"Jak to działa?\"</strong> z menu po lewej. "),
     MSG_LOCATION_NOT_SUPPORTED("Your browser or device does not support location!"),
     BTN_CLOSE_LABEL("Zamknij");
 

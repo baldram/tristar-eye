@@ -18,6 +18,8 @@ import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import pl.org.epf.client.local.dal.UserSettingsDao;
 import pl.org.epf.client.local.event.FavouritesModify;
 import pl.org.epf.client.local.view.FavouritesViewModel;
+import pl.org.epf.client.local.view.helpers.UiHelper;
+import pl.org.epf.client.shared.enums.Texts;
 import pl.org.epf.client.shared.model.TristarObjectType;
 
 import javax.enterprise.event.Observes;
@@ -30,11 +32,16 @@ import java.util.Set;
 @Singleton
 public class Settings {
 
+    private static HashSet<Integer> EMPTY_CAMERAS_SET = new HashSet<>(Arrays.asList(new Integer[]{}));
+
     @Inject
     private TransitionTo<FavouritesViewModel> toFavourites;
 
     @Inject
     private UserSettingsDao userSettings;
+
+    @Inject
+    private UiHelper uiHelper;
 
     public Set<Integer> getUserFavaouriteCameras() {
         Set<Integer> userObjects = userSettings.getAllUserObjectIds(TristarObjectType.CAMERA);
@@ -63,6 +70,13 @@ public class Settings {
         return new Integer[]{};
     }
 
+    public void displayWelcomeHelpOnce() {
+        if (!userSettings.isWelcomeHelpShown()) {
+            uiHelper.showModalDialog(Texts.HELP_TITLE.toString(), Texts.HELP_DESCRIPTION.toString());
+            userSettings.setWelcomeHelpShown();
+        }
+    }
+
     @SuppressWarnings("unused")
     private void onMapTypeChange(@Observes FavouritesModify modifyEvent) {
         FavouritesModify.ModificationType modificationType = modifyEvent.getModificationType();
@@ -76,8 +90,7 @@ public class Settings {
     }
 
     private void removeAllFavourites() {
-        Set<Integer> selectedCameras = new HashSet<>(Arrays.asList(new Integer[]{}));
-        userSettings.storeFavouriteCameras(selectedCameras);
+        userSettings.storeFavouriteCameras(EMPTY_CAMERAS_SET);
         toFavourites.go();
     }
 
