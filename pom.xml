@@ -23,8 +23,8 @@
     <gwt.version>2.8.0</gwt.version>
     <maven.gwt.plugin.version>2.8.0</maven.gwt.plugin.version>
     <!-- GWT Material -->
-    <!--gwt-material.version>2.0-SNAPSHOT</gwt-material.version>
-    <gwt-material-table.version>1.0-SNAPSHOT</gwt-material-table.version-->
+    <gwt-material.version>2.0-SNAPSHOT</gwt-material.version>
+    <gwt-material-table.version>1.0-SNAPSHOT</gwt-material-table.version>
     <!-- Errai -->
     <errai.version>4.0.0.Beta4</errai.version>
 
@@ -111,7 +111,7 @@
       <scope>provided</scope>
     </dependency>
     <!-- GwtMaterial -->
-    <!--dependency>
+    <dependency>
       <groupId>com.github.gwtmaterialdesign</groupId>
       <artifactId>gwt-material</artifactId>
       <version>${gwt-material.version}</version>
@@ -130,7 +130,7 @@
       <groupId>com.github.gwtmaterialdesign</groupId>
       <artifactId>gwt-material-table</artifactId>
       <version>${gwt-material-table.version}</version>
-    </dependency-->
+    </dependency>
 
     <!-- Errai -->
     <dependency>

@@ -4,4 +4,9 @@
     <inherits name="org.jboss.errai.enterprise.All"/>
 
     <inherits name='com.google.gwt.maps.Maps' />
+    <inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>
+    <inherits name="gwt.material.design.themes.ThemeBlue"/>
+    <inherits name="gwt.material.design.addins.GwtMaterialAddins"/>
+    <inherits name="gwt.material.design.GwtMaterialTableDebug"/>
+
 </module>
