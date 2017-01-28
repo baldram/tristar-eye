@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>pl.org.epf</groupId>
+  <groupId>pl.itrack</groupId>
   <artifactId>tristar-eye</artifactId>
   <version>1.1.0-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -27,11 +27,7 @@
     <gwt-material-table.version>1.0-SNAPSHOT</gwt-material-table.version>
     <!-- Errai -->
     <errai.version>4.0.0.Beta4</errai.version>
-
     <gwtmockito.version>1.1.6</gwtmockito.version>
-    <!-- Supported version aligned with: https://github.com/google/gwtmockito/blob/gwtmockito-parent-${gwtmockito.version}/pom.xml -->
-    <!-- As it's described in table here: https://github.com/jayway/powermock/wiki/MockitoUsage#supported-versions -->
-    <powermock.version>1.5.1</powermock.version>
   </properties>
 
   <!-- These must be here in this order because of missing guava-gwt snapshots in the JBoss Public Repository. -->
@@ -156,18 +152,6 @@
       <groupId>com.google.gwt.gwtmockito</groupId>
       <artifactId>gwtmockito</artifactId>
       <version>${gwtmockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock.version}</version>
       <scope>test</scope>
     </dependency>
 

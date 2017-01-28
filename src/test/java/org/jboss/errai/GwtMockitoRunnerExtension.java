@@ -20,9 +20,9 @@ public class GwtMockitoRunnerExtension extends GwtMockitoTestRunner {
     final Collection<String> blacklisted = super.getPackagesToLoadViaStandardClassloader();
     
     blacklisted.add("com.google.gwtmockito");
-    blacklisted.add("pl.org.epf.client.local");
-    blacklisted.add("pl.org.epf.client.local.view.widgets");
-    blacklisted.add("pl.org.epf.client.local.view");
+    blacklisted.add("pl.itrack.client.local");
+    blacklisted.add("pl.itrack.client.local.view.widgets");
+    blacklisted.add("pl.itrack.client.local.view");
 
     return blacklisted;
   }

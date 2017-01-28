@@ -6,7 +6,7 @@
 .errai
 
 #GWT related
-src/main/webapp/pl.org.epf.TristarEye/
+src/main/webapp/pl.itrack.TristarEye/
 src/main/webapp/WEB-INF/deploy/
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/classes/
