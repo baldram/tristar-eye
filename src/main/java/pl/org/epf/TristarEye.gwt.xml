@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<module>
-    <inherits name="com.google.gwt.user.User"/>
-    <inherits name="org.jboss.errai.enterprise.All"/>
-
-    <inherits name='com.google.gwt.maps.Maps' />
-</module>

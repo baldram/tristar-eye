@@ -1,24 +1,10 @@
-body {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    height: 100%;
-    font-size: 1.0em;
-    font-weight: 300;
-    color: #333;
-    padding: 0;
-    margin: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-touch-callout: none;
-    background-image: linear-gradient(to right top, transparent 33%, black 33%, black 66%, transparent 66%);
-    background-size: 3px 3px;
-    background-color: #666;
-}
+/*REMOVE?*//*
 section {
     margin: 10px;
 }
+*/
+
+/*REMOVE*//*
 .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
     padding-right: 0;
 }
@@ -47,6 +33,7 @@ section {
 .mdl-layout.is-upgraded .mdl-layout__tab.is-active::after {
     background: yellow;
 }
+*/
 
 #mapContainer {
     width: 100%;
@@ -57,29 +44,24 @@ section {
     position: absolute;
 }
 
-.tristar-fab {
-    position: fixed;
-    right: 0;
-    margin-right: 0.8em;
-    margin-bottom: 0.8em;
-}
-.tristar-fab {
-    bottom: 0;
-}
-
+/*REMOVE*//*
 .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-icon {
     margin-right: 12px;
 }
+
+
 .tristar-context-options-disabled {
     color: lightgray;
 }
+*/
+
 img.tristarModalImage {
     max-width: 100%;
     height: auto;
     max-height: 288px;
 }
 
-#orrsDiag {
+.modal-content {
     text-align: center;
 }
 
@@ -93,10 +75,9 @@ img.tristarModalImage {
 /*.ug-tile .ug-textpanel-title { TODO: set media responsive font-size and line-height here }*/
 /* } */
 
-.text-centered { text-align: center; }
-.text-content { padding: 2em; }
-.content-icon { width: 10%; }
-.content-std-image { height: 30%; padding: 2em; }
-.menu-option { cursor: pointer; }
-.title-beta-info { font-style: italic; font-size: 0.5em}
-.text-how-to { max-width: 320px; margin-right: auto; margin-left: auto; }
+#navDesktop > li > a.active {
+    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(13, 71, 161, 0.5) );
+}
+#navMobile > li > a.active {
+    background-color: #DDDDDD;
+}
