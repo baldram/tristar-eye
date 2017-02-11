@@ -32,7 +32,7 @@ import javax.inject.Singleton;
 @Singleton
 public class SearchBar extends Nav {
 
-    private static final String CSS_CLASS_SEARCH_BTN = "tristarNavSearchBtn";
+    static final String CSS_CLASS_SEARCH_BTN = "tristarNavSearchBtn";
 
     private final TransitionTo<MapTabViewModel> toMap;
 
