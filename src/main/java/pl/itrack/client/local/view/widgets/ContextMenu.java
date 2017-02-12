@@ -21,12 +21,13 @@ import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialDropDown;
 import gwt.material.design.client.ui.MaterialLink;
-import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.client.ui.html.ListItem;
+import pl.itrack.client.local.event.FavouritesModify;
 import pl.itrack.client.local.event.MapViewTypeChange;
 import pl.itrack.client.local.event.MenuActionEvent;
-import pl.itrack.client.local.event.FavouritesModify;
 import pl.itrack.client.local.view.helpers.Texts;
+import pl.itrack.client.local.view.widgets.modals.ConfirmationDialog;
+import pl.itrack.client.local.view.widgets.modals.SimpleDialog;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -51,7 +52,10 @@ public class ContextMenu {
     private Event<FavouritesModify> favouritesModifyEvent;
 
     @Inject
-    private ModalWindow modal;
+    private SimpleDialog modal;
+
+    @Inject
+    private ConfirmationDialog confirmation;
 
     MaterialButton createNavBarOptions() {
         MaterialButton moreButton = new MaterialButton();
@@ -73,16 +77,16 @@ public class ContextMenu {
         dropDown.setTextColor(Color.WHITE);
         dropDown.getElement().setClassName(OPTIONS_BUTTON_CSS_CLASS);
 
-        dropDown.add(createSimpleMenuItem(Texts.OPTIONS_DELETE_ALL, favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.REMOVE_ALL)));
-        dropDown.add(createSimpleMenuItem(Texts.OPTIONS_IMPORT_DEMO, favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.RESTORE_DEFAULT)));
+        dropDown.add(createConfirmationMenuItem(Texts.OPTIONS_DELETE_ALL, Texts.REMOVE_FAVS_WARNING,
+                favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.REMOVE_ALL)));
+        dropDown.add(createConfirmationMenuItem(Texts.OPTIONS_IMPORT_DEMO, Texts.RESTORE_DEFAULT_FAVS_WARNING,
+                favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.RESTORE_DEFAULT)));
         dropDown.add(createSimpleMenuItem(Texts.OPTIONS_SWITCH_MAP_SCHEMA, mapTypeChangeEvent, new MapViewTypeChange()));
         dropDown.add(createDivider());
 
         MaterialLink helpLink = new MaterialLink(Texts.HELP_TITLE);
-        helpLink.addClickHandler(clickEvent -> modal.showModalDialog(Texts.HELP_TITLE, Texts.HELP_DESCRIPTION));
+        helpLink.addClickHandler(clickEvent -> modal.show(Texts.HELP_TITLE, Texts.HELP_DESCRIPTION));
         dropDown.add(helpLink);
-
-        dropDown.addSelectionHandler(selectionEvent -> MaterialToast.fireToast(((MaterialLink) selectionEvent.getSelectedItem()).getText()));
         return dropDown;
     }
 
@@ -90,6 +94,13 @@ public class ContextMenu {
     private MaterialLink createSimpleMenuItem(String label, Event eventProducer, MenuActionEvent action) {
         MaterialLink link = new MaterialLink(label);
         link.addClickHandler(clickEvent -> eventProducer.fire(action));
+        return link;
+    }
+
+    @SuppressWarnings("unchecked")
+    private MaterialLink createConfirmationMenuItem(String label, String question, Event eventProducer, MenuActionEvent action) {
+        MaterialLink link = new MaterialLink(label);
+        link.addClickHandler(clickEvent -> confirmation.show(label, question, () -> eventProducer.fire(action)));
         return link;
     }
 
