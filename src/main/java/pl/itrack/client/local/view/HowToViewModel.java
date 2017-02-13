@@ -22,10 +22,8 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.itrack.client.local.services.user.Settings;
-import pl.itrack.client.shared.services.TristarDataService;
 
 import javax.inject.Inject;
-
 import java.util.Set;
 
 import static pl.itrack.client.local.view.HowToViewModel.PAGE_NAME;
@@ -43,8 +41,6 @@ public class HowToViewModel extends BasePage {
     @Inject @DataField private Button goToMapButton;
 
     @Inject private Settings userSettings;
-
-    @Inject private TristarDataService dataService;
 
     @Override
     protected void onPageShown() {

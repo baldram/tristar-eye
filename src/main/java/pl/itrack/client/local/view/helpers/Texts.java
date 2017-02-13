@@ -15,6 +15,8 @@
 package pl.itrack.client.local.view.helpers;
 
 public interface Texts {
+    String YES = "Tak";
+    String NO = "Nie";
     String BTN_CLOSE_LABEL = "Zamknij";
     String TITLE_MAPS = "Mapa";
     String TITLE_FAVOURITES = "Ulubione";
@@ -22,6 +24,14 @@ public interface Texts {
     String OPTIONS_DELETE_ALL = "Usuń wszystkie";
     String OPTIONS_IMPORT_DEMO = "Demo kamery";
     String OPTIONS_SWITCH_MAP_SCHEMA = "Mapa/Schemat";
+    String CAMERA_REMOVED = "Kamera usunięta";
+    String CAMERA_ADDED = "Kamera dodana";
+    String FAVOURITES_REMOVED = "Usunięto ulubione";
+    String FAVOURITES_DEFAULTED = "Przywrócono przykładowe kamery";
+    String CONFIRMATION_QUESTION = "Czy na pewno kontynuować?";
+    String REMOVE_FAVS_WARNING = "Wszystkie wybrane przez Ciebie kamery zostanę bezpowrotnie usunięte.";
+    String RESTORE_DEFAULT_FAVS_WARNING = "Załadowane zostaną przykładowe kamery, zastępując aktualne.";
+
     String HELP_DESCRIPTION = "Celem jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji pochodzących z tristar.gdansk.pl i tristar.gdynia.pl. " +
         "<br /><strong>Dotknij</strong> wybraną kamerę <strong>aby zobaczyć</strong> obraz. <strong>Przytrzymaj</strong> palcem dłużej, <strong>aby dodać do \"ulubionych\"</strong> " +
         "(zostanie oznaczona żółtym punktem). " +

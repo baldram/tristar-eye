@@ -37,7 +37,7 @@ import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.ResourcesRetriever;
 import pl.itrack.client.local.services.utils.WktUtil;
 import pl.itrack.client.local.view.helpers.Texts;
-import pl.itrack.client.local.view.widgets.ModalWindow;
+import pl.itrack.client.local.view.widgets.modals.ImageDialog;
 import pl.itrack.client.shared.model.Coordinates;
 import pl.itrack.client.shared.model.TristarObject;
 import pl.itrack.client.shared.model.TristarObjectType;
@@ -69,7 +69,7 @@ public class ClassicMapService extends AbstractMapService {
     private Settings settings;
 
     @Inject
-    private ModalWindow modal;
+    private ImageDialog modal;
 
     private Set<Integer> favouriteCameras;
 
@@ -96,20 +96,20 @@ public class ClassicMapService extends AbstractMapService {
 
     public void setCurrentLocationIfSupported() {
         Geolocation.getIfSupported().getCurrentPosition(
-                new Callback<Position, PositionError>() {
+            new Callback<Position, PositionError>() {
 
-                    @Override
-                    public void onSuccess(Position result) {
-                        Position.Coordinates coordinates = result.getCoordinates();
-                        LatLng center = LatLng.newInstance(coordinates.getLatitude(), coordinates.getLongitude());
-                        getMapWidget().setCenter(center);
-                    }
+                @Override
+                public void onSuccess(Position result) {
+                    Position.Coordinates coordinates = result.getCoordinates();
+                    LatLng center = LatLng.newInstance(coordinates.getLatitude(), coordinates.getLongitude());
+                    getMapWidget().setCenter(center);
+                }
 
-                    @Override
-                    public void onFailure(PositionError reason) {
-                        Window.alert(Texts.MSG_LOCATION_NOT_SUPPORTED);
-                    }
-                });
+                @Override
+                public void onFailure(PositionError reason) {
+                    Window.alert(Texts.MSG_LOCATION_NOT_SUPPORTED);
+                }
+            });
     }
 
     public void bindTextBoxWithAutoComplete(TextBox searchBox) {
@@ -171,7 +171,7 @@ public class ClassicMapService extends AbstractMapService {
 
     @Override
     void showCameraDialog(String title, String imageUrl) {
-        modal.showImageModalDialog(title, imageUrl);
+        modal.show(title, imageUrl);
     }
 
     @Override

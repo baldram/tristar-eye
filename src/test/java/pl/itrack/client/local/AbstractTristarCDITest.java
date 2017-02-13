@@ -14,9 +14,17 @@
 
 package pl.itrack.client.local;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.MaterialDesign;
+import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.client.resources.WithJQueryResources;
 import org.jboss.errai.enterprise.client.cdi.AbstractErraiCDITest;
 import org.jboss.errai.ioc.client.container.IOC;
 import org.jboss.errai.ioc.client.container.SyncBeanDef;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public abstract class AbstractTristarCDITest extends AbstractErraiCDITest {
 
@@ -36,4 +44,22 @@ public abstract class AbstractTristarCDITest extends AbstractErraiCDITest {
         }
         return instance;
     }
+
+    protected void setupJqueryAndInterfaceLibrary() {
+        WithJQueryResources jquery = GWT.create(WithJQueryResources.class);
+        // Test JQuery
+        MaterialDesign.injectJs(jquery.jQuery());
+        assertTrue(MaterialDesign.isjQueryLoaded());
+        // Test Materialize
+        MaterialDesign.injectJs(MaterialResources.INSTANCE.materializeJs());
+        assertTrue(MaterialDesign.isMaterializeLoaded());
+        // gwt-material-jquery Test
+        assertNotNull($("body"));
+    }
+
+    protected boolean rootPanelContains(Widget widget) {
+        boolean missingElement = DOM.getParent(widget.getElement()) == null;
+        return !missingElement && DOM.getParent(widget.getElement()).isOrHasChild(widget.getElement());
+    }
+
 }

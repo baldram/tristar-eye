@@ -14,13 +14,14 @@
 
 package pl.itrack.client.local.services.user;
 
+import gwt.material.design.client.ui.MaterialToast;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
-import pl.itrack.client.local.view.FavouritesViewModel;
-import pl.itrack.client.shared.model.TristarObjectType;
 import pl.itrack.client.local.dal.UserSettingsDao;
 import pl.itrack.client.local.event.FavouritesModify;
+import pl.itrack.client.local.view.FavouritesViewModel;
 import pl.itrack.client.local.view.helpers.Texts;
-import pl.itrack.client.local.view.widgets.ModalWindow;
+import pl.itrack.client.local.view.widgets.modals.SimpleDialog;
+import pl.itrack.client.shared.model.TristarObjectType;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class Settings {
     private UserSettingsDao userSettings;
 
     @Inject
-    private ModalWindow modal;
+    private SimpleDialog modal;
 
     public Set<Integer> getUserFavaouriteCameras() {
         Set<Integer> userObjects = userSettings.getAllUserObjectIds(TristarObjectType.CAMERA);
@@ -56,8 +57,10 @@ public class Settings {
         Set<Integer> selectedCameras = getUserFavaouriteCameras();
         if (selectedCameras.contains(id)) {
             selectedCameras.remove(id);
+            MaterialToast.fireToast(Texts.CAMERA_REMOVED);
         } else {
             selectedCameras.add(id);
+            MaterialToast.fireToast(Texts.CAMERA_ADDED);
         }
         userSettings.storeFavouriteCameras(selectedCameras);
         return selectedCameras;
@@ -72,7 +75,7 @@ public class Settings {
 
     public void displayWelcomeHelpOnce() {
         if (!userSettings.isWelcomeHelpShown()) {
-            modal.showModalDialog(Texts.HELP_TITLE, Texts.HELP_DESCRIPTION);
+            modal.show(Texts.HELP_TITLE, Texts.HELP_DESCRIPTION);
             userSettings.setWelcomeHelpShown();
         }
     }
@@ -82,11 +85,12 @@ public class Settings {
         FavouritesModify.ModificationType modificationType = modifyEvent.getModificationType();
         if (modificationType == FavouritesModify.ModificationType.REMOVE_ALL) {
             removeAllFavourites();
+            MaterialToast.fireToast(Texts.FAVOURITES_REMOVED);
         }
         if (modificationType == FavouritesModify.ModificationType.RESTORE_DEFAULT) {
             restoreDefaultFavourites();
+            MaterialToast.fireToast(Texts.FAVOURITES_DEFAULTED);
         }
-
     }
 
     private void removeAllFavourites() {
