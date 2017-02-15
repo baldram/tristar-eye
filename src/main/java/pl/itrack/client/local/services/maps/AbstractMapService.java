@@ -23,6 +23,9 @@ import com.google.gwt.maps.client.overlays.MarkerOptions;
 import com.google.gwt.user.client.Timer;
 import pl.itrack.client.shared.model.TristarObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class AbstractMapService implements MapService {
 
     private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
@@ -37,6 +40,8 @@ abstract class AbstractMapService implements MapService {
     private Integer clickedMarkerRelatedObjectId;
     private Marker clickedMarker;
     private boolean isMarkerLongPressed = false;
+
+    private Map<Integer, Marker> markers = new HashMap<>();
 
     abstract MapOptions getMapOptions();
 
@@ -62,7 +67,7 @@ abstract class AbstractMapService implements MapService {
 
     protected abstract void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker);
 
-    void createMarker(final Integer objectId, LatLng location, String iconFile) {
+    Marker createMarker(final Integer objectId, LatLng location, String iconFile) {
         MarkerOptions options = MarkerOptions.newInstance();
         options.setPosition(location);
         final MarkerImage markerImage = MarkerImage.newInstance(iconFile);
@@ -73,7 +78,7 @@ abstract class AbstractMapService implements MapService {
         marker.addClickHandler(event -> {
             if (!isMarkerLongPressed) {
                 final TristarObject cameraDetails = getCameraDetails(objectId);
-                showCameraDialog(cameraDetails.getName(), getImageUrl(objectId));
+                showCameraDialog(cameraDetails.getName(), objectId);
             }
         });
 
@@ -85,12 +90,20 @@ abstract class AbstractMapService implements MapService {
         });
 
         marker.addMouseUpHandler(event -> longPressTimer.cancel());
-    }
 
-    abstract String getImageUrl(final Integer objectId);
+        return marker;
+    }
 
     abstract TristarObject getCameraDetails(final Integer objectId);
 
-    abstract void showCameraDialog(String title, String imageUrl);
+    abstract void showCameraDialog(String title, Integer objectId);
+
+    void updateMarkersCache(Integer objectId, Marker marker) {
+        markers.put(objectId, marker);
+    }
+
+    Marker getMarker(Integer objectId) {
+        return markers.get(objectId);
+    }
 
 }

@@ -33,16 +33,16 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.itrack.client.local.event.CameraHighlight;
 import pl.itrack.client.local.services.user.Settings;
-import pl.itrack.client.local.services.utils.ResourcesRetriever;
 import pl.itrack.client.local.services.utils.WktUtil;
 import pl.itrack.client.local.view.helpers.Texts;
-import pl.itrack.client.local.view.widgets.modals.ImageDialog;
+import pl.itrack.client.local.view.widgets.modals.CameraDialog;
 import pl.itrack.client.shared.model.Coordinates;
 import pl.itrack.client.shared.model.TristarObject;
-import pl.itrack.client.shared.model.TristarObjectType;
 import pl.itrack.client.shared.services.TristarDataService;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
@@ -60,16 +60,13 @@ public class ClassicMapService extends AbstractMapService {
     private TristarDataService dataService;
 
     @Inject
-    private ResourcesRetriever retriever;
-
-    @Inject
     private WktUtil wktUtil;
 
     @Inject
     private Settings settings;
 
     @Inject
-    private ImageDialog modal;
+    private CameraDialog modal;
 
     private Set<Integer> favouriteCameras;
 
@@ -154,7 +151,9 @@ public class ClassicMapService extends AbstractMapService {
             if (coordinates != null) {
                 Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
                 String cameraIconFile = getCameraIcon(camera.getId());
-                createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
+                Marker marker = createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
+
+                updateMarkersCache(camera.getId(), marker);
             }
         }
     }
@@ -170,13 +169,8 @@ public class ClassicMapService extends AbstractMapService {
     }
 
     @Override
-    void showCameraDialog(String title, String imageUrl) {
-        modal.show(title, imageUrl);
-    }
-
-    @Override
-    String getImageUrl(Integer objectId) {
-        return retriever.getImageUrl(TristarObjectType.CAMERA, objectId, true);
+    void showCameraDialog(String title, Integer objectId) {
+        modal.show(title, objectId);
     }
 
     @Override
@@ -193,5 +187,11 @@ public class ClassicMapService extends AbstractMapService {
     protected void updateFavourites(Marker clickedMarker, Integer objectId) {
         favouriteCameras = settings.addOrRemoveFavouriteCamera(objectId);
         clickedMarker.setIcon(getCameraIcon(objectId));
+    }
+
+    private void updateFavourites(@Observes CameraHighlight event) {
+        if (event.getId() != null) {
+            updateFavourites(getMarker(event.getId()), event.getId());
+        }
     }
 }

@@ -60,7 +60,9 @@ img.tristarModalImage {
     height: auto;
     max-height: 288px;
 }
-
+.btnFavouritesAdd {
+    margin-left: 17px;
+}
 .modal-content {
     text-align: center;
 }

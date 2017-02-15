@@ -37,7 +37,11 @@ public class BaseDialog {
 
     @PostConstruct
     void init() {
-        footer.add(createButton(Texts.BTN_CLOSE_LABEL, clickEvent -> closeWindow()));
+        addCloseButton();
+    }
+
+    void addCloseButton() {
+        footer.add(createButton(Texts.BTN_CLOSE, clickEvent -> closeWindow()));
     }
 
     void closeWindow() {

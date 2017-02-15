@@ -17,7 +17,9 @@ package pl.itrack.client.local.view.helpers;
 public interface Texts {
     String YES = "Tak";
     String NO = "Nie";
-    String BTN_CLOSE_LABEL = "Zamknij";
+    String BTN_CLOSE = "Zamknij";
+    String BTN_FAV_ADD = "Dodaj do ulubionych";
+    String BTN_FAV_REMOVE = "Usuń z ulubionych";
     String TITLE_MAPS = "Mapa";
     String TITLE_FAVOURITES = "Ulubione";
     String HELP_TITLE = "Jak to działa?";
