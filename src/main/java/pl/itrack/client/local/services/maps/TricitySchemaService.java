@@ -127,13 +127,8 @@ public class TricitySchemaService extends AbstractMapService {
     }
 
     @Override
-    void showCameraDialog(String title, String imageUrl) {
+    void showCameraDialog(String title, Integer objectId) {
         // TODO
-    }
-
-    @Override
-    String getImageUrl(Integer objectId) {
-        return null; // TODO try to move this to the abstract class
     }
 
     @Override

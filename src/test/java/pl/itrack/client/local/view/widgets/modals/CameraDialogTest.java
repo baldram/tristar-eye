@@ -16,41 +16,65 @@ package pl.itrack.client.local.view.widgets.modals;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import gwt.material.design.client.ui.MaterialImage;
+import gwt.material.design.client.ui.MaterialModalFooter;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import pl.itrack.client.local.services.user.Settings;
+import pl.itrack.client.local.services.utils.ResourcesRetriever;
+import pl.itrack.client.shared.model.TristarObjectType;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class ImageDialogTest {
+public class CameraDialogTest {
 
     private static final String IMAGE_ID = "tristarModalImage";
+    private static final int OBJECT_ID = 123;
+    private static final String IMAGE_URL = "url";
 
     @InjectMocks
-    private ImageDialog imageDialog;
+    private CameraDialog cameraDialog;
 
     @Mock
     private BaseDialog dialog;
 
     @Mock
     private MaterialImage image;
+
+    @Mock
+    private ResourcesRetriever retriever;
+
+    @Mock
+    private Settings settings;
+
     private String dialogTitle;
-    private String imageUrl;
+
+    @Before
+    public void setUp() throws Exception {
+        when(retriever.getImageUrl(eq(TristarObjectType.CAMERA), eq(OBJECT_ID), eq(true))).thenReturn(IMAGE_URL);
+        when(dialog.getFooter()).thenReturn(mock(MaterialModalFooter.class));
+        when(settings.getUserFavaouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
+    }
 
     @Test
     public void show() throws Exception {
         dialogTitle = "title";
-        imageUrl = "url";
 
-        imageDialog.show(dialogTitle, imageUrl);
+        cameraDialog.show(dialogTitle, OBJECT_ID);
 
-        verify(image).setUrl(eq("url"));
+        verify(image).setUrl(eq(IMAGE_URL));
         verify(image).setId(eq(IMAGE_ID));
         verify(image).setClass(eq(IMAGE_ID));
-        verify(dialog).show(eq("title"), eq(image));
+        verify(dialog).show(eq(dialogTitle), eq(image));
     }
+
+    // TODO: to implement Selenium tests to handle click event
 
 }
