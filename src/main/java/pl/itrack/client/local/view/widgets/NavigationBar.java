@@ -77,9 +77,9 @@ public abstract class NavigationBar extends UnorderedList {
         }
     }
 
-    private void switchActiveNavButton(MaterialLink activeButton, MaterialLink inactiveButon) {
+    private void switchActiveNavButton(MaterialLink activeButton, MaterialLink inactiveButton) {
         activeButton.getElement().addClassName(CSS_CLASS_TAB_ACTIVE);
-        inactiveButon.getElement().removeClassName(CSS_CLASS_TAB_ACTIVE);
+        inactiveButton.getElement().removeClassName(CSS_CLASS_TAB_ACTIVE);
     }
 
     abstract boolean isHiddenOnMobile();

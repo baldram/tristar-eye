@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 public class SimpleDialog {
 
-    private BaseDialog dialog;
+    private final BaseDialog dialog;
 
     @Inject
     public SimpleDialog(BaseDialog dialog) {

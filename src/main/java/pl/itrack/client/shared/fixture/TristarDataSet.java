@@ -18,9 +18,10 @@ import com.google.common.collect.ImmutableMap;
 import pl.itrack.client.shared.model.TristarObject;
 import pl.itrack.client.shared.model.TristarObjectType;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * TODO: to remove when external API is ready
@@ -120,12 +121,7 @@ public class TristarDataSet {
     }
 
     private TristarObject createCameraObject(int id, String wkt, String title) {
-        TristarObject camera = new TristarObject();
-        camera.setId(id);
-        camera.setWkt(wkt);
-        camera.setName(title);
-        camera.setType(TristarObjectType.CAMERA);
-        return camera;
+        return new TristarObject(id, wkt, title, TristarObjectType.CAMERA);
     }
 
     public ImmutableMap<Integer, TristarObject> fetchAll(TristarObjectType type) {
@@ -143,14 +139,9 @@ public class TristarDataSet {
     }
 
     public List<TristarObject> fetch(TristarObjectType type, Set<Integer> ids) {
-        List<TristarObject> choosenCameras = new ArrayList<>();
         if (TristarObjectType.CAMERA == type) {
-            for (Integer id : ids) {
-                if (ids.contains(id)) {
-                    choosenCameras.add(cameras.get(id));
-                }
-            }
+            return ids.stream().filter(ids::contains).map(id -> cameras.get(id)).collect(Collectors.toList());
         }
-        return choosenCameras;
+        return Collections.emptyList();
     }
 }

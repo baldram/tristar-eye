@@ -14,15 +14,14 @@
 
 package pl.itrack.client.local;
 
-import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.ui.MaterialSplashScreen;
 import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.ui.nav.client.local.Navigation;
+import pl.itrack.client.local.view.helpers.LinkElementInjector;
 import pl.itrack.client.local.view.helpers.UiHelper;
-import pl.itrack.client.local.view.resources.AppClientBundle;
 import pl.itrack.client.local.view.widgets.Header;
 import pl.itrack.client.local.view.widgets.Main;
 
@@ -32,6 +31,8 @@ import javax.inject.Inject;
 @EntryPoint
 @SuppressWarnings("unused")
 public class TristarEyeApp extends Composite {
+
+    private static final String APP_CSS = "./css/tristar.css";
 
     @Inject private Navigation navigation;
 
@@ -43,9 +44,12 @@ public class TristarEyeApp extends Composite {
 
     @Inject private MaterialSplashScreen splash;
 
+    @Inject private LinkElementInjector cssInjector;
+
     @PostConstruct
     public void init() {
-        StyleInjector.inject(AppClientBundle.INSTANCE.appCss().getText());
+        cssInjector.injectStyleSheet(APP_CSS);
+
         content.getContainer().add(navigation.getContentPanel());
         splash.show();
 

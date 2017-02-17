@@ -41,7 +41,7 @@ abstract class AbstractMapService implements MapService {
     private Marker clickedMarker;
     private boolean isMarkerLongPressed = false;
 
-    private Map<Integer, Marker> markers = new HashMap<>();
+    private final Map<Integer, Marker> markers = new HashMap<>();
 
     abstract MapOptions getMapOptions();
 

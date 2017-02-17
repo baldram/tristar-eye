@@ -44,12 +44,13 @@ public class HowToViewModel extends BasePage {
 
     @Override
     protected void onPageShown() {
-        Set<Integer> favouritesCameraIds = userSettings.getUserFavaouriteCameras();
+        Set<Integer> favouritesCameraIds = userSettings.getUserFavouriteCameras();
         if (!favouritesCameraIds.isEmpty()) {
             toFavourites.go();
         }
     }
 
+    @SuppressWarnings("unused")
     @EventHandler("goToMapButton")
     public void refreshFavourites(ClickEvent e) {
         toMap.go();

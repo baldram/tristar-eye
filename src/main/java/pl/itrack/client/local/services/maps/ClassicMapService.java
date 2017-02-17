@@ -72,7 +72,7 @@ public class ClassicMapService extends AbstractMapService {
 
     public void initializeMap() {
         super.initializeMap();
-        favouriteCameras = settings.getUserFavaouriteCameras();
+        favouriteCameras = settings.getUserFavouriteCameras();
         settings.displayWelcomeHelpOnce();
         initializeTrafficLayer(getMapWidget());
     }
@@ -126,8 +126,8 @@ public class ClassicMapService extends AbstractMapService {
 
             PlaceResult result = autoComplete.getPlace();
 
-            PlaceGeometry geomtry = result.getGeometry();
-            LatLng center = geomtry.getLocation();
+            PlaceGeometry geometry = result.getGeometry();
+            LatLng center = geometry.getLocation();
 
             getMapWidget().panTo(center);
             getMapWidget().setZoom(ZOOM);
@@ -149,13 +149,17 @@ public class ClassicMapService extends AbstractMapService {
         for (TristarObject camera : cameras) {
             Coordinates coordinates = wktUtil.getPointAsPair(camera.getWkt());
             if (coordinates != null) {
-                Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
-                String cameraIconFile = getCameraIcon(camera.getId());
-                Marker marker = createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
-
-                updateMarkersCache(camera.getId(), marker);
+                addMarker(camera, coordinates);
             }
         }
+    }
+
+    private void addMarker(TristarObject camera, Coordinates coordinates) {
+        Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
+        String cameraIconFile = getCameraIcon(camera.getId());
+        Marker marker = createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
+
+        updateMarkersCache(camera.getId(), marker);
     }
 
     private String getCameraIcon(Integer cameraId) {
