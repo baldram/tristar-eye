@@ -36,15 +36,15 @@ public class CameraDialog {
 
     private static final String FAVOURITES_ADD_CSS = "btnFavouritesAdd";
 
-    private BaseDialog dialog;
+    private final BaseDialog dialog;
 
-    private MaterialImage image;
+    private final MaterialImage image;
+
+    private final Settings settings;
+
+    private final ResourcesRetriever retriever;
 
     private Set<Integer> favouriteCameras;
-
-    private Settings settings;
-
-    private ResourcesRetriever retriever;
 
     @Inject
     private Event<CameraHighlight> cameraHighlightEvent;
@@ -62,7 +62,7 @@ public class CameraDialog {
         image.setId(IMAGE_ID);
         image.setClass(IMAGE_ID);
 
-        addFooterButons(objectId);
+        addFooterButtons(objectId);
 
         dialog.show(title, image);
     }
@@ -71,8 +71,8 @@ public class CameraDialog {
         return retriever.getImageUrl(TristarObjectType.CAMERA, objectId, true);
     }
 
-    private void addFooterButons(Integer objectId) {
-        favouriteCameras = settings.getUserFavaouriteCameras();
+    private void addFooterButtons(Integer objectId) {
+        favouriteCameras = settings.getUserFavouriteCameras();
 
         MaterialModalFooter footer = dialog.getFooter();
         footer.clear();
@@ -95,7 +95,7 @@ public class CameraDialog {
 
     private void handleFavouriteSection(Integer objectId, MaterialButton button) {
         cameraHighlightEvent.fire(new CameraHighlight(objectId));
-        favouriteCameras = settings.getUserFavaouriteCameras();
+        favouriteCameras = settings.getUserFavouriteCameras();
         markFavouriteSelection(favouriteCameras.contains(objectId), button);
     }
 

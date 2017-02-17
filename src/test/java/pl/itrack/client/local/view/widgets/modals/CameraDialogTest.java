@@ -60,7 +60,7 @@ public class CameraDialogTest {
     public void setUp() throws Exception {
         when(retriever.getImageUrl(eq(TristarObjectType.CAMERA), eq(OBJECT_ID), eq(true))).thenReturn(IMAGE_URL);
         when(dialog.getFooter()).thenReturn(mock(MaterialModalFooter.class));
-        when(settings.getUserFavaouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
+        when(settings.getUserFavouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
     }
 
     @Test

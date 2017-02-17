@@ -25,9 +25,9 @@ public class ConfirmationDialog {
 
     private static final String LINE_SEPARATOR = "<br />";
 
-    private BaseDialog dialog;
+    private final BaseDialog dialog;
 
-    private Div body;
+    private final Div body;
 
     @Inject
     public ConfirmationDialog(BaseDialog dialog, Div body) {

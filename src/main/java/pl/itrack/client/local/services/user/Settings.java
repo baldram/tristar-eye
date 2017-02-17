@@ -44,7 +44,7 @@ public class Settings {
     @Inject
     private SimpleDialog modal;
 
-    public Set<Integer> getUserFavaouriteCameras() {
+    public Set<Integer> getUserFavouriteCameras() {
         Set<Integer> userObjects = userSettings.getAllUserObjectIds(TristarObjectType.CAMERA);
 
         if (!userObjects.isEmpty()) {
@@ -54,7 +54,7 @@ public class Settings {
     }
 
     public Set<Integer> addOrRemoveFavouriteCamera(Integer id) {
-        Set<Integer> selectedCameras = getUserFavaouriteCameras();
+        Set<Integer> selectedCameras = getUserFavouriteCameras();
         if (selectedCameras.contains(id)) {
             selectedCameras.remove(id);
             MaterialToast.fireToast(Texts.CAMERA_REMOVED);
@@ -66,7 +66,7 @@ public class Settings {
         return selectedCameras;
     }
 
-    private Integer[] getDefaultUserFavaouriteObjects(TristarObjectType type) {
+    private Integer[] getDefaultUserFavouriteObjects(TristarObjectType type) {
         if (TristarObjectType.CAMERA == type) {
             return new Integer[] { 165, 168, 170, 172, 173, 174, 175, 176, 177, 204, 205, 206, 207, 208, 209, 210, 287, 291 };
         }
@@ -99,7 +99,7 @@ public class Settings {
     }
 
     private void restoreDefaultFavourites() {
-        Set<Integer> selectedCameras = new HashSet<>(Arrays.asList(getDefaultUserFavaouriteObjects(TristarObjectType.CAMERA)));
+        Set<Integer> selectedCameras = new HashSet<>(Arrays.asList(getDefaultUserFavouriteObjects(TristarObjectType.CAMERA)));
         userSettings.storeFavouriteCameras(selectedCameras);
         toFavourites.go();
     }

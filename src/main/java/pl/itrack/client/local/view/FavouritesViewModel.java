@@ -77,12 +77,12 @@ public class FavouritesViewModel extends BasePage {
         if (favouritesCameraIds.isEmpty()) {
             toHowTo.go();
         }
-        uiHelper.initUniteGallery();
+        UiHelper.initUniteGallery();
     }
 
     private void loadFavourites() {
         favouritesPlaceholder.clear();
-        favouritesCameraIds = userSettings.getUserFavaouriteCameras();
+        favouritesCameraIds = userSettings.getUserFavouriteCameras();
 
         List<TristarObject> cameraImages = dataService.getCameras(favouritesCameraIds);
         for (TristarObject image : cameraImages) {
@@ -96,6 +96,7 @@ public class FavouritesViewModel extends BasePage {
         imagesContainer.add(favouriteImage);
     }
 
+    @SuppressWarnings("unused")
     @EventHandler("refreshButton")
     public void refreshFavourites(ClickEvent e) {
         toFavourites.go();

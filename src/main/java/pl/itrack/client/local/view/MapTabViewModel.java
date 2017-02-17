@@ -137,6 +137,7 @@ public class MapTabViewModel extends BasePage {
         loadMapApi();
     }
 
+    @SuppressWarnings("unused")
     @EventHandler("locationButton")
     public void setCurrentLocation(ClickEvent e) {
         classicMapService.setCurrentLocationIfSupported();

@@ -31,6 +31,7 @@ public abstract class BasePage extends Composite {
     private Event<PageLoaded> pageLoadedEvent;
 
     @PageShown
+    @SuppressWarnings("unused")
     private void setCurrentState() {
         onPageShown();
         if (navigation.getCurrentPage()!=null) {

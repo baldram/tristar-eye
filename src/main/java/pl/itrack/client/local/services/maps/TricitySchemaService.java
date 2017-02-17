@@ -22,7 +22,6 @@ import com.google.gwt.maps.client.base.Size;
 import com.google.gwt.maps.client.controls.MapTypeControlOptions;
 import com.google.gwt.maps.client.maptypes.ImageMapType;
 import com.google.gwt.maps.client.maptypes.ImageMapTypeOptions;
-import com.google.gwt.maps.client.maptypes.TileUrlCallBack;
 import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.user.client.ui.TextBox;
 import pl.itrack.client.shared.model.TristarObject;

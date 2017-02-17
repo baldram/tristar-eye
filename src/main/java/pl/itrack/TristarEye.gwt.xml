@@ -8,5 +8,4 @@
     <inherits name="gwt.material.design.themes.ThemeBlue"/>
     <inherits name="gwt.material.design.addins.GwtMaterialAddins"/>
     <inherits name="gwt.material.design.GwtMaterialTableDebug"/>
-
 </module>

@@ -33,7 +33,7 @@ public class BaseDialog {
 
     private MaterialModal modal;
 
-    private MaterialModalFooter footer = new MaterialModalFooter();
+    private final MaterialModalFooter footer = new MaterialModalFooter();
 
     @PostConstruct
     void init() {

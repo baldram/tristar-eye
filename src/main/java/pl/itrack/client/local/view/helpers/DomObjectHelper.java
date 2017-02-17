@@ -26,13 +26,13 @@ public class DomObjectHelper {
     private static final String IMG_ID_PREFIX = "fav-img";
 
     public Image createImageElement(int resourceId, String title, String url) {
-        final Image favouriteImage = new Image();
-        favouriteImage.getElement().setId(IMG_ID_PREFIX + resourceId);
-        favouriteImage.setUrl(url);
-        favouriteImage.getElement().setAttribute(ATTR_DATA_IMAGE, url);
-        favouriteImage.getElement().setAttribute(ATTR_DATA_DESCRIPTION, title);
-        favouriteImage.getElement().setAttribute(ATTR_ALT, title);
-        favouriteImage.getElement().setAttribute(ATTR_STYLE, HIDDEN);
-        return favouriteImage;
+        final Image image = new Image();
+        image.getElement().setId(IMG_ID_PREFIX + resourceId);
+        image.setUrl(url);
+        image.getElement().setAttribute(ATTR_DATA_IMAGE, url);
+        image.getElement().setAttribute(ATTR_DATA_DESCRIPTION, title);
+        image.getElement().setAttribute(ATTR_ALT, title);
+        image.getElement().setAttribute(ATTR_STYLE, HIDDEN);
+        return image;
     }
 }
