@@ -17,19 +17,22 @@ package pl.itrack.client.local.view.helpers;
 import com.google.gwt.core.client.Scheduler;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsMaterialElement;
-import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.jquery.client.api.JQueryElement;
+import org.apache.commons.lang3.StringUtils;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class UiHelper {
 
+    private static final String MENU_BUTTON_DOM_ID = ".button-collapse";
+    private static final String MATERIALIZE_HIDE_COMMAND = "hide";
+
     public final void initMaterialize() {
-        Scheduler.get().scheduleDeferred(() -> {
-            JQueryElement activator = $(".button-collapse");
-            JsMaterialElement.$(activator).sideNav(new JsSideNavOptions());
-        });
+        Scheduler.get().scheduleDeferred(() -> JsMaterialElement.$($(MENU_BUTTON_DOM_ID)).sideNav(StringUtils.EMPTY));
+    }
+
+    public final void hideNavBar() {
+        JsMaterialElement.$($(MENU_BUTTON_DOM_ID)).sideNav(MATERIALIZE_HIDE_COMMAND);
     }
 
     public final void buildFabButton(MaterialButton button, IconType iconType) {

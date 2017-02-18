@@ -12,25 +12,11 @@
  * the License.
  */
 
-package pl.itrack.client.local.view.widgets;
+package pl.itrack.client.local.event;
 
-import pl.itrack.client.local.event.PageChange;
-import pl.itrack.client.local.view.helpers.UiHelper;
+import org.jboss.errai.bus.client.api.Local;
+import org.jboss.errai.common.client.api.annotations.Portable;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
-public class SideNavigationBar extends NavigationBar {
-
-    @Inject UiHelper uiHelper;
-
-    @Override
-    boolean isHiddenOnMobile() {
-        return false;
-    }
-
-    @SuppressWarnings("unused")
-    private void hideNavbarIfOpened(@Observes PageChange event) {
-        uiHelper.hideNavBar();
-    }
+@Portable @Local
+public class PageChange {
 }

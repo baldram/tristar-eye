@@ -20,6 +20,7 @@ import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.html.UnorderedList;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
+import pl.itrack.client.local.event.PageChange;
 import pl.itrack.client.local.event.PageLoaded;
 import pl.itrack.client.local.view.FavouritesViewModel;
 import pl.itrack.client.local.view.MapTabViewModel;
@@ -28,6 +29,7 @@ import pl.itrack.client.local.view.HowToViewModel;
 import pl.itrack.client.local.view.helpers.Texts;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -43,6 +45,8 @@ public abstract class NavigationBar extends UnorderedList {
 
     @Inject private TransitionTo<MapTabViewModel> toMap;
 
+    @Inject private Event<PageChange> pageChangeEvent;
+
     @PostConstruct
     public void init() {
         configureSimpleButtonLink(buttonMap, Texts.TITLE_MAPS, toMap, isHiddenOnMobile());
@@ -57,7 +61,12 @@ public abstract class NavigationBar extends UnorderedList {
             buttonLink.setWaves(WavesType.LIGHT);
             buttonLink.setWaves(WavesType.DEFAULT);
         }
-        buttonLink.addClickHandler(clickEvent -> transitTo.go());
+        buttonLink.addClickHandler(clickEvent -> handleMenuItemClick(transitTo));
+    }
+
+    private void handleMenuItemClick(TransitionTo<? extends BasePage> transitTo) {
+        transitTo.go();
+        pageChangeEvent.fire(new PageChange());
     }
 
     private void addButtons() {
@@ -65,6 +74,7 @@ public abstract class NavigationBar extends UnorderedList {
         this.add(buttonFav);
     }
 
+    @SuppressWarnings("unused")
     private void updateNavButtons(@Observes PageLoaded event) {
         Scheduler.get().scheduleDeferred(() -> selectActiveNavButton(event));
     }
