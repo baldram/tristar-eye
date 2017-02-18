@@ -38,6 +38,7 @@ public class CameraDialogTest {
     private static final String IMAGE_ID = "tristarModalImage";
     private static final int OBJECT_ID = 123;
     private static final String IMAGE_URL = "url";
+    private static final String DIALOG_CSS_CLASS_NAME = "camera-dialog";
 
     @InjectMocks
     private CameraDialog cameraDialog;
@@ -72,7 +73,7 @@ public class CameraDialogTest {
         verify(image).setUrl(eq(IMAGE_URL));
         verify(image).setId(eq(IMAGE_ID));
         verify(image).setClass(eq(IMAGE_ID));
-        verify(dialog).show(eq(dialogTitle), eq(image));
+        verify(dialog).show(eq(dialogTitle), eq(image), eq(DIALOG_CSS_CLASS_NAME));
     }
 
     // TODO: to implement Selenium tests to handle click event

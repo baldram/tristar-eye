@@ -94,6 +94,12 @@ img.tristarModalImage {
     height: auto;
     max-height: 288px;
 }
+.camera-dialog > .modal-content {
+    padding: 0.7em;
+}
+.camera-dialog > .modal-content > h5 {
+    margin-top: 0;
+}
 .btnFavouritesAdd { margin-left: 17px; }
 .modal-content { text-align: center; }
 

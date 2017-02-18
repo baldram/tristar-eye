@@ -36,6 +36,8 @@ public class CameraDialog {
 
     private static final String FAVOURITES_ADD_CSS = "btnFavouritesAdd";
 
+    private static final String DIALOG_CSS_CLASS_NAME = "camera-dialog";
+
     private final BaseDialog dialog;
 
     private final MaterialImage image;
@@ -64,7 +66,7 @@ public class CameraDialog {
 
         addFooterButtons(objectId);
 
-        dialog.show(title, image);
+        dialog.show(title, image, DIALOG_CSS_CLASS_NAME);
     }
 
     private String getImageUrl(Integer objectId) {
