@@ -57,16 +57,17 @@ public class BaseDialog {
         return button;
     }
 
-    void show(final String title, final Widget body) {
-        modal = initModal(title, body);
+    void show(final String title, final Widget body, final String cssClassName) {
+        modal = initModal(title, body, cssClassName);
         RootPanel.get().add(modal);
         modal.open();
     }
 
-    private MaterialModal initModal(String title, Widget body) {
+    private MaterialModal initModal(String title, Widget body, String cssClassName) {
         modal = new MaterialModal();
         modal.add(getModalContent(title, body));
         modal.add(footer);
+        modal.getElement().addClassName(cssClassName);
         return modal;
     }
 

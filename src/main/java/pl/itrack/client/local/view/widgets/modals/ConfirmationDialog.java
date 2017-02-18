@@ -23,6 +23,8 @@ import javax.inject.Inject;
 
 public class ConfirmationDialog {
 
+    private static final String DIALOG_CSS_CLASS_NAME = "confirmation-dialog";
+
     private static final String LINE_SEPARATOR = "<br />";
 
     private final BaseDialog dialog;
@@ -38,7 +40,7 @@ public class ConfirmationDialog {
     public void show(final String title, final String question, ConfirmationAction action) {
         body.getElement().setInnerHTML(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION);
         replaceActionButtons(executeActionAndCloseModal(action));
-        dialog.show(title, body);
+        dialog.show(title, body, DIALOG_CSS_CLASS_NAME);
     }
 
     private ClickHandler executeActionAndCloseModal(ConfirmationAction confirmedAction) {

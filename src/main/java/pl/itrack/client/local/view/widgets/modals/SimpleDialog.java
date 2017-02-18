@@ -20,6 +20,8 @@ import javax.inject.Inject;
 
 public class SimpleDialog {
 
+    private static final String DIALOG_CSS_CLASS_NAME = "simple-dialog";
+
     private final BaseDialog dialog;
 
     @Inject
@@ -30,6 +32,6 @@ public class SimpleDialog {
     public void show(final String title, final String content) {
         Div body = new Div();
         body.getElement().setInnerHTML(content);
-        dialog.show(title, body);
+        dialog.show(title, body, DIALOG_CSS_CLASS_NAME);
     }
 }

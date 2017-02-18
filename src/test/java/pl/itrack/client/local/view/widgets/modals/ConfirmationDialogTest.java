@@ -38,6 +38,8 @@ import static org.mockito.Mockito.*;
 @RunWith(GwtMockitoTestRunner.class)
 public class ConfirmationDialogTest {
 
+    private static final String DIALOG_CSS_CLASS_NAME = "confirmation-dialog";
+
     private static final String LINE_SEPARATOR = "<br />";
 
     @InjectMocks
@@ -79,7 +81,7 @@ public class ConfirmationDialogTest {
 
         confirmationDialog.show(title, question, () -> {});
 
-        verify(baseDialog).show(eq(title), eq(body));
+        verify(baseDialog).show(eq(title), eq(body), eq(DIALOG_CSS_CLASS_NAME));
         verify(bodyElement).setInnerHTML(dialogContentCaptor.capture());
         assertThat(dialogContentCaptor.getValue(), is(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION));
     }

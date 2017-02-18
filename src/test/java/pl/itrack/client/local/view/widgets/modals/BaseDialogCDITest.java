@@ -53,17 +53,19 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
 
     public void testShow() throws Exception {
         String dialogTitle = "modal-title";
+        String cssClassName = "css-name";
 
-        baseDialog.show(dialogTitle, testWidget);
+        baseDialog.show(dialogTitle, testWidget, cssClassName);
 
         assertNotNull($(TEST_WIDGET_ID));
         assertEquals(dialogTitle, $(BodyElement.TAG).find(MODAL_TITLE_TAG).asElement().getInnerHTML());
+        assertNotNull($("." + cssClassName));
         assertTrue(rootPanelContains(baseDialog.getModal()));
         assertEquals(1, baseDialog.getFooter().getChildrenList().size());
     }
 
     public void testClose() throws Exception {
-        baseDialog.show(StringUtils.EMPTY, testWidget);
+        baseDialog.show(StringUtils.EMPTY, testWidget, StringUtils.EMPTY);
         baseDialog.closeWindow();
 
         assertFalse(rootPanelContains(baseDialog.getModal()));
