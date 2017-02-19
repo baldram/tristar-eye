@@ -32,14 +32,26 @@ public interface Texts {
     String REMOVE_FAVS_WARNING = "Wszystkie wybrane przez Ciebie kamery zostanę bezpowrotnie usunięte.";
     String RESTORE_DEFAULT_FAVS_WARNING = "Załadowane zostaną przykładowe kamery, zastępując aktualne.";
 
-    String HELP_DESCRIPTION = "Celem jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji pochodzących z tristar.gdansk.pl i tristar.gdynia.pl. " +
-        "<br /><strong>Dotknij</strong> wybraną kamerę <strong>aby zobaczyć</strong> obraz. <strong>Przytrzymaj</strong> palcem dłużej, <strong>aby dodać do \"ulubionych\"</strong> " +
-        "(zostanie oznaczona żółtym punktem). " +
-        "<br /><img src=\"./images/select-cams.png\" />" +
-        "<br /><strong>Wybrane kamery</strong> zobaczysz w <strong>zakładce Ulubione</strong>. " +
-        "Możesz też użyć opcji \"Demo kamery\" aby dodać do ulubionych przykładowy zestaw kamer. " +
-        "Funkcja \"Usuń wszystkie\" pozwoli rozpocząć konfigurację od nowa." +
-        //"<br /><br />Opcja wyszukiwania w prawym górnym rogu pozwala przejść do wybranego miejsca - wpisując np. \"Gdynia Śródmieście\" i potwierdzając wybór na liście podpowiedzi." +
-        "<br /><br />Tekst tej pomocy <strong>możesz przeczytać później</strong>, wybierając <strong>\"Jak to działa?\"</strong> z menu po lewej. ";
+    String HELP_DESCRIPTION = "Celem aplikacji jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji " +
+            "pochodzących z serwisów tristar.gdansk.pl i tristar.gdynia.pl. <br /><strong>Dotknij lub kliknij</strong> wybraną " +
+            "kamerę <strong>aby zobaczyć</strong> obraz. <strong>Dodaj do ulubionych</strong> za pomocą ikony " +
+            "<button type=\"button\" class=\"white btn-floating\">" +
+            "<i class=\"left red-text material-icons\" style=\"cursor: pointer;\">favorite</i></button> . " +
+            "Można też dodawać do ulubionych " +
+            "<strong>bezpośrednio z mapy</strong>, wystarczy <strong>przytrzymać</strong> wybrany punkt " +
+            "<strong>dłużej</strong> (zostanie oznaczona żółtym punktem). " +
+            "<br /><img src=\"./images/select-cams.png\" /> " +
+            "<br /><strong>Usuwanie</strong> kamer odbywa się w sposób analogiczny. " +
+            "<br /><strong>Wybrane kamery</strong> zobaczysz w <strong>zakładce Ulubione</strong>. " +
+            "<br /><br />Możesz też użyć opcji \"Demo kamery\" aby dodać do ulubionych przykładowy zestaw kamer. " +
+            "Funkcja \"Usuń wszystkie\" pozwoli rozpocząć konfigurację od nowa. " +
+            "<br />Opcje te znajdziesz w menu <button type=\"button\" class=\"blue darken-4 btn-floating\">" +
+            "<i class=\"white-text material-icons\">more_vert</i></button> " +
+            "dostępnym w prawym górnym rogu. " +
+            "<br /><br /><strong>Opcja wyszukiwania</strong> <button type=\"button\" class=\"blue darken-4 btn-floating\">" +
+            "<i class=\"white-text material-icons\">search</i></button> " +
+            "pozwala przejść do wybranego miejsca - wpisując np. \"Gdynia Śródmieście\"<br />i potwierdzając wybór na liście podpowiedzi." +
+            "<br /><br />Tekst tej pomocy <strong>możesz przeczytać później</strong>, wybierając " +
+            "<strong>\"Jak to działa?\"</strong> z menu (w prawym górnym rogu). ";
     String MSG_LOCATION_NOT_SUPPORTED = "Your browser or device does not support location!";
 }
