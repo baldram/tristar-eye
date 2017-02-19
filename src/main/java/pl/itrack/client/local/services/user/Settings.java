@@ -68,7 +68,7 @@ public class Settings {
 
     private Integer[] getDefaultUserFavouriteObjects(TristarObjectType type) {
         if (TristarObjectType.CAMERA == type) {
-            return new Integer[] { 165, 168, 170, 172, 173, 174, 175, 176, 177, 204, 205, 206, 207, 208, 209, 210, 287, 291 };
+            return new Integer[] { 178, 176, 175, 199, 216, 218, 203, 174, 172, 288, 168, 164, 281, 277, 280, 275, 274, 188, 195, 193, 184 };
         }
         return new Integer[]{};
     }
