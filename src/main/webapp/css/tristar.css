@@ -22,7 +22,7 @@ a, h1, h2, h3, h4, h5, h6 { font-weight: 300; }
     .input-field input[type=search] { padding-left: 3.5rem !important; }
     nav .brand-logo { margin-left: -0.5em; }
 }
-nav { background-color: #2196f3; }
+
 .mainContainer {
     height: 100vh;
     padding-top: 56px;

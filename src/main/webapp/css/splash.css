@@ -1,0 +1,47 @@
+body {
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.splash-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background: #2196f3 !important;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    color: #fff;
+    z-index: 10000;
+}
+.splash-overlay span, .splash-overlay div {
+    display: block;
+}
+.splash-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+.splash-description {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+.splash-overlay div {
+    text-align: center;
+    width: 100%;
+}
+.splash-overlay img {
+    width: 7rem;
+    filter: brightness(0) invert(1);
+}
+.splash-overlay .progress {
+    margin: 0;
+    position: absolute;
+    bottom: 2px;
+    height: 6px;
+}
