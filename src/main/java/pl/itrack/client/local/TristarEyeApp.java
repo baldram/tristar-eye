@@ -14,10 +14,10 @@
 
 package pl.itrack.client.local;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.ui.MaterialSplashScreen;
 import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.ui.nav.client.local.Navigation;
@@ -34,6 +34,7 @@ import javax.inject.Inject;
 public class TristarEyeApp extends Composite {
 
     private static final String APP_CSS = "./css/tristar.css";
+    private static final String SPLASH_SCREEN_ID = "splashscreen";
 
     @Inject private Navigation navigation;
 
@@ -43,8 +44,6 @@ public class TristarEyeApp extends Composite {
 
     @Inject private UiHelper uiHelper;
 
-    @Inject private MaterialSplashScreen splash;
-
     @Inject private LinkElementInjector cssInjector;
 
     @PostConstruct
@@ -52,9 +51,7 @@ public class TristarEyeApp extends Composite {
         cssInjector.injectStyleSheet(APP_CSS);
 
         content.getContainer().add(navigation.getContentPanel());
-        splash.show();
 
-        RootPanel.get().add(splash);
         RootPanel.get().add(header);
         RootPanel.get().add(content);
 
@@ -63,6 +60,7 @@ public class TristarEyeApp extends Composite {
 
     @AfterInitialization
     private void postInit() {
-        splash.hide();
+        Scheduler.get().scheduleDeferred(() ->
+                RootPanel.getBodyElement().removeChild(DOM.getElementById(SPLASH_SCREEN_ID)));
     }
 }
