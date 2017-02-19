@@ -111,6 +111,7 @@ img.tristarModalImage {
 .btnFavouritesAdd { margin-left: 17px; }
 .modal-content { text-align: center; }
 .simple-dialog .modal-content, .text-how-to { line-height: 2; }
+.lean-overlay { z-index: 999; }
 
 /** gmaps **/
 .gmnoprint { visibility: hidden; }
