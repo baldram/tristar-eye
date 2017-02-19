@@ -29,7 +29,7 @@ public interface Texts {
     String FAVOURITES_REMOVED = "Usunięto ulubione";
     String FAVOURITES_DEFAULTED = "Przywrócono przykładowe kamery";
     String CONFIRMATION_QUESTION = "Czy na pewno kontynuować?";
-    String REMOVE_FAVS_WARNING = "Wszystkie wybrane przez Ciebie kamery zostanę bezpowrotnie usunięte.";
+    String REMOVE_FAVS_WARNING = "Wszystkie wybrane przez Ciebie kamery zostaną bezpowrotnie usunięte.";
     String RESTORE_DEFAULT_FAVS_WARNING = "Załadowane zostaną przykładowe kamery, zastępując aktualne.";
 
     String HELP_DESCRIPTION = "Celem aplikacji jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji " +

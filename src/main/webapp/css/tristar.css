@@ -110,7 +110,7 @@ img.tristarModalImage {
 }
 .btnFavouritesAdd { margin-left: 17px; }
 .modal-content { text-align: center; }
-.simple-dialog .modal-content { line-height: 2; }
+.simple-dialog .modal-content, .text-how-to { line-height: 2; }
 
 /** gmaps **/
 .gmnoprint { visibility: hidden; }
