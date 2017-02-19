@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.HeadingSize;
+import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialModal;
 import gwt.material.design.client.ui.MaterialModalContent;
@@ -36,12 +37,20 @@ public class BaseDialog {
     private final MaterialModalFooter footer = new MaterialModalFooter();
 
     @PostConstruct
-    void init() {
+    private void basicInitialization() {
         addCloseButton();
     }
 
     void addCloseButton() {
-        footer.add(createButton(Texts.BTN_CLOSE, clickEvent -> closeWindow()));
+        addButton(createButton(Texts.BTN_CLOSE, clickEvent -> closeWindow()));
+    }
+
+    void addButton(Widget button) {
+        footer.add(button);
+    }
+
+    void clearFooter() {
+        footer.clear();
     }
 
     void closeWindow() {
@@ -57,13 +66,12 @@ public class BaseDialog {
         return button;
     }
 
-    void show(final String title, final Widget body, final String cssClassName) {
-        modal = initModal(title, body, cssClassName);
+    protected void show() {
         RootPanel.get().add(modal);
         modal.open();
     }
 
-    private MaterialModal initModal(String title, Widget body, String cssClassName) {
+    protected MaterialModal init(String title, Widget body, String cssClassName) {
         modal = new MaterialModal();
         modal.add(getModalContent(title, body));
         modal.add(footer);
@@ -87,6 +95,10 @@ public class BaseDialog {
         return header;
     }
 
+    public void setType(ModalType type) {
+        modal.setType(type);
+    }
+
     public MaterialModal getModal() {
         return modal;
     }
@@ -94,5 +106,4 @@ public class BaseDialog {
     public MaterialModalFooter getFooter() {
         return footer;
     }
-
 }

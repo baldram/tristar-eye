@@ -27,7 +27,7 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
 
     private static final String TEST_WIDGET_ID = "test-widget";
     private static final String MODAL_TITLE_TAG = "h5";
-    private static final String GMD_OVERLAY_CSS_CLASS = ".lean-overlay";
+    private static final String GMD_OVERLAY_CSS_CLASS = CLASS_DOM_PREFIX + "lean-overlay";
 
     private BaseDialog baseDialog;
 
@@ -55,17 +55,19 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
         String dialogTitle = "modal-title";
         String cssClassName = "css-name";
 
-        baseDialog.show(dialogTitle, testWidget, cssClassName);
+        baseDialog.init(dialogTitle, testWidget, cssClassName);
+        baseDialog.show();
 
         assertNotNull($(TEST_WIDGET_ID));
         assertEquals(dialogTitle, $(BodyElement.TAG).find(MODAL_TITLE_TAG).asElement().getInnerHTML());
-        assertNotNull($("." + cssClassName));
+        assertNotNull($(CLASS_DOM_PREFIX + cssClassName));
         assertTrue(rootPanelContains(baseDialog.getModal()));
         assertEquals(1, baseDialog.getFooter().getChildrenList().size());
     }
 
     public void testClose() throws Exception {
-        baseDialog.show(StringUtils.EMPTY, testWidget, StringUtils.EMPTY);
+        baseDialog.init(StringUtils.EMPTY, testWidget, StringUtils.EMPTY);
+        baseDialog.show();
         baseDialog.closeWindow();
 
         assertFalse(rootPanelContains(baseDialog.getModal()));

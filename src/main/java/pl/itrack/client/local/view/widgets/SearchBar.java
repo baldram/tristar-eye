@@ -66,6 +66,7 @@ public class SearchBar extends Nav {
     }
 
     @Produces
+    @SuppressWarnings("unused")
     private MapSearchInputProvider<TextBox> getMapSearch() {
         return () -> (TextBox) search.asValueBoxBase();
     }

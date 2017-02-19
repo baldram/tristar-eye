@@ -25,7 +25,7 @@ public class SideNavigationBar extends NavigationBar {
     @Inject UiHelper uiHelper;
 
     @Override
-    boolean isHiddenOnMobile() {
+    protected boolean isHiddenOnMobile() {
         return false;
     }
 

@@ -14,6 +14,7 @@
 
 package pl.itrack.client.local;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.ui.MaterialSplashScreen;
@@ -61,7 +62,7 @@ public class TristarEyeApp extends Composite {
     }
 
     @AfterInitialization
-    void postInit() {
+    private void postInit() {
         splash.hide();
     }
 }

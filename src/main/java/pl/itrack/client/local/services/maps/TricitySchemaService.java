@@ -121,12 +121,12 @@ public class TricitySchemaService extends AbstractMapService {
     }
 
     @Override
-    TristarObject getCameraDetails(Integer objectId) {
+    protected TristarObject getCameraDetails(Integer objectId) {
         return null; // TODO try to move this to the abstract class
     }
 
     @Override
-    void showCameraDialog(String title, Integer objectId) {
+    protected void showCameraDialog(String title, Integer objectId) {
         // TODO
     }
 

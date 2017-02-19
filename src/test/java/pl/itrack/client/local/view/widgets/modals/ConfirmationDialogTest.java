@@ -49,9 +49,6 @@ public class ConfirmationDialogTest {
     private BaseDialog baseDialog;
 
     @Mock
-    private MaterialModalFooter footer;
-
-    @Mock
     private Div body;
 
     @Mock
@@ -62,7 +59,6 @@ public class ConfirmationDialogTest {
 
     @Before
     public void setUp() throws Exception {
-        when(baseDialog.getFooter()).thenReturn(footer);
         when(body.getElement()).thenReturn(bodyElement);
     }
 
@@ -70,8 +66,8 @@ public class ConfirmationDialogTest {
     public void replaceDefaultFooter() {
         confirmationDialog.show(StringUtils.EMPTY, StringUtils.EMPTY, () -> {});
 
-        verify(footer).clear();
-        verify(footer, times(2)).add(any(Widget.class));
+        verify(baseDialog).clearFooter();
+        verify(baseDialog, times(2)).addButton(any(Widget.class));
     }
 
     @Test
@@ -81,9 +77,9 @@ public class ConfirmationDialogTest {
 
         confirmationDialog.show(title, question, () -> {});
 
-        verify(baseDialog).show(eq(title), eq(body), eq(DIALOG_CSS_CLASS_NAME));
+        verify(baseDialog).init(eq(title), eq(body), eq(DIALOG_CSS_CLASS_NAME));
+        verify(baseDialog).show();
         verify(bodyElement).setInnerHTML(dialogContentCaptor.capture());
         assertThat(dialogContentCaptor.getValue(), is(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION));
     }
-
 }

@@ -18,14 +18,10 @@ import org.jboss.errai.GwtMockitoRunnerExtension;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 
 @Ignore
 @RunWith(GwtMockitoRunnerExtension.class)
 public class MapTabViewModelTest {
-
-    @InjectMocks
-    private MapTabViewModel testedInstance;
 
     @Test
     public void test() throws Exception {

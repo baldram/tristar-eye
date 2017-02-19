@@ -19,10 +19,9 @@ public class LinkElementInjector {
 
     private HeadElement head;
 
-    public LinkElement injectStyleSheet(String fileWebPath) {
+    public void injectStyleSheet(String fileWebPath) {
         LinkElement link = this.createElement(fileWebPath + APP_VERSION_SUFFIX);
         this.getHead().appendChild(link);
-        return link;
     }
 
     private LinkElement createElement(String filePath) {

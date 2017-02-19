@@ -40,7 +40,8 @@ public class ConfirmationDialog {
     public void show(final String title, final String question, ConfirmationAction action) {
         body.getElement().setInnerHTML(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION);
         replaceActionButtons(executeActionAndCloseModal(action));
-        dialog.show(title, body, DIALOG_CSS_CLASS_NAME);
+        dialog.init(title, body, DIALOG_CSS_CLASS_NAME);
+        dialog.show();
     }
 
     private ClickHandler executeActionAndCloseModal(ConfirmationAction confirmedAction) {
@@ -51,9 +52,8 @@ public class ConfirmationDialog {
     }
 
     private void replaceActionButtons(ClickHandler confirmedAction) {
-        MaterialModalFooter footer = dialog.getFooter();
-        footer.clear();
-        footer.add(dialog.createButton(Texts.NO, clickEvent -> dialog.closeWindow()));
-        footer.add(dialog.createButton(Texts.YES, confirmedAction));
+        dialog.clearFooter();
+        dialog.addButton(dialog.createButton(Texts.NO, clickEvent -> dialog.closeWindow()));
+        dialog.addButton(dialog.createButton(Texts.YES, confirmedAction));
     }
 }

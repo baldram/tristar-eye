@@ -43,7 +43,7 @@ abstract class AbstractMapService implements MapService {
 
     private final Map<Integer, Marker> markers = new HashMap<>();
 
-    abstract MapOptions getMapOptions();
+    protected abstract MapOptions getMapOptions();
 
     @Override
 	public void initializeMap() {
@@ -94,9 +94,9 @@ abstract class AbstractMapService implements MapService {
         return marker;
     }
 
-    abstract TristarObject getCameraDetails(final Integer objectId);
+    protected abstract TristarObject getCameraDetails(final Integer objectId);
 
-    abstract void showCameraDialog(String title, Integer objectId);
+    protected abstract void showCameraDialog(String title, Integer objectId);
 
     void updateMarkersCache(Integer objectId, Marker marker) {
         markers.put(objectId, marker);
