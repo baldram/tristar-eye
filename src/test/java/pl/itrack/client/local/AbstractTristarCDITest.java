@@ -30,6 +30,8 @@ public abstract class AbstractTristarCDITest extends AbstractErraiCDITest {
 
     private static final String TESTS_MODULE_NAME = "pl.itrack.TristarEyeTest";
 
+    protected static final String CLASS_DOM_PREFIX = ".";
+
     @Override
     public String getModuleName() {
         return TESTS_MODULE_NAME;

@@ -14,6 +14,7 @@
 
 package pl.itrack.client.local.view.widgets.modals;
 
+import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.html.Div;
 
 import javax.inject.Inject;
@@ -32,6 +33,8 @@ public class SimpleDialog {
     public void show(final String title, final String content) {
         Div body = new Div();
         body.getElement().setInnerHTML(content);
-        dialog.show(title, body, DIALOG_CSS_CLASS_NAME);
+        dialog.init(title, body, DIALOG_CSS_CLASS_NAME);
+        dialog.setType(ModalType.FIXED_FOOTER);
+        dialog.show();
     }
 }

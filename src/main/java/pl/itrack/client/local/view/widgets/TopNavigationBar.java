@@ -17,7 +17,7 @@ package pl.itrack.client.local.view.widgets;
 public class TopNavigationBar extends NavigationBar {
 
     @Override
-    boolean isHiddenOnMobile() {
+    protected boolean isHiddenOnMobile() {
         return true;
     }
 }

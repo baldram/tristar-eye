@@ -15,7 +15,6 @@
 package pl.itrack.client.local.services.maps;
 
 import com.google.gwt.core.client.Callback;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.geolocation.client.Geolocation;
 import com.google.gwt.geolocation.client.Position;
@@ -131,8 +130,6 @@ public class ClassicMapService extends AbstractMapService {
 
             getMapWidget().panTo(center);
             getMapWidget().setZoom(ZOOM);
-
-            GWT.log("place changed center=" + center);
         });
         return autoComplete;
     }
@@ -168,12 +165,12 @@ public class ClassicMapService extends AbstractMapService {
 
     // TODO: try to implement it in the parent abstract class and inject services there
     @Override
-    TristarObject getCameraDetails(Integer objectId) {
+    protected TristarObject getCameraDetails(Integer objectId) {
         return dataService.getCamera(objectId);
     }
 
     @Override
-    void showCameraDialog(String title, Integer objectId) {
+    protected void showCameraDialog(String title, Integer objectId) {
         modal.show(title, objectId);
     }
 
@@ -193,6 +190,7 @@ public class ClassicMapService extends AbstractMapService {
         clickedMarker.setIcon(getCameraIcon(objectId));
     }
 
+    @SuppressWarnings("unused")
     private void updateFavourites(@Observes CameraHighlight event) {
         if (event.getId() != null) {
             updateFavourites(getMarker(event.getId()), event.getId());

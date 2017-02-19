@@ -35,17 +35,17 @@ import javax.inject.Inject;
 
 public abstract class NavigationBar extends UnorderedList {
 
-    static final String CSS_CLASS_TAB_ACTIVE = "active";
-
-    @Inject MaterialLink buttonMap;
-
-    @Inject MaterialLink buttonFav;
+    private static final String CSS_CLASS_TAB_ACTIVE = "active";
 
     @Inject private TransitionTo<FavouritesViewModel> toFavourites;
 
     @Inject private TransitionTo<MapTabViewModel> toMap;
 
     @Inject private Event<PageChange> pageChangeEvent;
+
+    @Inject protected MaterialLink buttonMap;
+
+    @Inject protected MaterialLink buttonFav;
 
     @PostConstruct
     public void init() {
@@ -92,5 +92,5 @@ public abstract class NavigationBar extends UnorderedList {
         inactiveButton.getElement().removeClassName(CSS_CLASS_TAB_ACTIVE);
     }
 
-    abstract boolean isHiddenOnMobile();
+    abstract protected boolean isHiddenOnMobile();
 }

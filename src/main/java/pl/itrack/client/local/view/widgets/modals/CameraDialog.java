@@ -19,11 +19,9 @@ import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialImage;
-import gwt.material.design.client.ui.MaterialModalFooter;
 import pl.itrack.client.local.event.CameraHighlight;
 import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.ResourcesRetriever;
-import pl.itrack.client.local.view.helpers.Texts;
 import pl.itrack.client.shared.model.TristarObjectType;
 
 import javax.enterprise.event.Event;
@@ -66,7 +64,8 @@ public class CameraDialog {
 
         addFooterButtons(objectId);
 
-        dialog.show(title, image, DIALOG_CSS_CLASS_NAME);
+        dialog.init(title, image, DIALOG_CSS_CLASS_NAME);
+        dialog.show();
     }
 
     private String getImageUrl(Integer objectId) {
@@ -75,11 +74,9 @@ public class CameraDialog {
 
     private void addFooterButtons(Integer objectId) {
         favouriteCameras = settings.getUserFavouriteCameras();
-
-        MaterialModalFooter footer = dialog.getFooter();
-        footer.clear();
+        dialog.clearFooter();
         dialog.addCloseButton();
-        footer.add(getFavAddButton(objectId));
+        dialog.addButton(getFavAddButton(objectId));
     }
 
     private MaterialButton getFavAddButton(Integer objectId) {
@@ -87,7 +84,6 @@ public class CameraDialog {
         button.addClickHandler(clickEvent -> handleFavouriteSection(objectId, button));
         button.setType(ButtonType.FLAT);
         button.setIconType(IconType.FAVORITE);
-        button.setTooltip(Texts.BTN_FAV_ADD);
         button.setClass(FAVOURITES_ADD_CSS);
         button.setBackgroundColor(Color.WHITE);
         button.setType(ButtonType.FLOATING);
@@ -103,6 +99,5 @@ public class CameraDialog {
 
     private void markFavouriteSelection(boolean isFavourite, MaterialButton button) {
         button.setIconColor(isFavourite ? Color.RED : Color.GREY_LIGHTEN_1);
-        button.setTooltip(isFavourite ? Texts.BTN_FAV_REMOVE : Texts.BTN_FAV_ADD);
     }
 }

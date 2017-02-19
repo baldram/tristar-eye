@@ -32,6 +32,8 @@ import static org.mockito.Mockito.when;
 @RunWith(GwtMockitoTestRunner.class)
 public class NavigationBarTest {
 
+    private static final String CSS_CLASS_TAB_ACTIVE = "active";
+
     @InjectMocks
     private TopNavigationBar testedInstance;
 
@@ -53,15 +55,15 @@ public class NavigationBarTest {
     public void selectMapButtonAsActive() {
         testedInstance.selectActiveNavButton(new PageLoaded(MapTabViewModel.PAGE_NAME));
 
-        verify(mapElement).addClassName(NavigationBar.CSS_CLASS_TAB_ACTIVE);
-        verify(favElement).removeClassName(NavigationBar.CSS_CLASS_TAB_ACTIVE);
+        verify(mapElement).addClassName(CSS_CLASS_TAB_ACTIVE);
+        verify(favElement).removeClassName(CSS_CLASS_TAB_ACTIVE);
     }
 
     @Test
     public void selectFavouritesButtonAsActive() {
         testedInstance.selectActiveNavButton(new PageLoaded(FavouritesViewModel.PAGE_NAME));
 
-        verify(favElement).addClassName(NavigationBar.CSS_CLASS_TAB_ACTIVE);
-        verify(mapElement).removeClassName(NavigationBar.CSS_CLASS_TAB_ACTIVE);
+        verify(favElement).addClassName(CSS_CLASS_TAB_ACTIVE);
+        verify(mapElement).removeClassName(CSS_CLASS_TAB_ACTIVE);
     }
 }

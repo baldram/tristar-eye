@@ -16,7 +16,6 @@ package pl.itrack.client.local.view.widgets.modals;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import gwt.material.design.client.ui.MaterialImage;
-import gwt.material.design.client.ui.MaterialModalFooter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +29,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class CameraDialogTest {
@@ -55,25 +55,23 @@ public class CameraDialogTest {
     @Mock
     private Settings settings;
 
-    private String dialogTitle;
-
     @Before
     public void setUp() throws Exception {
         when(retriever.getImageUrl(eq(TristarObjectType.CAMERA), eq(OBJECT_ID), eq(true))).thenReturn(IMAGE_URL);
-        when(dialog.getFooter()).thenReturn(mock(MaterialModalFooter.class));
         when(settings.getUserFavouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
     }
 
     @Test
     public void show() throws Exception {
-        dialogTitle = "title";
+        String dialogTitle = "title";
 
         cameraDialog.show(dialogTitle, OBJECT_ID);
 
         verify(image).setUrl(eq(IMAGE_URL));
         verify(image).setId(eq(IMAGE_ID));
         verify(image).setClass(eq(IMAGE_ID));
-        verify(dialog).show(eq(dialogTitle), eq(image), eq(DIALOG_CSS_CLASS_NAME));
+        verify(dialog).init(eq(dialogTitle), eq(image), eq(DIALOG_CSS_CLASS_NAME));
+        verify(dialog).show();
     }
 
     // TODO: to implement Selenium tests to handle click event
