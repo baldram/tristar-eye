@@ -51,6 +51,7 @@ public interface Texts {
             "<br /><br /><strong>Opcja wyszukiwania</strong> <button type=\"button\" class=\"blue darken-4 btn-floating\">" +
             "<i class=\"white-text material-icons\">search</i></button> " +
             "pozwala przejść do wybranego miejsca - wpisując np. \"Gdynia Śródmieście\"<br />i potwierdzając wybór na liście podpowiedzi." +
+            "<br />Aplikacja wykorzystuje pliki cookies. Korzystanie z niej oznacza zgodę na ich zapis lub odczyt wg ustawień przeglądarki." +
             "<br /><br />Tekst tej pomocy <strong>możesz przeczytać później</strong>, wybierając " +
             "<strong>\"Jak to działa?\"</strong> z menu (w prawym górnym rogu). ";
     String MSG_LOCATION_NOT_SUPPORTED = "Your browser or device does not support location!";
