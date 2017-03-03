@@ -19,6 +19,7 @@ import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialImage;
+import pl.itrack.client.local.config.AppSettings;
 import pl.itrack.client.local.event.CameraHighlight;
 import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.ResourcesRetriever;
@@ -44,20 +45,24 @@ public class CameraDialog {
 
     private final ResourcesRetriever retriever;
 
+    private final AppSettings appSettings;
+
     private Set<Integer> favouriteCameras;
 
     @Inject
     private Event<CameraHighlight> cameraHighlightEvent;
 
     @Inject
-    public CameraDialog(BaseDialog dialog, MaterialImage image, Settings settings, ResourcesRetriever retriever) {
+    public CameraDialog(BaseDialog dialog, MaterialImage image, Settings userSettings, ResourcesRetriever retriever, AppSettings appSettings) {
         this.dialog = dialog;
         this.image = image;
-        this.settings = settings;
+        this.settings = userSettings;
         this.retriever = retriever;
+        this.appSettings = appSettings;
     }
 
     public final void show(final String title, final Integer objectId) {
+        image.setUrl(appSettings.getImagesPath() + appSettings.getCameraDummyImage()); // reset widget
         image.setUrl(getImageUrl(objectId));
         image.setId(IMAGE_ID);
         image.setClass(IMAGE_ID);

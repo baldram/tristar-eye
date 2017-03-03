@@ -15,12 +15,15 @@
 package pl.itrack.client.local;
 
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.http.client.RequestException;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.ui.nav.client.local.Navigation;
+import pl.itrack.client.local.config.AppSettings;
+import pl.itrack.client.local.services.maps.TrafficOccurrencesManager;
 import pl.itrack.client.local.view.helpers.LinkElementInjector;
 import pl.itrack.client.local.view.helpers.UiHelper;
 import pl.itrack.client.local.view.widgets.Header;
@@ -33,7 +36,6 @@ import javax.inject.Inject;
 @SuppressWarnings("unused")
 public class TristarEyeApp extends Composite {
 
-    private static final String APP_CSS = "./css/tristar.css";
     private static final String SPLASH_SCREEN_ID = "splashscreen";
 
     @Inject private Navigation navigation;
@@ -46,9 +48,13 @@ public class TristarEyeApp extends Composite {
 
     @Inject private LinkElementInjector cssInjector;
 
+    @Inject private TrafficOccurrencesManager trafficOccurrenceClient;
+
+    @Inject private AppSettings settings;
+
     @PostConstruct
     public void init() {
-        cssInjector.injectStyleSheet(APP_CSS);
+        cssInjector.injectStyleSheet(settings.getAppStylesheet());
 
         content.getContainer().add(navigation.getContentPanel());
 
@@ -59,8 +65,10 @@ public class TristarEyeApp extends Composite {
     }
 
     @AfterInitialization
-    private void postInit() {
+    private void postInit() throws RequestException {
         Scheduler.get().scheduleDeferred(() ->
                 RootPanel.getBodyElement().removeChild(DOM.getElementById(SPLASH_SCREEN_ID)));
+
+        trafficOccurrenceClient.retrieveAndAddMarkers();
     }
 }

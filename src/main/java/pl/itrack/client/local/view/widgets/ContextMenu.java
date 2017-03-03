@@ -81,7 +81,7 @@ public class ContextMenu {
                 favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.REMOVE_ALL)));
         dropDown.add(createConfirmationMenuItem(Texts.OPTIONS_IMPORT_DEMO, Texts.RESTORE_DEFAULT_FAVS_WARNING,
                 favouritesModifyEvent, new FavouritesModify(FavouritesModify.ModificationType.RESTORE_DEFAULT)));
-        dropDown.add(createSimpleMenuItem(Texts.OPTIONS_SWITCH_MAP_SCHEMA, mapTypeChangeEvent, new MapViewTypeChange()));
+        //dropDown.add(createSimpleMenuItem(Texts.OPTIONS_SWITCH_MAP_SCHEMA, mapTypeChangeEvent, new MapViewTypeChange()));
         dropDown.add(createDivider());
 
         MaterialLink helpLink = new MaterialLink(Texts.HELP_TITLE);
