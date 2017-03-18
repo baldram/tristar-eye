@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import pl.itrack.client.local.config.AppSettings;
 import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.ResourcesRetriever;
 import pl.itrack.client.shared.model.TristarObjectType;
@@ -53,12 +54,15 @@ public class CameraDialogTest {
     private ResourcesRetriever retriever;
 
     @Mock
-    private Settings settings;
+    private Settings userSettings;
+
+    @Mock
+    private AppSettings appSettings;
 
     @Before
     public void setUp() throws Exception {
         when(retriever.getImageUrl(eq(TristarObjectType.CAMERA), eq(OBJECT_ID), eq(true))).thenReturn(IMAGE_URL);
-        when(settings.getUserFavouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
+        when(userSettings.getUserFavouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
     }
 
     @Test

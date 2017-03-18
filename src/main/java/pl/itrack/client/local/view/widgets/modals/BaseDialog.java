@@ -18,23 +18,22 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.HeadingSize;
-import gwt.material.design.client.constants.ModalType;
-import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.client.ui.MaterialModal;
-import gwt.material.design.client.ui.MaterialModalContent;
-import gwt.material.design.client.ui.MaterialModalFooter;
+import gwt.material.design.client.constants.*;
+import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.Heading;
 import pl.itrack.client.local.view.helpers.Texts;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 public class BaseDialog {
 
     private MaterialModal modal;
 
     private final MaterialModalFooter footer = new MaterialModalFooter();
+
+    @Inject
+    private MaterialProgress loader;
 
     @PostConstruct
     private void basicInitialization() {
@@ -66,6 +65,12 @@ public class BaseDialog {
         return button;
     }
 
+    protected void showWithSplash() {
+        loader.setType(ProgressType.INDETERMINATE);
+        modal.add(loader);
+        show();
+    }
+
     protected void show() {
         RootPanel.get().add(modal);
         modal.open();
@@ -73,10 +78,22 @@ public class BaseDialog {
 
     protected MaterialModal init(String title, Widget body, String cssClassName) {
         modal = new MaterialModal();
-        modal.add(getModalContent(title, body));
-        modal.add(footer);
         modal.getElement().addClassName(cssClassName);
+        initModalContent(title, body);
+        modal.add(footer);
         return modal;
+    }
+
+    protected MaterialModal init(String cssClassName) {
+        modal = new MaterialModal();
+        modal.getElement().addClassName(cssClassName);
+        modal.add(footer);
+        return modal;
+    }
+
+    protected void initModalContent(String title, Widget body) {
+        modal.add(getModalContent(title, body));
+        modal.remove(loader);
     }
 
     private MaterialModalContent getModalContent(String title, Widget body) {

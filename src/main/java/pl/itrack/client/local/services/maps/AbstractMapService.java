@@ -16,10 +16,7 @@ package pl.itrack.client.local.services.maps;
 
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.base.LatLng;
 import com.google.gwt.maps.client.overlays.Marker;
-import com.google.gwt.maps.client.overlays.MarkerImage;
-import com.google.gwt.maps.client.overlays.MarkerOptions;
 import com.google.gwt.user.client.Timer;
 import pl.itrack.client.shared.model.TristarObject;
 
@@ -31,9 +28,6 @@ abstract class AbstractMapService implements MapService {
     private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
     private static final String MAX_SIZE = "100%";
     private static final int LONG_PRESS_TIME = 500;
-    static final String ICON_FILE_CAMERA = "camera.png";
-    static final String ICON_FILE_CAMERA_SELECTED = "camera-selected.png";
-    static final String IMAGES_PATH = "images/";
 
     private MapWidget mapWidget;
 
@@ -67,14 +61,7 @@ abstract class AbstractMapService implements MapService {
 
     protected abstract void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker);
 
-    Marker createMarker(final Integer objectId, LatLng location, String iconFile) {
-        MarkerOptions options = MarkerOptions.newInstance();
-        options.setPosition(location);
-        final MarkerImage markerImage = MarkerImage.newInstance(iconFile);
-        options.setIcon(markerImage);
-        final Marker marker = Marker.newInstance(options);
-        marker.setMap(getMapWidget());
-
+    void addCameraClickHandlers(Integer objectId, Marker marker) {
         marker.addClickHandler(event -> {
             if (!isMarkerLongPressed) {
                 final TristarObject cameraDetails = getCameraDetails(objectId);
@@ -90,8 +77,6 @@ abstract class AbstractMapService implements MapService {
         });
 
         marker.addMouseUpHandler(event -> longPressTimer.cancel());
-
-        return marker;
     }
 
     protected abstract TristarObject getCameraDetails(final Integer objectId);

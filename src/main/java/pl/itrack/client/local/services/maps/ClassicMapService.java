@@ -32,7 +32,9 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
+import pl.itrack.client.local.config.AppSettings;
 import pl.itrack.client.local.event.CameraHighlight;
+import pl.itrack.client.local.event.UpdateTrafficOccurrencesLayer;
 import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.WktUtil;
 import pl.itrack.client.local.view.helpers.Texts;
@@ -62,17 +64,26 @@ public class ClassicMapService extends AbstractMapService {
     private WktUtil wktUtil;
 
     @Inject
-    private Settings settings;
+    private Settings userSettings;
+
+    @Inject
+    private AppSettings appSettings;
 
     @Inject
     private CameraDialog modal;
+
+    @Inject
+    private GMapManager mapManager;
+
+    @Inject
+    private TrafficOccurrencesManager trafficOccurrencesManager;
 
     private Set<Integer> favouriteCameras;
 
     public void initializeMap() {
         super.initializeMap();
-        favouriteCameras = settings.getUserFavouriteCameras();
-        settings.displayWelcomeHelpOnce();
+        favouriteCameras = userSettings.getUserFavouriteCameras();
+        userSettings.displayWelcomeHelpOnce();
         initializeTrafficLayer(getMapWidget());
     }
 
@@ -154,13 +165,17 @@ public class ClassicMapService extends AbstractMapService {
     private void addMarker(TristarObject camera, Coordinates coordinates) {
         Coordinates latLngCoordinates = wktUtil.toLatitudeLongitude(coordinates);
         String cameraIconFile = getCameraIcon(camera.getId());
-        Marker marker = createMarker(camera.getId(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
-
+        Marker marker = mapManager.createMarker(getMapWidget(), LatLng.newInstance(latLngCoordinates.getX(), latLngCoordinates.getY()), cameraIconFile);
+        addCameraClickHandlers(camera.getId(), marker);
         updateMarkersCache(camera.getId(), marker);
     }
 
+    private void addMarkers(@Observes UpdateTrafficOccurrencesLayer event) {
+        trafficOccurrencesManager.addMarkers(getMapWidget(), event.getTrafficOccurrences());
+    }
+
     private String getCameraIcon(Integer cameraId) {
-        return IMAGES_PATH + ((favouriteCameras.contains(cameraId)) ? ICON_FILE_CAMERA_SELECTED : ICON_FILE_CAMERA);
+        return appSettings.getImagesPath() + ((favouriteCameras.contains(cameraId)) ? appSettings.getCameraIconSelected() : appSettings.getCameraIcon());
     }
 
     // TODO: try to implement it in the parent abstract class and inject services there
@@ -186,7 +201,7 @@ public class ClassicMapService extends AbstractMapService {
 
     @Override
     protected void updateFavourites(Marker clickedMarker, Integer objectId) {
-        favouriteCameras = settings.addOrRemoveFavouriteCamera(objectId);
+        favouriteCameras = userSettings.addOrRemoveFavouriteCamera(objectId);
         clickedMarker.setIcon(getCameraIcon(objectId));
     }
 

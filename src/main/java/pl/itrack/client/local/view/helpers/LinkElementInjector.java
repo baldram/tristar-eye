@@ -1,6 +1,12 @@
 package pl.itrack.client.local.view.helpers;
 
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.HeadElement;
+import com.google.gwt.dom.client.LinkElement;
+import pl.itrack.client.local.config.AppSettings;
+
+import javax.inject.Inject;
 
 /**
  * Injects link tag of type text/css to the document's head section dynamically.
@@ -15,12 +21,19 @@ public class LinkElementInjector {
     private static final String CSS = "stylesheet";
     private static final String HEAD_TAG_NAME = "head";
     private static final String ERROR_HEAD_NOT_FOUND = "The host HTML page does not have a <head> element which is required by LinkElementInjector";
-    private static final String APP_VERSION_SUFFIX = "?app-v2"; // TODO: to provide app version dynamically
+    private static final String QUERY_STRING_SEPARATOR = "?";
 
     private HeadElement head;
 
+    private AppSettings settings;
+
+    @Inject
+    public LinkElementInjector(AppSettings settings) {
+        this.settings = settings;
+    }
+
     public void injectStyleSheet(String fileWebPath) {
-        LinkElement link = this.createElement(fileWebPath + APP_VERSION_SUFFIX);
+        LinkElement link = this.createElement(fileWebPath + QUERY_STRING_SEPARATOR + settings.getAppVersion());
         this.getHead().appendChild(link);
     }
 

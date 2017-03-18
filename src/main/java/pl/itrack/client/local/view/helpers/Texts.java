@@ -34,7 +34,7 @@ public interface Texts {
 
     String HELP_DESCRIPTION = "Celem aplikacji jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji " +
             "pochodzących z serwisów tristar.gdansk.pl i tristar.gdynia.pl. <br /><strong>Dotknij lub kliknij</strong> wybraną " +
-            "kamerę <strong>aby zobaczyć</strong> obraz. <strong>Dodaj do ulubionych</strong> za pomocą ikony " +
+            "kamerę, <strong>aby zobaczyć</strong> obraz. <strong>Dodaj do ulubionych</strong> za pomocą ikony " +
             "<button type=\"button\" class=\"white btn-floating\">" +
             "<i class=\"left red-text material-icons\" style=\"cursor: pointer;\">favorite</i></button> . " +
             "Można też dodawać do ulubionych " +

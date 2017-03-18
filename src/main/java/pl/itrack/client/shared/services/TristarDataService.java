@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 // TODO: create REST client when API ready
-// @Patch("/objects")
+// @Path("/objects")
 public class TristarDataService {
 
     @Inject
