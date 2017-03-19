@@ -22,56 +22,44 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import pl.itrack.client.local.config.AppSettings;
-import pl.itrack.client.local.services.user.Settings;
 import pl.itrack.client.local.services.utils.ResourcesRetriever;
 import pl.itrack.client.shared.model.TristarObjectType;
-
-import java.util.Arrays;
-import java.util.HashSet;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class CameraDialogTest {
+public class CameraDialogBodyTest {
 
+    private static final String IMAGE_ID = "tristarModalImage";
+    private static final String IMAGE_URL = "url";
     private static final int OBJECT_ID = 123;
-    private static final String DIALOG_CSS_CLASS_NAME = "camera-dialog";
 
     @InjectMocks
-    private CameraDialog cameraDialog;
-
-    @Mock
-    private BaseDialog<CameraDialogBody> dialog;
-
-    @Mock
     private CameraDialogBody body;
 
     @Mock
-    private ResourcesRetriever retriever;
-
-    @Mock
-    private Settings userSettings;
+    private MaterialImage image;
 
     @Mock
     private AppSettings appSettings;
 
+    @Mock
+    private ResourcesRetriever retriever;
+
     @Before
     public void setUp() throws Exception {
-        when(userSettings.getUserFavouriteCameras()).thenReturn(new HashSet<>(Arrays.asList(1, 2, OBJECT_ID, 4)));
+        when(retriever.getImageUrl(eq(TristarObjectType.CAMERA), eq(OBJECT_ID), eq(true))).thenReturn(IMAGE_URL);
     }
 
     @Test
-    public void show() throws Exception {
-        String dialogTitle = "title";
+    public void init() {
+        body.init(OBJECT_ID);
 
-        cameraDialog.show(dialogTitle, OBJECT_ID);
-
-        verify(dialog).init(eq(dialogTitle), eq(body), eq(DIALOG_CSS_CLASS_NAME));
-        verify(dialog).show();
+        verify(image).setUrl(eq(IMAGE_URL));
+        verify(image).setId(eq(IMAGE_ID));
+        verify(image).setClass(eq(IMAGE_ID));
     }
-
-    // TODO: to implement Selenium tests to handle click event
 
 }

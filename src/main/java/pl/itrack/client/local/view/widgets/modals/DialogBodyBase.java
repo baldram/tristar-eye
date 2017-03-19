@@ -14,29 +14,28 @@
 
 package pl.itrack.client.local.view.widgets.modals;
 
-import gwt.material.design.client.constants.ModalType;
+import com.google.gwt.user.client.ui.Widget;
 
-import javax.inject.Inject;
+abstract class DialogBodyBase implements DialogBody {
 
-public class SimpleDialog {
+    final private Widget mainBodyWidget;
 
-    private static final String DIALOG_CSS_CLASS_NAME = "simple-dialog";
-
-    private final BaseDialog<SimpleDialogBody> dialog;
-
-    private final SimpleDialogBody body;
-
-    @Inject
-    public SimpleDialog(BaseDialog<SimpleDialogBody> dialog, SimpleDialogBody body) {
-        this.dialog = dialog;
-        this.body = body;
+    protected DialogBodyBase(Widget mainBodyWidget) {
+        this.mainBodyWidget = mainBodyWidget;
     }
 
-    public void show(final String title, final String content) {
-        body.setContent(content);
+    /**
+     * An optional method to be overridden to clean up the resources
+     */
+    public void destroy() {}
 
-        dialog.init(title, body, DIALOG_CSS_CLASS_NAME);
-        dialog.setType(ModalType.FIXED_FOOTER);
-        dialog.show();
+    @Override
+    public void setInnerHtml(String content) {
+        mainBodyWidget.getElement().setInnerHTML(content);
+    }
+
+    @Override
+    public Widget asWidget() {
+        return mainBodyWidget;
     }
 }

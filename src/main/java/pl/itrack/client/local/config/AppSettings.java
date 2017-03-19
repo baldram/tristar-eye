@@ -42,6 +42,6 @@ public interface AppSettings extends Constants {
     @Key("tristar.camera.icon.selected")
     String getCameraIconSelected();
 
-    @Key("tristar.camera.dummy.image")
-    String getCameraDummyImage();
+    @Key("tristar.camera.loading.image")
+    String getCameraLoadingImage();
 }

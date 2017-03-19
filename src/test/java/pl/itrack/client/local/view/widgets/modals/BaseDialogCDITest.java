@@ -14,10 +14,7 @@
 
 package pl.itrack.client.local.view.widgets.modals;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BodyElement;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.ui.html.Div;
 import org.apache.commons.lang3.StringUtils;
 import pl.itrack.client.local.AbstractTristarCDITest;
 
@@ -29,11 +26,12 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
     private static final String MODAL_TITLE_TAG = "h5";
     private static final String GMD_OVERLAY_CSS_CLASS = CLASS_DOM_PREFIX + "lean-overlay";
 
-    private BaseDialog baseDialog;
+    private BaseDialog<SimpleDialogBody> baseDialog;
 
-    private Widget testWidget;
+    private SimpleDialogBody testWidget;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void gwtSetUp() throws Exception {
         super.gwtSetUp();
         setupJqueryAndInterfaceLibrary();
@@ -41,9 +39,9 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
         testWidget = getTestWidget();
     }
 
-    private Widget getTestWidget() {
-        Widget testWidget = GWT.create(Div.class);
-        testWidget.getElement().setId(TEST_WIDGET_ID);
+    private SimpleDialogBody getTestWidget() {
+        testWidget = new SimpleDialogBody();
+        testWidget.asWidget().getElement().setId(TEST_WIDGET_ID);
         return testWidget;
     }
 
@@ -72,4 +70,5 @@ public class BaseDialogCDITest extends AbstractTristarCDITest {
 
         assertFalse(rootPanelContains(baseDialog.getModal()));
     }
+
 }
