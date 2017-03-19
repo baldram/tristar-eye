@@ -27,7 +27,7 @@
         <gwt-material.version>2.0-SNAPSHOT</gwt-material.version>
         <gwt-material-table.version>1.0-SNAPSHOT</gwt-material-table.version>
         <!-- Errai -->
-        <errai.version>4.0.0.CR2</errai.version>
+        <errai.version>4.0.0.Beta7</errai.version>
         <gwtmockito.version>1.1.6</gwtmockito.version>
     </properties>
 

@@ -15,7 +15,7 @@
 package pl.itrack.client.local.view.widgets.modals;
 
 import gwt.material.design.client.constants.ModalType;
-import gwt.material.design.client.ui.html.Div;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 
@@ -23,26 +23,28 @@ public class SimpleAsyncDialog {
 
     private static final String DIALOG_CSS_CLASS_NAME = "simple-dialog";
 
-    private final BaseDialog dialog;
+    private final BaseDialog<SimpleDialogBody> dialog;
+
+    private final SimpleDialogBody body;
 
     @Inject
-    public SimpleAsyncDialog(BaseDialog dialog) {
+    public SimpleAsyncDialog(BaseDialog<SimpleDialogBody> dialog, SimpleDialogBody body) {
         this.dialog = dialog;
+        this.body = body;
     }
 
     public void show() {
-        dialog.init(DIALOG_CSS_CLASS_NAME);
+        dialog.init(StringUtils.EMPTY, body, DIALOG_CSS_CLASS_NAME);
         dialog.setType(ModalType.FIXED_FOOTER);
-        dialog.showWithSplash();
+        dialog.showWithLoader();
     }
 
-    public void initContent(String title, Div body) {
-        dialog.initModalContent(title, body);
+    public void update(String title, String description) {
+        dialog.setTitle(title);
+        dialog.getDialogBody().setInnerHtml(description);
     }
 
-    public Div getBodyContainer(String content) {
-        Div body = new Div();
-        body.getElement().setInnerHTML(content);
-        return body;
+    public void hideLoader() {
+        dialog.hideLoader();
     }
 }

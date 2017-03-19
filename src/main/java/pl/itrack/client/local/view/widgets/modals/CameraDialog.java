@@ -18,12 +18,8 @@ import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.client.ui.MaterialImage;
-import pl.itrack.client.local.config.AppSettings;
 import pl.itrack.client.local.event.CameraHighlight;
 import pl.itrack.client.local.services.user.Settings;
-import pl.itrack.client.local.services.utils.ResourcesRetriever;
-import pl.itrack.client.shared.model.TristarObjectType;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -31,21 +27,15 @@ import java.util.Set;
 
 public class CameraDialog {
 
-    private static final String IMAGE_ID = "tristarModalImage";
-
     private static final String FAVOURITES_ADD_CSS = "btnFavouritesAdd";
 
     private static final String DIALOG_CSS_CLASS_NAME = "camera-dialog";
 
-    private final BaseDialog dialog;
-
-    private final MaterialImage image;
+    private final BaseDialog<CameraDialogBody> dialog;
 
     private final Settings settings;
 
-    private final ResourcesRetriever retriever;
-
-    private final AppSettings appSettings;
+    private final CameraDialogBody dialogBody;
 
     private Set<Integer> favouriteCameras;
 
@@ -53,28 +43,19 @@ public class CameraDialog {
     private Event<CameraHighlight> cameraHighlightEvent;
 
     @Inject
-    public CameraDialog(BaseDialog dialog, MaterialImage image, Settings userSettings, ResourcesRetriever retriever, AppSettings appSettings) {
+    public CameraDialog(BaseDialog<CameraDialogBody> dialog, CameraDialogBody dialogBody, Settings userSettings) {
         this.dialog = dialog;
-        this.image = image;
+        this.dialogBody = dialogBody;
         this.settings = userSettings;
-        this.retriever = retriever;
-        this.appSettings = appSettings;
     }
 
     public final void show(final String title, final Integer objectId) {
-        image.setUrl(appSettings.getImagesPath() + appSettings.getCameraDummyImage()); // reset widget
-        image.setUrl(getImageUrl(objectId));
-        image.setId(IMAGE_ID);
-        image.setClass(IMAGE_ID);
+        dialogBody.init(objectId);
 
         addFooterButtons(objectId);
 
-        dialog.init(title, image, DIALOG_CSS_CLASS_NAME);
+        dialog.init(title, dialogBody, DIALOG_CSS_CLASS_NAME);
         dialog.show();
-    }
-
-    private String getImageUrl(Integer objectId) {
-        return retriever.getImageUrl(TristarObjectType.CAMERA, objectId, true);
     }
 
     private void addFooterButtons(Integer objectId) {

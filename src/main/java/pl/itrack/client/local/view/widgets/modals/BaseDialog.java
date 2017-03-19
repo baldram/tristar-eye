@@ -21,12 +21,13 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.Heading;
+import org.apache.commons.lang3.StringUtils;
 import pl.itrack.client.local.view.helpers.Texts;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-public class BaseDialog {
+public class BaseDialog<T extends DialogBody> {
 
     private MaterialModal modal;
 
@@ -34,6 +35,9 @@ public class BaseDialog {
 
     @Inject
     private MaterialProgress loader;
+
+    private Heading header;
+    private T dialogBody ;
 
     @PostConstruct
     private void basicInitialization() {
@@ -54,6 +58,8 @@ public class BaseDialog {
 
     void closeWindow() {
         modal.close();
+        modal.setTitle(StringUtils.EMPTY);
+        dialogBody.destroy();
         RootPanel.get().remove(modal);
     }
 
@@ -65,7 +71,7 @@ public class BaseDialog {
         return button;
     }
 
-    protected void showWithSplash() {
+    protected void showWithLoader() {
         loader.setType(ProgressType.INDETERMINATE);
         modal.add(loader);
         show();
@@ -76,40 +82,39 @@ public class BaseDialog {
         modal.open();
     }
 
-    protected MaterialModal init(String title, Widget body, String cssClassName) {
+    protected MaterialModal init(String title, T dialogBody, String cssClassName) {
+        this.dialogBody = dialogBody;
         modal = new MaterialModal();
         modal.getElement().addClassName(cssClassName);
-        initModalContent(title, body);
+        modal.add(getModalContent(dialogBody.asWidget()));
         modal.add(footer);
+
+        setTitle(title);
+
         return modal;
     }
 
-    protected MaterialModal init(String cssClassName) {
-        modal = new MaterialModal();
-        modal.getElement().addClassName(cssClassName);
-        modal.add(footer);
-        return modal;
+    public void setTitle(String title) {
+        header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
     }
 
-    protected void initModalContent(String title, Widget body) {
-        modal.add(getModalContent(title, body));
+    public void hideLoader() {
         modal.remove(loader);
     }
 
-    private MaterialModalContent getModalContent(String title, Widget body) {
-        MaterialModalContent content = new MaterialModalContent();
+    public T getDialogBody() {
+        return dialogBody;
+    }
 
-        content.add(getModalHeader(title));
+    private MaterialModalContent getModalContent(Widget body) {
+        MaterialModalContent content = new MaterialModalContent();
+        header = new Heading(HeadingSize.H5);
+        // TODO: add this via CSS: header.setFontWeight(300);
+
+        content.add(header);
         content.add(body);
 
         return content;
-    }
-
-    private Heading getModalHeader(String title) {
-        Heading header = new Heading(HeadingSize.H5);
-        // TODO: add this via CSS: header.setFontWeight(300);
-        header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
-        return header;
     }
 
     public void setType(ModalType type) {

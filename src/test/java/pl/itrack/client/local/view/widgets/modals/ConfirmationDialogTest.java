@@ -46,21 +46,12 @@ public class ConfirmationDialogTest {
     private ConfirmationDialog confirmationDialog;
 
     @Mock
-    private BaseDialog baseDialog;
+    private BaseDialog<SimpleDialogBody> baseDialog;
 
     @Mock
-    private Div body;
+    private SimpleDialogBody body;
 
-    @Mock
-    private Element bodyElement;
-
-    @Captor
-    private ArgumentCaptor<String> dialogContentCaptor;
-
-    @Before
-    public void setUp() throws Exception {
-        when(body.getElement()).thenReturn(bodyElement);
-    }
+    @Captor ArgumentCaptor<String> dialogContentCaptor;
 
     @Test
     public void replaceDefaultFooter() {
@@ -78,8 +69,8 @@ public class ConfirmationDialogTest {
         confirmationDialog.show(title, question, () -> {});
 
         verify(baseDialog).init(eq(title), eq(body), eq(DIALOG_CSS_CLASS_NAME));
-        verify(baseDialog).show();
-        verify(bodyElement).setInnerHTML(dialogContentCaptor.capture());
+        verify(body).setContent(dialogContentCaptor.capture());
         assertThat(dialogContentCaptor.getValue(), is(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION));
+        verify(baseDialog).show();
     }
 }

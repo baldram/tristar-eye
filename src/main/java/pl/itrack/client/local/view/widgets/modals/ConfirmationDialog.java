@@ -15,8 +15,6 @@
 package pl.itrack.client.local.view.widgets.modals;
 
 import com.google.gwt.event.dom.client.ClickHandler;
-import gwt.material.design.client.ui.MaterialModalFooter;
-import gwt.material.design.client.ui.html.Div;
 import pl.itrack.client.local.view.helpers.Texts;
 
 import javax.inject.Inject;
@@ -27,18 +25,18 @@ public class ConfirmationDialog {
 
     private static final String LINE_SEPARATOR = "<br />";
 
-    private final BaseDialog dialog;
+    private final BaseDialog<SimpleDialogBody> dialog;
 
-    private final Div body;
+    private final SimpleDialogBody body;
 
     @Inject
-    public ConfirmationDialog(BaseDialog dialog, Div body) {
+    public ConfirmationDialog(BaseDialog<SimpleDialogBody> dialog, SimpleDialogBody body) {
         this.dialog = dialog;
         this.body = body;
     }
 
     public void show(final String title, final String question, ConfirmationAction action) {
-        body.getElement().setInnerHTML(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION);
+        body.setContent(question + LINE_SEPARATOR + Texts.CONFIRMATION_QUESTION);
         replaceActionButtons(executeActionAndCloseModal(action));
         dialog.init(title, body, DIALOG_CSS_CLASS_NAME);
         dialog.show();

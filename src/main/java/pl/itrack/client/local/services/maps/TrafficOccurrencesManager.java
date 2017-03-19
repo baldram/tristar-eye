@@ -132,11 +132,12 @@ public class TrafficOccurrencesManager {
                 public void apply(TrafficOccurrenceDto occurrence) {
                     String title = occurrence.getTitle() + " / " + occurrence.getEventName();
                     String description = "<b>" + occurrence.getPeriod() + "</b><br />" + occurrence.getDescription();
-                    simpleDialog.initContent(title, simpleDialog.getBodyContainer(description));
+                    simpleDialog.update(title, description);
+                    simpleDialog.hideLoader();
                 }
             }.call("/" + id + "/resources/data");
         } catch (RequestException e) {
-            simpleDialog.initContent(ERROR_MESSAGE, simpleDialog.getBodyContainer(ERROR_MESSAGE));
+            simpleDialog.update(ERROR_MESSAGE, ERROR_MESSAGE);
         }
     }
 
