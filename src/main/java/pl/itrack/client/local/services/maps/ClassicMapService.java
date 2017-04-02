@@ -201,7 +201,7 @@ public class ClassicMapService extends AbstractMapService {
 
     @Override
     protected void updateFavourites(Marker clickedMarker, Integer objectId) {
-        favouriteCameras = userSettings.addOrRemoveFavouriteCamera(objectId);
+        favouriteCameras = userSettings.getUserFavouriteCameras();
         clickedMarker.setIcon(getCameraIcon(objectId));
     }
 

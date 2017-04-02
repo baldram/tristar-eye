@@ -17,7 +17,6 @@ package pl.itrack.client.local.services.maps;
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.overlays.Marker;
-import com.google.gwt.user.client.Timer;
 import pl.itrack.client.shared.model.TristarObject;
 
 import java.util.HashMap;
@@ -27,13 +26,8 @@ abstract class AbstractMapService implements MapService {
 
     private static final String CSS_CLASS_MAP_WIDGET = "mapWidget";
     private static final String MAX_SIZE = "100%";
-    private static final int LONG_PRESS_TIME = 500;
 
     private MapWidget mapWidget;
-
-    private Integer clickedMarkerRelatedObjectId;
-    private Marker clickedMarker;
-    private boolean isMarkerLongPressed = false;
 
     private final Map<Integer, Marker> markers = new HashMap<>();
 
@@ -51,32 +45,13 @@ abstract class AbstractMapService implements MapService {
 		return mapWidget;
 	}
 
-    private final Timer longPressTimer = new Timer() {
-        @Override
-        public void run() {
-            isMarkerLongPressed = true;
-            updateFavourites(clickedMarker, clickedMarkerRelatedObjectId);
-        }
-    };
-
     protected abstract void updateFavourites(Marker clickedMarker, Integer currentlyPressedMarker);
 
     void addCameraClickHandlers(Integer objectId, Marker marker) {
         marker.addClickHandler(event -> {
-            if (!isMarkerLongPressed) {
-                final TristarObject cameraDetails = getCameraDetails(objectId);
-                showCameraDialog(cameraDetails.getName(), objectId);
-            }
+            final TristarObject cameraDetails = getCameraDetails(objectId);
+            showCameraDialog(cameraDetails.getName(), objectId);
         });
-
-        marker.addMouseDownHandler(event -> {
-            isMarkerLongPressed = false;
-            clickedMarkerRelatedObjectId = objectId;
-            clickedMarker = marker;
-            longPressTimer.schedule(LONG_PRESS_TIME);
-        });
-
-        marker.addMouseUpHandler(event -> longPressTimer.cancel());
     }
 
     protected abstract TristarObject getCameraDetails(final Integer objectId);
