@@ -24,12 +24,14 @@ public interface Texts {
     String OPTIONS_DELETE_ALL = "Usuń wszystkie";
     String OPTIONS_IMPORT_DEMO = "Demo kamery";
     String OPTIONS_SWITCH_MAP_SCHEMA = "Mapa/Schemat";
+    String CAMERA_REMOVE = "Usuń kamerę";
     String CAMERA_REMOVED = "Kamera usunięta";
     String CAMERA_ADDED = "Kamera dodana";
     String FAVOURITES_REMOVED = "Usunięto ulubione";
     String FAVOURITES_DEFAULTED = "Przywrócono przykładowe kamery";
     String CONFIRMATION_QUESTION = "Czy na pewno kontynuować?";
     String REMOVE_FAVS_WARNING = "Wszystkie wybrane przez Ciebie kamery zostaną bezpowrotnie usunięte.";
+    String REMOVE_SINGLE_CAMERA = "Kamera zostanie usunięta z ulubionych.";
     String RESTORE_DEFAULT_FAVS_WARNING = "Załadowane zostaną przykładowe kamery, zastępując aktualne.";
 
     String HELP_DESCRIPTION = "Celem aplikacji jest zapewnienie wygodnego dostępu, z urządzeń mobilnych, do informacji " +
@@ -37,12 +39,11 @@ public interface Texts {
             "kamerę, <strong>aby zobaczyć</strong> obraz. <strong>Dodaj do ulubionych</strong> za pomocą ikony " +
             "<button type=\"button\" class=\"white btn-floating\">" +
             "<i class=\"left red-text material-icons\" style=\"cursor: pointer;\">favorite</i></button> . " +
-            "Można też dodawać do ulubionych " +
-            "<strong>bezpośrednio z mapy</strong>, wystarczy <strong>przytrzymać</strong> wybrany punkt " +
-            "<strong>dłużej</strong> (zostanie oznaczona żółtym punktem). " +
+            "<br />Wybrane kamery zostaną oznaczone na mapie żółtym punktem. " +
             "<br /><img src=\"./images/select-cams.png\" /> " +
-            "<br /><strong>Usuwanie</strong> kamer odbywa się w sposób analogiczny. " +
+            "<br /><strong>Usuwanie</strong> kamer odbywa się w sposób analogiczny." +
             "<br /><strong>Wybrane kamery</strong> zobaczysz w <strong>zakładce Ulubione</strong>. " +
+            "Można też usuwać kamery bezpośrednio w widoku ulubionych, klikając ikonę <i class=\"gray-text material-icons\">delete</i>." +
             "<br /><br />Możesz też użyć opcji \"Demo kamery\" aby dodać do ulubionych przykładowy zestaw kamer. " +
             "Funkcja \"Usuń wszystkie\" pozwoli rozpocząć konfigurację od nowa. " +
             "<br />Opcje te znajdziesz w menu <button type=\"button\" class=\"blue darken-4 btn-floating\">" +

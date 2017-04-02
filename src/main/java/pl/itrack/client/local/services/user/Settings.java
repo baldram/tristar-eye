@@ -17,6 +17,7 @@ package pl.itrack.client.local.services.user;
 import gwt.material.design.client.ui.MaterialToast;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import pl.itrack.client.local.dal.UserSettingsDao;
+import pl.itrack.client.local.event.CameraHighlight;
 import pl.itrack.client.local.event.FavouritesModify;
 import pl.itrack.client.local.view.FavouritesViewModel;
 import pl.itrack.client.local.view.helpers.Texts;
@@ -53,7 +54,11 @@ public class Settings {
         return new HashSet<>(Arrays.asList(new Integer[]{}));
     }
 
-    public Set<Integer> addOrRemoveFavouriteCamera(Integer id) {
+    private void addOrRemoveCamera(@Observes CameraHighlight event) {
+        addOrRemoveFavouriteCamera(event.getId());
+    }
+
+    private void addOrRemoveFavouriteCamera(Integer id) {
         Set<Integer> selectedCameras = getUserFavouriteCameras();
         if (selectedCameras.contains(id)) {
             selectedCameras.remove(id);
@@ -63,7 +68,6 @@ public class Settings {
             MaterialToast.fireToast(Texts.CAMERA_ADDED);
         }
         userSettings.storeFavouriteCameras(selectedCameras);
-        return selectedCameras;
     }
 
     private Integer[] getDefaultUserFavouriteObjects(TristarObjectType type) {

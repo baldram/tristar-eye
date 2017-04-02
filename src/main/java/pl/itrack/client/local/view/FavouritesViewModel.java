@@ -24,6 +24,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import pl.itrack.client.local.services.user.Settings;
+import pl.itrack.client.local.services.utils.GalleryCustomBehaviourService;
 import pl.itrack.client.local.view.helpers.DomObjectHelper;
 import pl.itrack.client.local.view.helpers.UiHelper;
 import pl.itrack.client.shared.model.TristarObject;
@@ -64,6 +65,8 @@ public class FavouritesViewModel extends BasePage {
 
     @Inject private UiHelper uiHelper;
 
+    @Inject private GalleryCustomBehaviourService galleryCustomBehaviourService;
+
     private Set<Integer> favouritesCameraIds;
 
     @PostConstruct
@@ -78,6 +81,7 @@ public class FavouritesViewModel extends BasePage {
             toHowTo.go();
         }
         UiHelper.initUniteGallery();
+        galleryCustomBehaviourService.addCameraDeleteButtonToGalleryTiles();
     }
 
     private void loadFavourites() {
